@@ -11,14 +11,14 @@ describe(RecipeSearch.name, () => {
   it.todo('filters recipes by keywords', () => {
     throw new Error('🚧 Work in progress!');
   });
-
-  function mountRecipeSearch() {
-    TestBed.createComponent(RecipeSearch);
-
-    return {
-      getRecipePreviewHeadings() {
-        throw new Error('🚧 Work in progress!');
-      },
-    };
-  }
 });
+
+function mountRecipeSearch() {
+  TestBed.createComponent(RecipeSearch);
+
+  return {
+    getRecipePreviewHeadings() {
+      throw new Error('🚧 Work in progress!');
+    },
+  };
+}

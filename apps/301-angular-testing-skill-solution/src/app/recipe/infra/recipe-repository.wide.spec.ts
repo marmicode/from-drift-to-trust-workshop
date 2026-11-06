@@ -11,12 +11,12 @@ const RECIPES_URL = 'http://localhost:3333/api/recipes';
 
 describe(RecipeRepository.name, () => {
   verifyRecipeRepositoryContract(createRecipeRepository);
-
-  async function createRecipeRepository({ recipes }: { recipes: Recipe[] }) {
-    await resetCatalog(recipes);
-    return { recipeRepository: TestBed.inject(RecipeRepository) };
-  }
 });
+
+async function createRecipeRepository({ recipes }: { recipes: Recipe[] }) {
+  await resetCatalog(recipes);
+  return { recipeRepository: TestBed.inject(RecipeRepository) };
+}
 
 /**
  * The API has no reset endpoint, so the catalog is emptied

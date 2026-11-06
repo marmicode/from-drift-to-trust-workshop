@@ -5,8 +5,8 @@ import { verifyRecipeRepositoryContract } from './recipe-repository.contract';
 
 describe(RecipeRepository.name, () => {
   verifyRecipeRepositoryContract(createRecipeRepository);
-
-  async function createRecipeRepository() {
-    return { recipeRepository: TestBed.inject(RecipeRepository) };
-  }
 });
+
+async function createRecipeRepository() {
+  return { recipeRepository: TestBed.inject(RecipeRepository) };
+}

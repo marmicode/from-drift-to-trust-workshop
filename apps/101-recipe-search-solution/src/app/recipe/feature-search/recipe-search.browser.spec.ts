@@ -21,14 +21,14 @@ describe(RecipeSearch.name, () => {
       .element(getRecipePreviewHeadings())
       .toHaveTextContent('Lemon and Ricotta Cheesecake');
   });
-
-  function mountRecipeSearch() {
-    TestBed.createComponent(RecipeSearch);
-
-    return {
-      getRecipePreviewHeadings() {
-        return page.getByRole('heading', { level: 2 });
-      },
-    };
-  }
 });
+
+function mountRecipeSearch() {
+  TestBed.createComponent(RecipeSearch);
+
+  return {
+    getRecipePreviewHeadings() {
+      return page.getByRole('heading', { level: 2 });
+    },
+  };
+}

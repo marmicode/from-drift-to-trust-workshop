@@ -38,22 +38,22 @@ describe(RecipeSearch.name, () => {
 
     await expect.element(getAddButtons().first()).toBeDisabled();
   });
-
-  function mountRecipeSearch() {
-    TestBed.createComponent(RecipeSearch);
-
-    return {
-      getAddButtons() {
-        return page.getByRole('button', { name: 'ADD' });
-      },
-      getMealPlanRecipeNames() {
-        return TestBed.inject(MealPlanner)
-          .recipes()
-          .map((recipe) => recipe.name);
-      },
-      getRecipePreviewHeadings() {
-        return page.getByRole('heading', { level: 2 });
-      },
-    };
-  }
 });
+
+function mountRecipeSearch() {
+  TestBed.createComponent(RecipeSearch);
+
+  return {
+    getAddButtons() {
+      return page.getByRole('button', { name: 'ADD' });
+    },
+    getMealPlanRecipeNames() {
+      return TestBed.inject(MealPlanner)
+        .recipes()
+        .map((recipe) => recipe.name);
+    },
+    getRecipePreviewHeadings() {
+      return page.getByRole('heading', { level: 2 });
+    },
+  };
+}

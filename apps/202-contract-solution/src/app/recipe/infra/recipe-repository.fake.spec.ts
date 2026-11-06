@@ -9,23 +9,23 @@ import {
 
 describe(RecipeRepositoryFake.name, () => {
   verifyRecipeRepositoryContract(createRecipeRepositoryFake);
-
-  /**
-   * Seeds a few recipes that the server also has.
-   */
-  async function createRecipeRepositoryFake() {
-    TestBed.configureTestingModule({
-      providers: [provideRecipeRepositoryFake()],
-    });
-    const recipeRepository = TestBed.inject(RecipeRepositoryFake);
-    recipeRepository.configure({
-      recipes: [
-        recipeMother.withBasicInfo('Shakshuka').build(),
-        recipeMother
-          .withBasicInfo({ name: 'Hummus with Ful', course: 'starter' })
-          .build(),
-      ],
-    });
-    return { recipeRepository };
-  }
 });
+
+/**
+ * Seeds a few recipes that the server also has.
+ */
+async function createRecipeRepositoryFake() {
+  TestBed.configureTestingModule({
+    providers: [provideRecipeRepositoryFake()],
+  });
+  const recipeRepository = TestBed.inject(RecipeRepositoryFake);
+  recipeRepository.configure({
+    recipes: [
+      recipeMother.withBasicInfo('Shakshuka').build(),
+      recipeMother
+        .withBasicInfo({ name: 'Hummus with Ful', course: 'starter' })
+        .build(),
+    ],
+  });
+  return { recipeRepository };
+}

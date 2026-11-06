@@ -9,13 +9,13 @@ import {
 
 describe(RecipeRepositoryFake.name, () => {
   verifyRecipeRepositoryContract(createRecipeRepositoryFake);
-
-  function createRecipeRepositoryFake({ recipes }: { recipes: Recipe[] }) {
-    TestBed.configureTestingModule({
-      providers: [provideRecipeRepositoryFake()],
-    });
-    const recipeRepository = TestBed.inject(RecipeRepositoryFake);
-    recipeRepository.configure({ recipes });
-    return { recipeRepository };
-  }
 });
+
+function createRecipeRepositoryFake({ recipes }: { recipes: Recipe[] }) {
+  TestBed.configureTestingModule({
+    providers: [provideRecipeRepositoryFake()],
+  });
+  const recipeRepository = TestBed.inject(RecipeRepositoryFake);
+  recipeRepository.configure({ recipes });
+  return { recipeRepository };
+}
