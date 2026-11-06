@@ -5,15 +5,11 @@ import { RecipeSearch } from './recipe-search.ng';
 
 describe(RecipeSearch.name, () => {
   it.todo('shows the recipes', () => {
-    const { getRecipePreviewHeadings } = mountRecipeSearch();
-
-    getRecipePreviewHeadings();
+    throw new Error('🚧 Work in progress!');
   });
 
   it.todo('filters recipes by keywords', () => {
-    const { getRecipePreviewHeadings } = mountRecipeSearch();
-
-    getRecipePreviewHeadings();
+    throw new Error('🚧 Work in progress!');
   });
 
   function mountRecipeSearch() {
@@ -21,7 +17,7 @@ describe(RecipeSearch.name, () => {
 
     return {
       getRecipePreviewHeadings() {
-        return page.getByRole('heading', { level: 2 });
+        throw new Error('🚧 Work in progress!');
       },
     };
   }
