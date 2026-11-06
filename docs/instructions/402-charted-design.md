@@ -46,7 +46,7 @@ Keep it small:
 
 - Four recipes per page, with Previous and Next buttons.
 - The recipe API already takes `offset` and `limit` in the search body. It does not return a total count.
-- Four PRs: the repository, a `Pager` component, the search page, then the reset and empty cases.
+- Four PRs: the repository, a `Pager` component, the search page, then the empty case.
 
 :::warning
 Do not implement the feature yet.

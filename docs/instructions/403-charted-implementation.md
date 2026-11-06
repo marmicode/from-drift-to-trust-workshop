@@ -24,8 +24,8 @@ Implement the design doc using the Charted Coding skills, one PR at a time:
 
 - PR#1 teaches `RecipeRepository`, its fake, and their contract about `offset` and `limit`.
 - PR#2 adds a `Pager` component with Previous, the page number, and Next.
-- PR#3 wires the pager into `RecipeSearch` and pages through the results.
-- PR#4 goes back to the first page when the filter changes and hides the pager when there are no recipes.
+- PR#3 wires the pager into `RecipeSearch`, pages through the results, and goes back to the first page when the filter changes.
+- PR#4 hides the pager when there are no recipes.
 
 **The goal is to try and feel the right step granularity.**
 

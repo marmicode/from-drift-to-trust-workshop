@@ -53,7 +53,7 @@ flowchart LR
   PR1["PR#1<br>Paginate the repository"]
   PR2["PR#2<br>Pager component"]
   PR3["PR#3<br>Page through the search results"]
-  PR4["PR#4<br>Reset the page and hide the pager"]
+  PR4["PR#4<br>Hide the pager when there are no recipes"]
 
   PR1 --> PR3
   PR2 --> PR3
@@ -163,6 +163,7 @@ The repository contract runs against both the fake and the real repository.
 - [ ] `RecipeSearch` keeps the `offset` and searches with `limit: PAGE_SIZE + 1`. It shows the first `PAGE_SIZE` recipes.
 - [ ] `RecipeSearch` shows `Pager` below the recipes. The page number starts at 1. There is a next page when the extra recipe came back.
 - [ ] Next adds `PAGE_SIZE` to the offset. Previous subtracts `PAGE_SIZE` from the offset.
+- [ ] The offset goes back to 0 whenever the filter changes.
 
 ## Testing Strategy
 
@@ -201,18 +202,6 @@ The repository contract runs against both the fake and the real repository.
 - Mount `RecipeSearch`.
 - Assert Next is disabled.
 
-</details>
-
-<details>
-<summary>🚧 PR#4 — Reset the page and hide the pager</summary>
-
-## Tasks
-
-- [ ] The offset goes back to 0 whenever the filter changes.
-- [ ] The pager is hidden when there are no recipes.
-
-## Testing Strategy
-
 ### 🚧 goes back to the first page when the filter changes
 
 - Arrange the fake repository with five recipes whose names all contain "Recipe".
@@ -220,6 +209,17 @@ The repository contract runs against both the fake and the real repository.
 - Click Next.
 - Fill the Keywords field with "Recipe".
 - Assert the first four recipes are shown.
+
+</details>
+
+<details>
+<summary>🚧 PR#4 — Hide the pager when there are no recipes</summary>
+
+## Tasks
+
+- [ ] The pager is hidden when there are no recipes.
+
+## Testing Strategy
 
 ### 🚧 hides the pager when there are no recipes
 
