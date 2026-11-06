@@ -30,21 +30,31 @@ Write the first Vitest Browser Mode tests of `RecipeSearch`: the recipes show up
 pnpm test
 ```
 
-`recipe-search.browser.spec.ts` has two todos. `mountRecipeSearch()` creates the component and returns `getRecipePreviewHeadings()`. That glove returns the locator for the recipe preview headings.
+`recipe-search.browser.spec.ts` has two todos. `mountRecipeSearch()` creates the component and returns `getRecipePreviewHeadings()`. That glove is still a stub.
 
 #### 2. Show the recipes.
 
-Implement `it.todo('shows the recipes')`: check that the first heading reads "Shakshuka".
+Point `getRecipePreviewHeadings()` at the recipe name headings:
 
 ```ts
-await expect.element(getRecipePreviewHeadings().first()).toHaveTextContent('Shakshuka');
+return page.getByRole('heading', { level: 2 });
+```
+
+Implement `it.todo('shows the recipes')`: mount the search, then check that the first heading reads "Shakshuka".
+
+```ts
+const { getRecipePreviewHeadings } = mountRecipeSearch();
+
+await expect
+  .element(getRecipePreviewHeadings().first())
+  .toHaveTextContent('Shakshuka');
 ```
 
 The recipes load asynchronously. `expect.element` retries the assertion until it passes or times out, so the test waits for the recipes without a `fixture.detectChanges()` or a `fixture.whenStable()`.
 
 #### 3. Filter by keywords.
 
-Implement `it.todo('filters recipes by keywords')`: fill the "Keywords" field, then check the headings.
+Implement `it.todo('filters recipes by keywords')`: mount the search, fill the "Keywords" field, then check the headings.
 
 ```ts
 await page.getByLabelText('Keywords').fill('cheese');
