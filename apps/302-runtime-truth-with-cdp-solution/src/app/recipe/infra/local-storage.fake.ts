@@ -1,0 +1,29 @@
+import {
+  type EnvironmentProviders,
+  makeEnvironmentProviders,
+  Service,
+} from '@angular/core';
+import { LocalStorage } from './local-storage';
+
+@Service({ autoProvided: false })
+export class LocalStorageFake implements LocalStorage {
+  private _items = new Map<string, string>();
+
+  getItem(key: string): string | null {
+    return this._items.get(key) ?? null;
+  }
+
+  setItem(key: string, value: string): void {
+    this._items.set(key, value);
+  }
+}
+
+export function provideLocalStorageFake(): EnvironmentProviders {
+  return makeEnvironmentProviders([
+    LocalStorageFake,
+    {
+      provide: LocalStorage,
+      useExisting: LocalStorageFake,
+    },
+  ]);
+}

@@ -15,6 +15,7 @@ export default mergeConfig(
   viteConfig,
   defineConfig({
     test: {
+      isolate: false,
       globals: true,
       setupFiles: ['src/test-setup.ts'],
       reporters: ['default'],

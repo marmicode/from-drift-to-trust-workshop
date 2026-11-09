@@ -22,6 +22,10 @@ const exercises: Exercise[] = [
     name: '301 - Angular Testing Skill',
   },
   {
+    id: '302-runtime-truth-with-cdp',
+    name: '302 - Runtime Truth with CDP',
+  },
+  {
     id: '401-review-fatigue',
     name: '401 - Review Fatigue',
   },
