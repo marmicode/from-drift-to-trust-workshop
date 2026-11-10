@@ -37,15 +37,18 @@ The contract is a smoke test: it only reads the catalog that is already in place
 
 Each case calls `createRecipeRepository()` to get a `RecipeRepositoryDef` back.
 
-`recipe-repository.fake.spec.ts` runs the contract against the fake. Its factory already configures the fake with Shakshuka and Hummus with Ful. Leave that catalog as it is.
+`recipe-repository.wide.spec.ts` already runs the contract against the real `RecipeRepository`. The server has Shakshuka and Hummus with Ful amongst others, and the API is treated as read-only.
 
-`recipe-repository.wide.spec.ts` runs the same contract against the real `RecipeRepository`. The server already has those recipes amongst others, and the API is treated as read-only.
+`recipe-repository.fake.spec.ts` must run the same contract against the fake, but it is still a stub. Use the wide spec as a model:
+
+- implement `createRecipeRepositoryFake()`: provide the fake with `provideRecipeRepositoryFake()`, inject `RecipeRepositoryFake`, configure it with two recipes built with `recipeMother`, Shakshuka and Hummus with Ful (a starter), and return it as `recipeRepository`,
+- call `verifyRecipeRepositoryContract(createRecipeRepositoryFake)` inside the `describe`.
 
 :::tip
 The fake's recipes only share their names with the server's. Compare names, not whole recipes.
 :::
 
-Implement the two cases.
+Then implement the two cases.
 
 ```sh
 pnpm test
