@@ -44,20 +44,5 @@ Look at a recipe card, then try to click "ADD" yourself.
 
 #### 3. Find the culprit.
 
-Open `card.ng.ts` and look at how the card is sized.
-
 #### 4. Fix the bug.
 
-The card is too short for its content, and the overflow clips the button. The card should grow to fit its content.
-
-```sh
-pnpm test
-```
-
-#### 5. Would JSDOM have caught it?
-
-In `recipe-search.browser.spec.ts`, replace the first `.click()` with `.element().click()` and run the tests on the broken code again.
-
-`element.click()` dispatches the event straight to the button, as JSDOM does. The test passes while the user cannot click. Browser Mode checks that the element is visible, stable, enabled, and actually receives the pointer before clicking.
-
-Put the locator's `.click()` back.
