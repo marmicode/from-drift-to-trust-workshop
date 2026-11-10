@@ -1,6 +1,6 @@
 # Contradictions
 
-Planted lines in the 101 starter review packet. Each item links the statements that disagree.
+Planted lines in the 401 starter review packet. Each item links the statements that disagree.
 
 ## Design doc
 

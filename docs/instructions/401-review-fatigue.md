@@ -20,6 +20,8 @@ pnpm cook start 401-review-fatigue
 
 You have **10 minutes** to find contradictions in the documents you are assigned.
 
+A contradiction is two statements in your packet that cannot both be true, for example a field that one section calls required and another calls optional. Typos, style, and missing details do not count.
+
 ## 📝 Steps
 
 #### 1. Read only the packet you are assigned.
