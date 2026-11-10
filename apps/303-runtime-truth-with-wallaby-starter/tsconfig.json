@@ -3,9 +3,6 @@
   "compilerOptions": {
     "paths": {
       "@whiskmate/recipe/domain": ["./src/app/recipe/domain/index.ts"],
-      "@whiskmate/recipe/domain/devtools": [
-        "./src/app/recipe/domain/devtools.ts"
-      ],
       "@whiskmate/recipe/feature-add-button": [
         "./src/app/recipe/feature-add-button/index.ts"
       ],
@@ -22,8 +19,7 @@
       "@whiskmate/shared-recipe/testing": [
         "./src/app/shared-recipe/testing/index.ts"
       ],
-      "@whiskmate/shared/ui": ["./src/app/shared/ui/index.ts"],
-      "@whiskmate/testing": ["./src/testing/index.ts"]
+      "@whiskmate/shared/ui": ["./src/app/shared/ui/index.ts"]
     },
     "strict": true,
     "noImplicitOverride": true,
