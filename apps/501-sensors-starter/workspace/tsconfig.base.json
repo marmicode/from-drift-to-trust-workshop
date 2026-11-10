@@ -40,6 +40,9 @@
       "@whiskmate/shared-recipe/testing": [
         "./apps/whiskmate/src/app/shared-recipe/testing/index.ts"
       ],
+      "@whiskmate/shared/infra": [
+        "./apps/whiskmate/src/app/shared/infra/index.ts"
+      ],
       "@whiskmate/shared/ui": ["./apps/whiskmate/src/app/shared/ui/index.ts"]
     }
   },

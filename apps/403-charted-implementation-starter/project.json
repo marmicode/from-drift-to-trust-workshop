@@ -63,7 +63,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint"
+      "command": "oxlint -c {projectRoot}/oxlint.config.mts {projectRoot}"
     },
     "serve-static": {
       "continuous": true,

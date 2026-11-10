@@ -14,7 +14,7 @@
       "command": "{projectRoot}/clone-changes.sh"
     },
     "lint": {
-      "executor": "@nx/eslint:lint"
+      "command": "oxlint {projectRoot}"
     },
     "sanity-check": {
       "command": "node --experimental-strip-types {projectRoot}/sanity-check.ts"

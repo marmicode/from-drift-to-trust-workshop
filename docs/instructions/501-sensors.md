@@ -16,7 +16,7 @@ sidebar_label: 501. Sensors
 pnpm cook start 501-sensors
 ```
 
-Same code as the [404](./404-charted-autopilot.md) solution, plus a `ClockAdapter` in `shared/infra` and an ESLint rule that forbids `Date` and recommends `ClockAdapter` instead.
+Same code as the [404](./404-charted-autopilot.md) solution, plus a `ClockAdapter` in `shared/infra` and an Oxlint rule that forbids `Date` and recommends `ClockAdapter` instead.
 
 `.claude/settings.json` wires no hooks, and the two hooks in `.claude/hooks/` are work in progress.
 
@@ -24,7 +24,7 @@ Same code as the [404](./404-charted-autopilot.md) solution, plus a `ClockAdapte
 
 Give the agent two sensors so it catches its own mistakes before it hands control back to you:
 
-- **Lint on write**: every `Edit` or `Write` runs ESLint on the file and feeds the issues back to the agent.
+- **Lint on write**: every `Edit` or `Write` runs Oxlint on the file and feeds the issues back to the agent.
 - **Tests on stop**: when the agent wants to stop, the tests related to the changed files run, and a failure keeps the agent working.
 
 ## 📝 Steps
@@ -46,22 +46,22 @@ git checkout .
 
 #### 2. Implement the hook.
 
-- Edit `.claude/hooks/eslint-on-write.mts`.
+- Edit `.claude/hooks/oxlint-on-write.mts`.
 
 - Parse `input.tool_input` with `toolInputSchema`. _(See [hook input schema](https://code.claude.com/docs/en/hooks#:~:text=Creates%20or%20overwrites%20a%20file))_
 
-- Use `zx` to run ESLint on the file:
+- Use `zx` to run Oxlint on the file:
 
 ```ts
-$`pnpm eslint --flag v10_config_lookup_from_file ${toolInput.file_path}`.nothrow();
+$`pnpm oxlint ${toolInput.file_path}`.nothrow();
 ```
 
-- If ESLint exits with code 0, everything is fine. Return nothing.
+- If Oxlint exits with code 0, everything is fine. Return nothing.
 
 - Otherwise, return an output with `hookSpecificOutput` containing `additionalContext`. The agent receives it as a prompt:
 
 ```text
-ESLint reported issues in the file you just edited (${toolInput.file_path}).
+Oxlint reported issues in the file you just edited (${toolInput.file_path}).
 Fix the issues that are related to the changes you made even if it's not caused by the changes you made.
 Boy scout rule: leave the code better than you found it.
 
@@ -81,7 +81,7 @@ Register the hook in `.claude/settings.json`:
         "hooks": [
           {
             "type": "command",
-            "command": "node .claude/hooks/eslint-on-write.mts",
+            "command": "node .claude/hooks/oxlint-on-write.mts",
             "timeout": 30
           }
         ]
