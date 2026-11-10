@@ -28,7 +28,7 @@ Do not implement pagination.
 #### 1. Install the Charted Coding skills.
 
 ```sh
-npx skills add marmicode/skills # and select all the charted-* skills
+npx skills add marmicode/skills --skill charted-continue charted-design charted-green charted-red charted-review charted-scaffold
 ```
 
 #### 2. Prompt the agent to write the design.

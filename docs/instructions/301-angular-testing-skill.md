@@ -27,7 +27,7 @@ Install the `angular-testing` skill, hand the agent the work you did by hand in 
 #### 1. Install the skill.
 
 ```sh
-npx skills add marmicode/skills # and select angular-testing
+npx skills add marmicode/skills --skill angular-testing
 ```
 
 #### 2. Prompt the agent.

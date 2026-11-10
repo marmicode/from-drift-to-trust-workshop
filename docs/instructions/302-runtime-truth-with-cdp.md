@@ -99,7 +99,7 @@ Stop the watcher: the agent starts its own in the next step.
 Install the `chrome-devtools-cli` skill so the agent knows how to drive the CLI:
 
 ```sh
-npx skills add ChromeDevTools/chrome-devtools-mcp # and select chrome-devtools-cli
+npx skills add ChromeDevTools/chrome-devtools-mcp --skill chrome-devtools-cli
 ```
 
 Start a fresh agent session and ask again, this time with the runtime first:

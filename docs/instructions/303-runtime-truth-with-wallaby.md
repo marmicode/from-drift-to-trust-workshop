@@ -37,7 +37,7 @@ Change `it.fails` to `it` on `adds the recipe to the meal plan` in `recipe-searc
 Install the `wallaby-cli` skill so the agent knows how to drive Wallaby:
 
 ```sh
-npx skills add wallabyjs/skills # and select wallaby-cli
+npx skills add wallabyjs/skills --skill wallaby-cli
 ```
 
 #### 3. Ask the agent.
