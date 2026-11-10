@@ -20,7 +20,7 @@ Same code as the [301](./301-angular-testing-skill.md) solution, plus a meal pla
 
 ## 🎯 Goal
 
-Debug the same runtime bug twice with an agent: blind, then with eyes on the running browser through the Chrome DevTools Protocol and a tool you wrote. Compare what each run read, guessed, and cost.
+Find the same runtime bug twice with an agent: blind, then with eyes on the running browser through the Chrome DevTools Protocol and a tool you wrote. Compare what each run read, guessed, and cost. Finding the bug is the goal: you do not have to fix it.
 
 ## 📝 Steps
 
@@ -119,20 +119,19 @@ Suggest a grounded fix for the failing test. Do not fix.
 
 Compare with step 2: hypothesis, files opened, test runs, tool calls, time. Did it call your `DeviceProfile.getCurrentHash` tool? Try a lower effort or thinking level for this run: the runtime does the thinking.
 
-#### 7. Fix it.
+<details>
+<summary>The bug</summary>
 
-Two different recipes must never share an id.
+Two different recipes end up with the same id, so the meal plan thinks Shakshuka is already in it. Did each run find that?
 
-```sh
-pnpm test
-```
+</details>
 
-#### 8. Debrief.
+#### 7. Debrief.
 
-- Did the blind run blame the device profile, the season, or a race? Did it fix the bug, or the test (for example by emptying the dev meal plan)?
+- Did the blind run blame the device profile, the season, or a race? Did its suggested fix target the bug, or the test (for example by emptying the dev meal plan)?
 - What would `console.log` have cost here: edit, re-run, read, repeat, then remove? Did the blind run notice that `vitest.config.mts` swallows console output?
 - Which tool did the sighted run reach for first?
 
 :::tip
-The CLI works with any agent that can run a shell. The solution ships the tools and the fix: `pnpm cook solution`.
+The CLI works with any agent that can run a shell. The solution ships the tools: `pnpm cook solution`.
 :::

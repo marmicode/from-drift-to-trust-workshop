@@ -20,7 +20,7 @@ Same code as the [302](./302-runtime-truth-with-cdp.md) starter: the same runtim
 
 ## 🎯 Goal
 
-Debug the same runtime bug with an agent that reads runtime values from the tests themselves, through Wallaby, then compare with the blind and CDP runs from 302.
+Find the same runtime bug with an agent that reads runtime values from the tests themselves, through Wallaby, then compare with the blind and CDP runs from 302. Finding the bug is the goal: you do not have to fix it.
 
 ## 📝 Steps
 
@@ -55,15 +55,14 @@ Write down its hypothesis, how many files it opened, how many test runs and `ins
 
 Compare with both 302 runs: hypothesis, files opened, test runs, tool calls, time. Which values did it inspect, and where?
 
-#### 5. Fix it.
+<details>
+<summary>The bug</summary>
 
-Two different recipes must never share an id.
+Two different recipes end up with the same id, so the meal plan thinks Shakshuka is already in it. Did the run find that?
 
-```sh
-pnpm test
-```
+</details>
 
-#### 6. Debrief.
+#### 5. Debrief.
 
 - Wallaby needed no tool of your own, while CDP needed `DeviceProfile.getCurrentHash`. What did each one see that the other could not?
 - Did `inspect` get past the console output that `vitest.config.mts` swallows?
