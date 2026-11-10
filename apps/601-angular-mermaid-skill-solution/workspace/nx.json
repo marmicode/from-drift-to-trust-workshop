@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "analytics": false,
-  "defaultProject": "601-skill-eval-starter",
+  "defaultProject": "601-angular-mermaid-skill-solution",
   "namedInputs": {
     "default": ["{projectRoot}/**/*", "sharedGlobals"],
     "production": [

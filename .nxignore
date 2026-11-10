@@ -1,3 +1,0 @@
-# Projects that agents work on during evals, not workspace projects.
-evals/*/fixture
-apps/*/workspace/evals

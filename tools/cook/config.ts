@@ -46,8 +46,8 @@ const exercises: Exercise[] = [
     name: '501 - Sensors',
   },
   {
-    id: '601-skill-eval',
-    name: '601 - Skill Eval',
+    id: '601-angular-mermaid-skill',
+    name: '601 - Angular Mermaid Skill',
   },
 ];
 
