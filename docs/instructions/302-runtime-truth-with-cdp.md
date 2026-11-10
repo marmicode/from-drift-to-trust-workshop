@@ -69,13 +69,13 @@ The tools call `TestBed.inject()`, and they keep working after the run: `teardow
 
 #### 4. Try it by hand.
 
-Run the spec in watch mode:
+Run the spec in watch mode with `VITEST_DEBUG` set. That is what opens the DevTools port:
 
 ```sh
-pnpm nx test -- recipe-search --browser.headless --watch
+VITEST_DEBUG=1 pnpm nx test -- recipe-search --watch
 ```
 
-Chromium now listens for DevTools connections on port 9200. Open `vitest.config.mts` and find how. Add `--browser.headless=false` if you want to see the browser.
+Chromium now listens for DevTools connections on port 9200. Open `vitest.config.mts` and find how `VITEST_DEBUG` turns that on. Add `--browser.headless=false` if you want to see the browser.
 
 In another terminal, start the CLI against the test browser and call your tools:
 
@@ -107,7 +107,7 @@ Start a fresh agent session and ask again, this time with the runtime first:
 ```text
 Suggest a grounded fix for the failing test. Do not fix.
 ## Debugging rules
-- Monitor background command: `nx test -- <test-file-pattern> -t <test-name-pattern> --no-file-parallelism --watch`
+- Monitor background command: `VITEST_DEBUG=1 nx test -- <test-file-pattern> -t <test-name-pattern> --no-file-parallelism --watch`
 - Retrieve system under test runtime context using chrome devtools:
   - Start chrome-devtools: `pnpm chrome-devtools stop && pnpm chrome-devtools start -u http://127.0.0.1:9200 --categoryExperimentalThirdParty`
   - Call `pnpm chrome-devtools list_3p_developer_tools 1`

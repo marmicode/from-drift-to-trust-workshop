@@ -4,6 +4,7 @@ import { defineConfig, mergeConfig } from 'vitest/config';
 import viteConfig from './vite.config';
 
 const projectName = basename(import.meta.dirname);
+const vitestDebug = !!process.env['VITEST_DEBUG'];
 
 /**
  * - `*.browser.spec.ts` runs in a real browser.
@@ -26,7 +27,6 @@ export default mergeConfig(
         provider: 'v8',
       },
       watch: false,
-      testTimeout: process.env['CI'] ? 5_000 : 1_000,
       projects: [
         {
           extends: true,
@@ -40,9 +40,7 @@ export default mergeConfig(
               provider: playwright({
                 actionTimeout: 3_000,
                 launchOptions: {
-                  args: process.env['CI']
-                    ? []
-                    : ['--remote-debugging-port=9200'],
+                  args: vitestDebug ? ['--remote-debugging-port=9200'] : [],
                 },
               }),
               instances: [
