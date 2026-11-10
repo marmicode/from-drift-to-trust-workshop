@@ -31,6 +31,7 @@
       ]
     },
     "test": {
+      "inputs": ["default", "^default", { "externalDependencies": ["vitest"] }],
       "options": {
         "passWithNoTests": true,
         "project": "!wide"
