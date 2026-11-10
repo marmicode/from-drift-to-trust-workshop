@@ -18,6 +18,7 @@ export default mergeConfig(
     test: {
       isolate: false,
       globals: true,
+      testTimeout: 500,
       setupFiles: ['src/test-setup.ts'],
       reporters: ['default'],
       /* Keep the test output readable. */
@@ -38,7 +39,7 @@ export default mergeConfig(
               screenshotFailures: false,
               headless: true,
               provider: playwright({
-                actionTimeout: 3_000,
+                actionTimeout: 200,
                 launchOptions: {
                   args: vitestDebug ? ['--remote-debugging-port=9200'] : [],
                 },

@@ -17,6 +17,7 @@ export default mergeConfig(
     test: {
       isolate: false,
       globals: true,
+      testTimeout: 500,
       setupFiles: ['src/test-setup.ts'],
       reporters: ['default'],
       coverage: {
@@ -34,7 +35,7 @@ export default mergeConfig(
               enabled: true,
               screenshotFailures: false,
               headless: true,
-              provider: playwright({ actionTimeout: 3_000 }),
+              provider: playwright({ actionTimeout: 200 }),
               instances: [
                 { browser: 'chromium', viewport: { width: 1280, height: 800 } },
               ],
