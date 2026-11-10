@@ -33,7 +33,7 @@ The contract is a smoke test: it only reads the catalog that is already in place
 `recipe-repository.contract.ts` lists the cases as `it.todo`:
 
 - returns an empty list when no keywords match
-- filters by keywords
+- filters by keywords, ignoring case (search `SHAK` and expect Shakshuka)
 
 Each case calls `createRecipeRepository()` to get a `RecipeRepositoryDef` back.
 
