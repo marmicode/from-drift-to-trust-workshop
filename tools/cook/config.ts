@@ -15,7 +15,7 @@ const exercises: Exercise[] = [
   },
   {
     id: '202-contract',
-    name: '202 - Contract (bonus)',
+    name: '202 - Contract',
   },
   {
     id: '301-angular-testing-skill',

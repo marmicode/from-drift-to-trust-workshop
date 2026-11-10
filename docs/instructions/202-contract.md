@@ -1,5 +1,5 @@
 ---
-sidebar_label: 202. Contract (bonus)
+sidebar_label: 202. Contract
 ---
 
 # Contract
