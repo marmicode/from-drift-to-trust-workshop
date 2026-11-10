@@ -41,6 +41,10 @@ const exercises: Exercise[] = [
     id: '404-charted-autopilot',
     name: '404 - Charted Autopilot',
   },
+  {
+    id: '501-sensors',
+    name: '501 - Sensors',
+  },
 ];
 
 export const config: Config = {
