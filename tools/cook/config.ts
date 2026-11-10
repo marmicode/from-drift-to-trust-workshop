@@ -45,6 +45,10 @@ const exercises: Exercise[] = [
     id: '501-sensors',
     name: '501 - Sensors',
   },
+  {
+    id: '601-skill-eval',
+    name: '601 - Skill Eval',
+  },
 ];
 
 export const config: Config = {

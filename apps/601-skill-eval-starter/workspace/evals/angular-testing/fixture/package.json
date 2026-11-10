@@ -1,0 +1,27 @@
+{
+  "name": "angular-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "vitest"
+  },
+  "dependencies": {
+    "@angular/common": "~22.1.0",
+    "@angular/compiler": "~22.1.0",
+    "@angular/core": "~22.1.0",
+    "@angular/platform-browser": "~22.1.0",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0"
+  },
+  "devDependencies": {
+    "@analogjs/vite-plugin-angular": "~2.9.2",
+    "@analogjs/vitest-angular": "~2.9.2",
+    "@angular/build": "~22.1.0",
+    "@angular/compiler-cli": "~22.1.0",
+    "@vitest/browser-playwright": "~5.0.5",
+    "jsdom": "27.4.0",
+    "playwright": "^1.63.0",
+    "typescript": "~6.0.3",
+    "vitest": "~5.0.5"
+  }
+}

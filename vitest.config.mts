@@ -6,6 +6,8 @@ export default defineConfig({
       '**/vitest.config.{mjs,js,ts,mts}',
       '!vitest.config.{mjs,js,ts,mts}',
       '!dist/**',
+      /* Projects that agents work on during evals. */
+      '!**/evals/**',
     ],
   },
 });
