@@ -80,7 +80,7 @@ Chromium now listens for DevTools connections on port 9200. Open `vitest.config.
 In another terminal, start the CLI against the test browser and call your tools:
 
 ```sh
-pnpm chrome-devtools start -u http://127.0.0.1:9200 --categoryExperimentalThirdParty
+pnpm chrome-devtools start -u http://127.0.0.1:9200 --categoryExperimentalThirdParty --no-usage-statistics
 pnpm chrome-devtools list_pages
 pnpm chrome-devtools list_3p_developer_tools 1
 pnpm chrome-devtools execute_3p_developer_tool 1 DeviceProfile.getCurrentHash
@@ -109,7 +109,7 @@ Suggest a grounded fix for the failing test. Do not fix.
 ## Debugging rules
 - Monitor background command: `VITEST_DEBUG=1 nx test -- <test-file-pattern> -t <test-name-pattern> --no-file-parallelism --watch`
 - Retrieve system under test runtime context using chrome devtools:
-  - Start chrome-devtools: `pnpm chrome-devtools stop && pnpm chrome-devtools start -u http://127.0.0.1:9200 --categoryExperimentalThirdParty`
+  - Start chrome-devtools: `pnpm chrome-devtools stop && pnpm chrome-devtools start -u http://127.0.0.1:9200 --categoryExperimentalThirdParty --no-usage-statistics`
   - Call `pnpm chrome-devtools list_3p_developer_tools 1`
   - Execute relevant tools pnpm chrome-devtools execute_3p_developer_tool 1 <toolName> [--params <params>]
 - Prefer runtime as a source of truth over static analysis
@@ -118,6 +118,12 @@ Suggest a grounded fix for the failing test. Do not fix.
 #### 6. Compare.
 
 Compare with step 2: hypothesis, files opened, test runs, tool calls, time. Did it call your `DeviceProfile.getCurrentHash` tool? Try a lower effort or thinking level for this run: the runtime does the thinking.
+
+Then clean up: make sure the agent's watcher is stopped, and stop the CLI daemon.
+
+```sh
+pnpm chrome-devtools stop
+```
 
 <details>
 <summary>The bug</summary>

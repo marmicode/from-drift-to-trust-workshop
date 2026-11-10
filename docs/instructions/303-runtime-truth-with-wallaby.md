@@ -40,6 +40,8 @@ Install the `wallaby-cli` skill so the agent knows how to drive Wallaby:
 npx skills add wallabyjs/skills --skill wallaby-cli
 ```
 
+The Wallaby CLI is already a devDependency (`@wallabyjs/cli`), so the skill runs it with `pnpm exec wallaby-skill`. Nothing else to install.
+
 #### 3. Ask the agent.
 
 Start a fresh agent session:
@@ -47,7 +49,12 @@ Start a fresh agent session:
 ```text
 Suggest a grounded fix for the failing test. Do not fix.
 Use Wallaby to inspect runtime values instead of adding logs.
+Inspect whole objects, not just their `.id`.
 ```
+
+:::tip
+`inspect` only captures an expression that is written at the line you point it at. To see a value, pick a line where the code already mentions it.
+:::
 
 Write down its hypothesis, how many files it opened, how many test runs and `inspect` calls it made, and whether it added a `console.log`.
 
