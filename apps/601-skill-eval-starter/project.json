@@ -73,6 +73,21 @@
         "staticFilePath": "dist/{projectRoot}/browser",
         "spa": true
       }
+    },
+    "eval": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "promptfoo eval -c evals/angular-mermaid/promptfooconfig.ts",
+        "tty": true
+      }
+    },
+    "view-eval": {
+      "continuous": true,
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "promptfoo view --yes",
+        "tty": true
+      }
     }
   }
 }

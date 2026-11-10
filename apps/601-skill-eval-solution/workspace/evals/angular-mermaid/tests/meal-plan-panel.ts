@@ -1,12 +1,12 @@
-import type { TestCase } from 'promptfoo';
+import { defineTestCase } from '../../shared/config.ts';
 import { diagramAssertions, mermaidContains } from '../assertions.ts';
 
-export default {
+export default defineTestCase({
   description: 'colors what a change adds and modifies',
   vars: {
-    request: `Add a meal plan panel next to the recipe search.
-It lists the planned recipes, each with a REMOVE button.
-Draw the change before you write any code.`,
+    request: `Plan this change, but don't implement it yet.
+Add a meal plan panel next to the recipe search.
+It lists the planned recipes, each with a REMOVE button.`,
   },
   assert: [
     ...diagramAssertions(),
@@ -34,4 +34,4 @@ Components that do not change, such as RecipeSearch or RecipeFilter, are either 
 One sentence tells what the colors mean.`,
     },
   ],
-} satisfies TestCase;
+});

@@ -1,4 +1,4 @@
-import type { TestCase } from 'promptfoo';
+import { defineTestCase } from '../../shared/config.ts';
 import {
   component,
   diagramAssertions,
@@ -8,10 +8,10 @@ import {
 
 /* No "diagram" or "Mermaid" in the request: the skill's description must be
    enough for the agent to load it. */
-export default {
+export default defineTestCase({
   description: 'draws a diagram to explain a flow without being asked',
   vars: {
-    request: 'Explain how clicking ADD reaches MealPlanner.',
+    request: 'Explain how a recipe reaches MealPlanner when I click ADD.',
   },
   assert: [
     ...diagramAssertions({ maxNodes: 5 }),
@@ -38,4 +38,4 @@ The arrow carrying the recipe input to RecipeAddButton starts from RecipeSearch,
 The arrow from RecipeAddButton to MealPlanner is solid. If it has a label, the label names addRecipe.`,
     },
   ],
-} satisfies TestCase;
+});

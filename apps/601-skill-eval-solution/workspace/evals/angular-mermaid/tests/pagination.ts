@@ -1,4 +1,4 @@
-import type { TestCase } from 'promptfoo';
+import { defineTestCase } from '../../shared/config.ts';
 import {
   component,
   diagramAssertions,
@@ -6,7 +6,7 @@ import {
   mermaidOmits,
 } from '../assertions.ts';
 
-export default {
+export default defineTestCase({
   description: 'draws inputs and outputs between components',
   vars: {
     request: 'Draw a Mermaid diagram of how pagination works in RecipeSearch.',
@@ -42,4 +42,4 @@ Pager emits previousPage and nextPage back to RecipeSearch in one dotted output 
 The diagram leaves out RecipePreview and RecipeAddButton: they play no part in pagination.`,
     },
   ],
-} satisfies TestCase;
+});

@@ -19,7 +19,7 @@ pnpm cook start 601-skill-eval
 Same code as the [404](./404-charted-autopilot.md) solution, plus:
 
 - the `angular-mermaid` skill in `.claude/skills/angular-mermaid/SKILL.md`. It makes the agent draw small Angular diagrams: components as `[[RecipeSearch]]`, services as `([RecipeRepository])`, inputs on solid arrows as `"[recipe: Recipe]"`, outputs on dotted arrows as `"(filterChange: RecipeFilterCriteria)"`, and colors for what a change adds or modifies.
-- a [promptfoo](https://www.promptfoo.dev) suite in `evals/angular-mermaid`, with no test cases yet.
+- a [promptfoo](https://www.promptfoo.dev) suite in `evals/angular-mermaid` with its shared options, Mermaid assertions and one unfinished case, but no providers yet.
 
 ## 🎯 Goal
 
@@ -39,113 +39,70 @@ The whole room shares this key. A full run costs a few cents; don't loop it.
 
 #### 2. Read the suite.
 
-Open `evals/angular-mermaid/promptfooconfig.ts` and `evals/angular-mermaid/hooks.ts`.
+- `promptfooconfig.ts`: the grader (Haiku), the cache, the `beforeAll` hook, and `_sharedOptions()`, the Claude Code options every provider shares. The agent only has read-only tools: it replies with the diagram, so its answer can be cached and graded as text.
+- `hooks.ts`: before the run, copies the app's sources into two workspaces outside the repository, and the skill into the `with-skill` one only. It exports their paths: `WITH_SKILL_DIR` and `BASELINE_DIR`.
+- `assertions.ts`: `diagramAssertions()` checks what every diagram needs. `mermaidContains()`, `mermaidOmits()`, `component()` and `service()` test the first ` ```mermaid ` block only, not the prose around it.
 
-- Two providers run the same prompt with Claude Code (Haiku): `with-skill` and `baseline`.
-- Before the run, `hooks.ts` copies the app's sources into two workspaces outside the repository, and the skill into the `with-skill` one only.
-- The agent only has read-only tools. It replies with the diagram, so its answer can be cached and graded as text.
-- Haiku grades every `llm-rubric` assertion.
+#### 3. Add the providers.
 
-#### 3. Write the first case.
+Add two `anthropic:claude-agent-sdk` providers to `providers` in `promptfooconfig.ts`, both with `_sharedOptions()`:
 
-Create `evals/angular-mermaid/tests/pagination.ts` and add it to `tests` in `promptfooconfig.ts`.
+- `with-skill` works in `WITH_SKILL_DIR`, loads project settings, and enables the `angular-mermaid` skill.
+- `baseline` works in `BASELINE_DIR`, with nothing else.
 
-```ts
-import type { TestCase } from 'promptfoo';
+:::tip
+Wrap each provider's `config` in `defineClaudeCodeOptions()` so TypeScript checks the options. Look for `setting_sources` and `skills`.
+:::
 
-export default {
-  description: 'draws inputs and outputs between components',
-  vars: {
-    request: 'Draw a Mermaid diagram of how pagination works in RecipeSearch.',
-  },
-  assert: [
-    // ...
-  ],
-} satisfies TestCase;
-```
+#### 4. Complete the pagination case.
 
-Check that:
+`tests/pagination.ts` already checks the shared diagram rules. Add the checks that make it about pagination:
 
-- the answer has a ` ```mermaid ` block,
 - `Pager` is a component: `pager[[Pager]]`,
 - `pageNumber` is on a solid arrow, between brackets,
 - `nextPage` is on a dotted arrow, between parentheses,
-- every arrow label is quoted,
-- `Catalog`, `Card` and Material components are left out, and the diagram has 5 nodes at most.
+- `previousPage` and `nextPage` share that one dotted arrow,
+- an `llm-rubric` for what a regex can't see, such as "`RecipePreview` is left out because it plays no part in pagination". Phrase it as facts that pass or fail.
 
-:::tip
-
-- `regex` and `not-regex` assertions are deterministic and free, but they see the whole answer, prose included. A `javascript` assertion can pull the ` ```mermaid ` block out first, then test it.
-- Keep `llm-rubric` for what a regex can't see, such as "`RecipePreview` is left out because it plays no part in pagination". Phrase it as facts that pass or fail.
-
-:::
-
-#### 4. Run it.
+#### 5. Run it.
 
 ```sh
-pnpm eval
+pnpm nx eval
 ```
 
 ```sh
-pnpm eval:view
+pnpm nx view-eval
 ```
 
 Compare the two columns. Which assertions fail on the baseline only?
 
-#### 5. Add two cases.
-
-**A flow, without asking for a diagram**: `Explain how clicking ADD reaches MealPlanner.`
-
-- The skill must load from its `description` alone: the answer still has a diagram.
-- `RecipeAddButton` is a component and `MealPlanner` a service.
-- The `"[recipe: Recipe]"` arrow to `RecipeAddButton` starts from `RecipeSearch`, whose template binds it, not from `RecipePreview`.
-
-**A change**:
-
-```text
-Add a meal plan panel next to the recipe search.
-It lists the planned recipes, each with a REMOVE button.
-Draw the change before you write any code.
-```
-
-- The diagram declares `classDef new`, and a new component uses it: `panel[[MealPlanPanel]]:::new`.
-- New arrows are colored with `linkStyle`.
-- `MealPlanner` is marked as changed: it needs a way to remove a recipe.
-- One sentence says what the colors mean.
-
-#### 6. Run it again.
-
-```sh
-pnpm eval
-```
-
-The pagination case comes from the cache: same prompt, same files, so no agent runs again.
+Run it again: every answer comes from the cache. Same prompt, same files, so no agent runs again.
 
 Read every failure before you blame the skill. Is the agent wrong, or is the assertion?
 
-#### 7. Break the skill.
+#### 6. Break the skill.
 
-A teammate trims the skill's scope. Replace the `description` in `.claude/skills/angular-mermaid/SKILL.md`:
+A teammate finds a rule redundant. Delete this line from `.claude/skills/angular-mermaid/SKILL.md`:
 
-```yaml
-description: Draws Mermaid diagrams of Angular code. Use when the user asks for a Mermaid diagram.
+```md
+- One arrow per direction between two nodes. Put all the inputs in one label, and all the outputs in another: `"[pageNumber: number, hasNextPage: boolean]"`, `"(previousPage, nextPage)"`.
 ```
 
 ```sh
-pnpm eval
+pnpm nx eval
 ```
 
-The baseline comes from the cache, and the `with-skill` column runs again. Which cases regress?
+The baseline comes from the cache, and the `with-skill` column runs again. Does the pagination case regress?
 
-One run is one sample. Run the `with-skill` cases a few more times before you call it:
+One run is one sample. Run the `with-skill` provider a few more times before you call it:
 
 ```sh
-pnpm eval --filter-providers with-skill --repeat 3
+pnpm nx eval -- --filter-providers with-skill --repeat 3
 ```
 
 Undo the edit.
 
-#### 8. Debrief.
+#### 7. Debrief.
 
 - What does the skill buy you, case by case?
 - Which failures came from the agent, and which from your assertions?
@@ -154,5 +111,5 @@ Undo the edit.
 - What did the runs cost? The token totals are at the end of each run.
 
 :::tip
-The solution ships all three cases and the Mermaid assertions in `evals/angular-mermaid/assertions.ts`: `pnpm cook solution`.
+The solution ships both providers and three cases: pagination, the ADD flow without asking for a diagram, and a meal plan panel change with colors: `pnpm cook solution`.
 :::

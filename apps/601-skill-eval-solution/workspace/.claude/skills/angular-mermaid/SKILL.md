@@ -1,6 +1,6 @@
 ---
 name: angular-mermaid
-description: Draws minimalistic Mermaid diagrams of Angular components, services, and the inputs and outputs between them. Use when explaining how an Angular feature or component works, planning or reviewing a change, writing a design doc or a PR description, or whenever the user asks for a diagram, a chart, a graph, or a picture of Angular code.
+description: Draws minimalistic Mermaid diagrams of Angular components, services, and the inputs and outputs between them. Use whenever you explain how Angular code works, such as how a click, an input or a call reaches a component or a service, and when planning or reviewing a change, writing a design doc or a PR description, or when the user asks for a diagram, a chart, a graph, or a picture of Angular code. Load it before answering, even when the user did not ask for a diagram.
 ---
 
 # Angular Mermaid Diagrams
@@ -58,6 +58,7 @@ linkStyle 2,3 stroke:#16a34a,color:#16a34a
 linkStyle 4 stroke:#d97706,color:#d97706
 ```
 
+- Every arrow to or from a `new` node is new too: color it with `linkStyle`.
 - A new input on an existing component is a new or changed arrow, and the component is `changed`.
 - After the diagram, say in one sentence what the colors mean, for example "Green is new, amber changes."
 

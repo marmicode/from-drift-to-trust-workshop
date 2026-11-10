@@ -7,8 +7,6 @@
     "start-server": "nx start server",
     "start-web": "nx serve --excludeTaskDependencies",
     "cook": "node --experimental-strip-types tools/cook/main.ts",
-    "eval": "promptfoo eval -c evals/angular-mermaid/promptfooconfig.ts",
-    "eval:view": "promptfoo view",
     "limbo": "tools/limbo.sh",
     "test": "nx test",
     "test-wide": "vitest --root apps/whiskmate --project wide"
