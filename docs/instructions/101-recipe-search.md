@@ -40,7 +40,7 @@ Point `getRecipePreviewHeadings()` at the recipe name headings:
 return page.getByRole('heading', { level: 2 });
 ```
 
-Implement `it.todo('shows the recipes')`: mount the search, then check that the first heading reads "Shakshuka".
+Implement `it.todo('shows the recipes')`: turn `it.todo` into `it`, make its callback `async`, mount the search, then check that the first heading reads "Shakshuka". Add `expect` to the `vitest` import.
 
 ```ts
 const { getRecipePreviewHeadings } = mountRecipeSearch();
@@ -54,7 +54,7 @@ The recipes load asynchronously. `expect.element` retries the assertion until it
 
 #### 3. Filter by keywords.
 
-Implement `it.todo('filters recipes by keywords')`: mount the search, fill the "Keywords" field, then check the headings.
+Implement `it.todo('filters recipes by keywords')` the same way: mount the search, fill the "Keywords" field, then check the headings.
 
 ```ts
 await page.getByLabelText('Keywords').fill('cheese');
