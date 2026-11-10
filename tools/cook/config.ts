@@ -26,6 +26,10 @@ const exercises: Exercise[] = [
     name: '302 - Runtime Truth with CDP',
   },
   {
+    id: '303-runtime-truth-with-wallaby',
+    name: '303 - Runtime Truth with Wallaby',
+  },
+  {
     id: '401-review-fatigue',
     name: '401 - Review Fatigue',
   },
