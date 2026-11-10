@@ -1,9 +1,9 @@
 {
-  "name": "601-angular-mermaid-skill-starter",
+  "name": "601-skill-eval-starter",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "prefix": "wm",
-  "sourceRoot": "apps/601-angular-mermaid-skill-starter/src",
+  "sourceRoot": "apps/601-skill-eval-starter/src",
   "tags": ["type:app"],
   "targets": {
     "build": {
@@ -55,10 +55,10 @@
       "defaultConfiguration": "development",
       "configurations": {
         "production": {
-          "buildTarget": "601-angular-mermaid-skill-starter:build:production"
+          "buildTarget": "601-skill-eval-starter:build:production"
         },
         "development": {
-          "buildTarget": "601-angular-mermaid-skill-starter:build:development"
+          "buildTarget": "601-skill-eval-starter:build:development"
         }
       }
     },
@@ -69,7 +69,7 @@
       "continuous": true,
       "executor": "@nx/web:file-server",
       "options": {
-        "buildTarget": "601-angular-mermaid-skill-starter:build",
+        "buildTarget": "601-skill-eval-starter:build",
         "staticFilePath": "dist/{projectRoot}/browser",
         "spa": true
       }
