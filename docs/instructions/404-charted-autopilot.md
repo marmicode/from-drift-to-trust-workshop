@@ -12,6 +12,8 @@ sidebar_label: 404. Charted Autopilot
 
 Do [403. Charted Implementation](./403-charted-implementation.md) first.
 
+You need Claude Code with the Workflow tool: the agent writes and runs a workflow script.
+
 ## Setup
 
 Keep going from where 403 left you: same branch, same design doc.
@@ -47,14 +49,23 @@ It takes `designDocPath` and `prNumber` as args and loops until the PR is done:
    - "green" when every pending test has real test code
    - "extra task" when there is no pending test but a task is still unchecked
    - "done" when the PR is marked ✅ or nothing is pending
-2. An agent runs that step: `charted-scaffold` for the whole PR, `charted-red` or `charted-green` until every pending test of the PR is handled, or a plain prompt that completes the first unchecked task and checks it off in the design doc.
-3. An agent commits everything with a subject that names the step and the PR, like "test: ✅ red waypoint #2: ...".
-4. Stop with a "stuck" status when the same step runs twice without checking anything off.
+2. An agent runs that step: `charted-scaffold` for the whole PR, `charted-red` or `charted-green` with the test files from step 1 until every pending test of the PR is handled, or a plain prompt that completes the first unchecked task and checks it off in the design doc.
+3. An agent commits everything with a subject that names the step and the PR, like "test: ✅ red PR#2: ...".
+4. Stop with a "stuck" status when step 1 picks the same step twice in a row and the number of checked-off items has not changed. Red checks nothing off, but it is followed by green, so it never counts as stuck on its own.
 
 Return the steps that ran with their commits.
 ```
 
+The workflow-authoring skill usually passes scripts inline. Here you want a file, so you can read it, commit it, and run it again for the next PR.
+
 Read the script before running it. Does it do what you asked, and nothing more?
+
+Then commit it on its own, so the autopilot's first commit does not sweep it in:
+
+```sh
+git add .claude/workflows/charted-autopilot.js
+git commit -m "build: 📦 add charted-autopilot workflow"
+```
 
 :::tip
 The skill explains the script API: `agent()` with a `schema` for structured output, `log()`, `phase()`, and `args`.
@@ -76,6 +87,8 @@ Each time you would have stopped the agent, write down why. Did it pass a test t
 git log --oneline main..
 ```
 
+The oldest commits are cook's "focus on" commit and your workflow script. The autopilot's commits come after them.
+
 For each commit, `git show <sha>` and ask:
 
 - Does the test read like a spec of the behavior?
@@ -85,6 +98,8 @@ For each commit, `git show <sha>` and ask:
 #### 6. Run the next PR.
 
 Start the workflow again with the next PR number. Did the second run need any change to the script?
+
+The pager shows up in the app once PR#3 (Page through the search results) is done. From a clean start, run the workflow once more for PR#3.
 
 #### 7. Start the app and page through the recipes.
 

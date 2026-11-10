@@ -12,6 +12,56 @@ export const meta = {
 // The same step running twice without checking anything off in the design doc means we are stuck.
 const MAX_ATTEMPTS_PER_STEP = 2;
 
+const COMMIT_PREFIXES = {
+  scaffold: 'refactor: 🛠️',
+  red: 'test: ✅',
+  green: 'feat: ✨',
+  'extra task': 'refactor: 🛠️',
+};
+
+const NEXT_STEP_SCHEMA = {
+  type: 'object',
+  properties: {
+    step: {
+      type: 'string',
+      enum: ['scaffold', 'red', 'green', 'extra task', 'done'],
+    },
+    reason: { type: 'string' },
+    pendingTests: { type: 'array', items: { type: 'string' } },
+    pendingTasks: { type: 'array', items: { type: 'string' } },
+    done: { type: 'number' },
+    total: { type: 'number' },
+    testFiles: { type: 'array', items: { type: 'string' } },
+  },
+  required: [
+    'step',
+    'reason',
+    'pendingTests',
+    'pendingTasks',
+    'done',
+    'total',
+    'testFiles',
+  ],
+};
+
+const STEP_RESULT_SCHEMA = {
+  type: 'object',
+  properties: {
+    success: { type: 'boolean' },
+    summary: { type: 'string' },
+  },
+  required: ['success', 'summary'],
+};
+
+const COMMIT_SCHEMA = {
+  type: 'object',
+  properties: {
+    committed: { type: 'boolean' },
+    sha: { type: 'string' },
+  },
+  required: ['committed'],
+};
+
 const designDocPath = args?.designDocPath;
 const prNumber = Number(String(args?.prNumber ?? '').match(/\d+/)?.[0]);
 
@@ -123,7 +173,7 @@ function skill(name) {
 }
 
 async function commitStep(step, result) {
-  const subject = `${COMMIT_PREFIXES[step]} ${step} waypoint #${prNumber}: ${result.summary}`;
+  const subject = `${COMMIT_PREFIXES[step]} ${step} PR#${prNumber}: ${result.summary}`;
   const commit = await agent(
     `Run \`git status --porcelain\`. If it prints nothing, report committed=false and stop. Otherwise stage everything (\`git add -A\`) and create ONE commit whose subject line is exactly this JSON string's value: ${JSON.stringify(subject)}. Do not push. Report committed and the short sha.`,
     {
@@ -141,56 +191,6 @@ async function commitStep(step, result) {
   return commit?.committed ? subject : null;
 }
 
-const COMMIT_PREFIXES = {
-  scaffold: 'refactor: 🛠️',
-  red: 'test: ✅',
-  green: 'feat: 🚀',
-  'extra task': 'refactor: 🛠️',
-};
-
 function bullets(items) {
   return items.map((item) => `- ${item}`).join('\n');
 }
-
-const NEXT_STEP_SCHEMA = {
-  type: 'object',
-  properties: {
-    step: {
-      type: 'string',
-      enum: ['scaffold', 'red', 'green', 'extra task', 'done'],
-    },
-    reason: { type: 'string' },
-    pendingTests: { type: 'array', items: { type: 'string' } },
-    pendingTasks: { type: 'array', items: { type: 'string' } },
-    done: { type: 'number' },
-    total: { type: 'number' },
-    testFiles: { type: 'array', items: { type: 'string' } },
-  },
-  required: [
-    'step',
-    'reason',
-    'pendingTests',
-    'pendingTasks',
-    'done',
-    'total',
-    'testFiles',
-  ],
-};
-
-const STEP_RESULT_SCHEMA = {
-  type: 'object',
-  properties: {
-    success: { type: 'boolean' },
-    summary: { type: 'string' },
-  },
-  required: ['success', 'summary'],
-};
-
-const COMMIT_SCHEMA = {
-  type: 'object',
-  properties: {
-    committed: { type: 'boolean' },
-    sha: { type: 'string' },
-  },
-  required: ['committed'],
-};
