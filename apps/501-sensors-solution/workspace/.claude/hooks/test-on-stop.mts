@@ -16,16 +16,8 @@ await runHook({
 
     const $app = $({ cwd: APP_ROOT });
 
-    const changedFiles = (
-      await $app`git diff --name-only --relative HEAD`
-    ).lines();
-
-    if (changedFiles.length === 0) {
-      return;
-    }
-
     const result =
-      await $app`pnpm vitest related ${changedFiles} --run --project=!wide --passWithNoTests --reporter=minimal`.nothrow();
+      await $app`pnpm vitest --changed --run --project=!wide --reporter=minimal`.nothrow();
 
     if (result.exitCode === 0) {
       return;

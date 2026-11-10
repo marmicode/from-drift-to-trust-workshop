@@ -119,21 +119,12 @@ Which test fails? Nothing told the agent. Revert the change.
 
 - If `input.stop_hook_active` is `true`, return nothing. The agent is already continuing because of this hook, and this check caps the retries so the agent never loops forever.
 
-- List the changed files, relative to the app:
+- Run only the tests affected by the current changes. `--changed` reads them from git, including untracked files, and exits 0 when nothing changed:
 
 ```ts
 const $app = $({ cwd: APP_ROOT });
-const changedFiles = (
-  await $app`git diff --name-only --relative HEAD`
-).lines();
-```
-
-- If there are none, return nothing.
-
-- Run only the tests related to the changed files:
-
-```ts
-$app`pnpm vitest related ${changedFiles} --run --project=!wide --passWithNoTests --reporter=minimal`.nothrow();
+const result =
+  await $app`pnpm vitest --changed --run --project=!wide --reporter=minimal`.nothrow();
 ```
 
 - If Vitest exits with code 0, return nothing.
@@ -174,7 +165,7 @@ Add a `Stop` hook next to `PostToolUse` in `.claude/settings.json`:
 
 - Does the hook block the stop? Which tests did it run, and which did it skip?
 - What does the agent do with the failing test? Does it fix the code, change the test, or ask you?
-- How long did you wait for the hook? What would happen with the whole test suite instead of `vitest related`?
+- How long did you wait for the hook? What would happen with the whole test suite instead of `vitest --changed`?
 
 :::tip
 Cursor and Copilot CLI can run the same hooks. `.claude/hooks/internal/run-hook.mts` maps their event names and payloads to Claude Code's.
