@@ -16,7 +16,7 @@ sidebar_label: 303. Runtime Truth with Wallaby
 pnpm cook start 303-runtime-truth-with-wallaby
 ```
 
-Same code as the [302](./302-runtime-truth-with-cdp.md) starter: the same runtime bug, the same skipped browser test.
+Same code as the [302](./302-runtime-truth-with-cdp.md) starter: the same runtime bug, the same browser test marked `it.fails`.
 
 ## 🎯 Goal
 
@@ -30,7 +30,7 @@ Debug the same runtime bug with an agent that reads runtime values from the test
 pnpm test
 ```
 
-Remove `.skip` from `adds the recipe to the meal plan` in `recipe-search.browser.spec.ts`. The test times out on the Shakshuka card.
+Change `it.fails` to `it` on `adds the recipe to the meal plan` in `recipe-search.browser.spec.ts`. The test times out on the Shakshuka card.
 
 #### 2. Install the skill.
 

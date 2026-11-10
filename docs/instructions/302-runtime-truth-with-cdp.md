@@ -16,7 +16,7 @@ sidebar_label: 302. Runtime Truth with CDP
 pnpm cook start 302-runtime-truth-with-cdp
 ```
 
-Same code as the [301](./301-angular-testing-skill.md) solution, plus a meal plan that survives a reload: `MealPlanner` loads the plan from a `MealRepository`, and a policy engine decides when a recipe can be added. One browser test is skipped.
+Same code as the [301](./301-angular-testing-skill.md) solution, plus a meal plan that survives a reload: `MealPlanner` loads the plan from a `MealRepository`, and a policy engine decides when a recipe can be added. One browser test is marked as an expected failure with `it.fails`.
 
 ## 🎯 Goal
 
@@ -30,7 +30,7 @@ Debug the same runtime bug twice with an agent: blind, then with eyes on the run
 pnpm test
 ```
 
-Remove `.skip` from `adds the recipe to the meal plan` in `recipe-search.browser.spec.ts`, then run that spec again:
+Change `it.fails` to `it` on `adds the recipe to the meal plan` in `recipe-search.browser.spec.ts`, then run that spec again:
 
 ```sh
 pnpm nx test -- recipe-search --browser.headless
