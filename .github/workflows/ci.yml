@@ -43,9 +43,7 @@ jobs:
       - name: Playwright browsers install
         run: pnpm playwright install --only-shell chromium
 
-      # Browser tests use tight Playwright timeouts, so run tasks one at a time
-      # to keep concurrent Chromium instances from starving each other.
-      - run: pnpm exec nx run-many -t build,lint,test,typecheck --parallel=1
+      - run: pnpm exec nx run-many -t build,lint,test,typecheck
 
   deploy-gh-pages:
     name: Deploy to GitHub Pages
