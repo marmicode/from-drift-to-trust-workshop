@@ -5,6 +5,7 @@ import viteConfig from './vite.config';
 
 const projectName = basename(import.meta.dirname);
 const isCI = !!process.env['CI'];
+const timeoutFactor = isCI ? 3 : 1;
 const vitestDebug = !!process.env['VITEST_DEBUG'];
 
 /**
@@ -19,7 +20,7 @@ export default mergeConfig(
     test: {
       isolate: false,
       globals: true,
-      testTimeout: isCI ? 1000 : 500,
+      testTimeout: 500 * timeoutFactor,
       setupFiles: ['src/test-setup.ts'],
       reporters: ['default'],
       /* Keep the test output readable. */
@@ -40,7 +41,7 @@ export default mergeConfig(
               screenshotFailures: false,
               headless: true,
               provider: playwright({
-                actionTimeout: isCI ? 600 : 300,
+                actionTimeout: 300 * timeoutFactor,
                 launchOptions: {
                   args: vitestDebug ? ['--remote-debugging-port=9200'] : [],
                 },
