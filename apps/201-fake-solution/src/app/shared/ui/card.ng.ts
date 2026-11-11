@@ -23,8 +23,8 @@ import { Component, input } from '@angular/core';
       position: relative;
       text-align: left;
       transition:
-        box-shadow 150ms,
-        transform 150ms;
+        box-shadow 100ms,
+        transform 100ms;
       width: var(--wm-card-width, 300px);
     }
 

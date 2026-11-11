@@ -39,4 +39,11 @@ export default [
     // Override or add rules here
     rules: {},
   },
+  {
+    // Exercise scaffolds leave `describe` blocks empty for attendees to fill in.
+    files: ['**/*.spec.ts'],
+    rules: {
+      '@typescript-eslint/no-empty-function': 'off',
+    },
+  },
 ];
