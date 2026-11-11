@@ -1,8 +1,8 @@
 ---
-sidebar_label: 501. Sensors
+sidebar_label: 501. Hooks
 ---
 
-# Sensors
+# Hooks
 
 ## Prerequisites
 
@@ -13,7 +13,7 @@ sidebar_label: 501. Sensors
 ## Setup
 
 ```sh
-pnpm cook start 501-sensors
+pnpm cook start 501-hooks
 ```
 
 Same code as the [404](./404-charted-autopilot.md) solution, plus a `ClockAdapter` in `shared/infra` and an ESLint rule that forbids `Date` and recommends `ClockAdapter` instead.
@@ -24,7 +24,7 @@ Run `pnpm test` once after cooking: `pnpm cook start` resets the Nx cache, and t
 
 ## 🎯 Goal
 
-Give the agent two sensors so it catches its own mistakes before it hands control back to you:
+Give the agent two hooks so it catches its own mistakes before it hands control back to you:
 
 - **Lint on write**: every `Edit` or `Write` runs ESLint on the file and feeds the issues back to the agent.
 - **Tests on stop**: when the agent wants to stop, the tests related to the changed files run, and a failure keeps the agent working.

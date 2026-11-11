@@ -1,9 +1,9 @@
 {
-  "name": "501-sensors-solution",
+  "name": "501-hooks-solution",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "prefix": "wm",
-  "sourceRoot": "apps/501-sensors-solution/src",
+  "sourceRoot": "apps/501-hooks-solution/src",
   "tags": ["type:app"],
   "targets": {
     "build": {
@@ -55,10 +55,10 @@
       "defaultConfiguration": "development",
       "configurations": {
         "production": {
-          "buildTarget": "501-sensors-solution:build:production"
+          "buildTarget": "501-hooks-solution:build:production"
         },
         "development": {
-          "buildTarget": "501-sensors-solution:build:development"
+          "buildTarget": "501-hooks-solution:build:development"
         }
       }
     },
@@ -69,7 +69,7 @@
       "continuous": true,
       "executor": "@nx/web:file-server",
       "options": {
-        "buildTarget": "501-sensors-solution:build",
+        "buildTarget": "501-hooks-solution:build",
         "staticFilePath": "dist/{projectRoot}/browser",
         "spa": true
       }

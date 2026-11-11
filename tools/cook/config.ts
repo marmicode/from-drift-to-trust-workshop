@@ -46,8 +46,8 @@ const exercises: Exercise[] = [
     name: '404 - Charted Autopilot',
   },
   {
-    id: '501-sensors',
-    name: '501 - Sensors',
+    id: '501-hooks',
+    name: '501 - Hooks',
   },
   {
     id: '601-skill-eval',
