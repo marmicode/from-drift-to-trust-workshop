@@ -19,7 +19,7 @@ pnpm cook start 601-skill-eval
 Same code as the [404](./404-charted-autopilot.md) solution, plus:
 
 - the `angular-mermaid` skill in `.claude/skills/angular-mermaid/SKILL.md`. It makes the agent draw small Angular diagrams: components as `[[RecipeSearch]]`, services as `([RecipeRepository])`, inputs on solid arrows as `"[recipe: Recipe]"`, outputs on dotted arrows as `"(filterChange: RecipeFilterCriteria)"`, and colors for what a change adds or modifies.
-- a [promptfoo](https://www.promptfoo.dev) suite in `evals/angular-mermaid` with its shared options, Mermaid assertions and one unfinished case, but no providers yet.
+- a [promptfoo](https://www.promptfoo.dev) suite in `evals/angular-mermaid`, at the workspace root (not under `apps/whiskmate`), with its shared options, Mermaid assertions and one unfinished case, but no providers yet.
 
 ## 🎯 Goal
 
@@ -37,6 +37,8 @@ export ANTHROPIC_API_KEY=... # the shared key
 The whole room shares this key. A full run costs a few cents; don't loop it.
 :::
 
+Without `ANTHROPIC_API_KEY`, the eval falls back to your Claude Code login without telling you, and nothing is cached: every run calls the agent again.
+
 #### 2. Read the suite.
 
 - `promptfooconfig.ts`: the grader (Haiku), the cache, the `beforeAll` hook, and `_sharedOptions()`, the Claude Code options every provider shares. The agent only has read-only tools: it replies with the diagram, so its answer can be cached and graded as text.
@@ -45,13 +47,13 @@ The whole room shares this key. A full run costs a few cents; don't loop it.
 
 #### 3. Add the providers.
 
-Add two `anthropic:claude-agent-sdk` providers to `providers` in `promptfooconfig.ts`, both with `_sharedOptions()`:
+Add two `anthropic:claude-agent-sdk` providers to `providers` in `promptfooconfig.ts`, both with `_sharedOptions()`. Give each a `label`:
 
 - `with-skill` works in `WITH_SKILL_DIR`, loads project settings, and enables the `angular-mermaid` skill.
 - `baseline` works in `BASELINE_DIR`, with nothing else.
 
 :::tip
-Wrap each provider's `config` in `defineClaudeCodeOptions()` so TypeScript checks the options. Look for `setting_sources` and `skills`.
+Wrap each provider's `config` in `defineClaudeCodeOptions()` so TypeScript checks the options. Look for `working_dir`, `setting_sources` and `skills`.
 :::
 
 #### 4. Complete the pagination case.
@@ -64,6 +66,16 @@ Wrap each provider's `config` in `defineClaudeCodeOptions()` so TypeScript check
 - `previousPage` and `nextPage` share that one dotted arrow,
 - an `llm-rubric` for what a regex can't see, such as "`RecipePreview` is left out because it plays no part in pagination". Phrase it as facts that pass or fail.
 
+Each regex check is a `javascript` assertion:
+
+```ts
+{
+  type: 'javascript',
+  metric: 'pager-is-a-component',
+  value: mermaidContains(component('Pager')),
+},
+```
+
 #### 5. Run it.
 
 ```sh
@@ -74,7 +86,11 @@ pnpm nx eval
 pnpm nx view-eval
 ```
 
+The command ends with "Running target eval ... failed" as long as a cell is red. The baseline is expected to fail, so this is normal.
+
 Compare the two columns. Which assertions fail on the baseline only?
+
+If an `llm-rubric` fails with "Could not extract JSON from llm-rubric response", the grader stumbled, not the agent. Run the eval again. If the same error comes back, the grader's reply was cached: reword the rubric slightly to grade the answer again.
 
 Run it again: every answer comes from the cache. Same prompt, same files, so no agent runs again.
 
