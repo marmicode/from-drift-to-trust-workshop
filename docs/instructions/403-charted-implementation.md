@@ -29,6 +29,8 @@ Implement the design doc using the Charted Coding skills, one PR at a time:
 
 **The goal is to try and feel the right step granularity.**
 
+Commit after each step: scaffold, red, then green. A PR is done when every task and test of its section is checked off and its title is marked ✅.
+
 ### Skills usage
 
 ```text
@@ -41,7 +43,12 @@ Implement the design doc using the Charted Coding skills, one PR at a time:
 ```
 
 :::tip
-You can write all tests or fix all tests at once with such prompts: `/charted-red all tests` or `/charted-green all tests`
+`charted-red` and `charted-green` work on one test file at a time. To write or fix all the tests of a PR at once, prompt for it:
+
+```text
+Use the charted-red skill on every test file of PR#1 in design-docs/001-recipe-search-pagination.md until all its tests are written.
+```
+
 :::
 
 :::tip
@@ -71,3 +78,5 @@ pnpm test-wide
 ```sh
 pnpm start
 ```
+
+`pnpm start` also starts the API. If `pnpm start-server` is still running in the other terminal, stop it first, or run `pnpm start-web` to start the app alone.
