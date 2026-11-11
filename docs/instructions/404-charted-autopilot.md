@@ -41,7 +41,7 @@ Open `design-docs/001-recipe-search-pagination.md` and find the first PR that is
 ```text
 Use the workflow-authoring skill and create a workflow at .claude/workflows/charted-autopilot.js that runs one PR of a Charted Coding design doc on autopilot.
 
-It takes `designDocPath` and `prNumber` as args and loops until the PR is done:
+It takes `args` as an object, `{ designDocPath: string, prNumber: number }`, and loops until the PR is done:
 
 1. A read-only agent reads the PR section of the design doc (its Tasks `- [ ]` and its Testing Strategy `### 🚧`), inspects the code, and reports as structured output: the pending tests, the unchecked tasks, how many items are checked off, the test files of the PR, and the next step:
    - "scaffold" when a pending test has no matching `it.todo` or a production item the Tasks require is missing
@@ -56,7 +56,7 @@ It takes `designDocPath` and `prNumber` as args and loops until the PR is done:
 Return the steps that ran with their commits.
 ```
 
-The workflow-authoring skill usually passes scripts inline. Here you want a file, so you can read it, commit it, and run it again for the next PR.
+The workflow-authoring skill usually passes scripts inline. Here you want a file, so you can read it, commit it, and run it again for the next PR. A file in `.claude/workflows/` is registered under its `meta.name`, so the agent can run it with `Workflow({ name: "charted-autopilot", args })`, or with `scriptPath` pointing at the file.
 
 Read the script before running it. Does it do what you asked, and nothing more?
 
@@ -74,7 +74,7 @@ The skill explains the script API: `agent()` with a `schema` for structured outp
 #### 3. Start the autopilot.
 
 ```text
-Run the charted-autopilot workflow with designDocPath=design-docs/001-recipe-search-pagination.md and prNumber=YOUR_PR_NUMBER_HERE.
+Run the charted-autopilot workflow with args { designDocPath: "design-docs/001-recipe-search-pagination.md", prNumber: YOUR_PR_NUMBER_HERE }.
 ```
 
 #### 4. Watch for judgment calls while it runs.

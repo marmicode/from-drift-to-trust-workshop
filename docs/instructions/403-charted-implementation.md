@@ -27,9 +27,11 @@ Implement the design doc using the Charted Coding skills, one PR at a time:
 - PR#3 wires the pager into `RecipeSearch`, pages through the results, and goes back to the first page when the filter changes.
 - PR#4 hides the pager when there are no recipes.
 
-**The goal is to try and feel the right step granularity.**
+**The goal is to try and feel the right step granularity.** Do PR#1 one test at a time: red, green, and commit for each test, and watch every test fail before it passes. Then try PR#2 with the whole-PR prompt below, and compare.
 
-Commit after each step: scaffold, red, then green. A PR is done when every task and test of its section is checked off and its title is marked ✅.
+Commit after each step: scaffold, red, then green. A PR is done when every task and test of its section is checked off and its title is marked ✅. The PR title is the `<summary>🚧 PR#N — …</summary>` line of its collapsible block in the design doc.
+
+The skills never tick the `Desired Behavior` checkboxes. Tick them by hand once you have checked the feature in the app.
 
 ### Skills usage
 
@@ -43,7 +45,7 @@ Commit after each step: scaffold, red, then green. A PR is done when every task 
 ```
 
 :::tip
-`charted-red` and `charted-green` work on one test file at a time. To write or fix all the tests of a PR at once, prompt for it:
+`charted-red` and `charted-green` work on one test file at a time. The coarse option, to compare with in PR#2, is to write or fix all the tests of a PR at once:
 
 ```text
 Use the charted-red skill on every test file of PR#1 in design-docs/001-recipe-search-pagination.md until all its tests are written.
@@ -80,3 +82,5 @@ pnpm start
 ```
 
 `pnpm start` also starts the API. If `pnpm start-server` is still running in the other terminal, stop it first, or run `pnpm start-web` to start the app alone.
+
+Open http://localhost:4200. You should see four recipes per page, Previous disabled on the first page, Next disabled on the last one, and the first page again whenever you change the filter.

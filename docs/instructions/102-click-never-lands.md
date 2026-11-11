@@ -30,6 +30,8 @@ Find out why the tests fail, fix the bug, and see what Browser Mode checked that
 pnpm test
 ```
 
+Everything passes: `it.fails` counts an expected failure as a pass.
+
 Remove `.fails` from the two `it.fails` tests in `apps/whiskmate/src/app/recipe/feature-search/recipe-search.browser.spec.ts`, then run the tests again.
 
 Two tests time out. Read the error. Playwright tells which element intercepts the click.

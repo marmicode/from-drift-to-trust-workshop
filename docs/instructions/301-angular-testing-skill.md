@@ -64,7 +64,9 @@ pnpm start-server
 pnpm test-wide
 ```
 
-Read the diff and compare it with what you wrote in 201 and 202, which is on your `my-202` branch.
+Wide tests that seed the server may replace its catalog. Restart `pnpm start-server` to get the original recipes back.
+
+Read the diff and compare it with what you wrote in 201 and 202, which is on your `my-202` branch (or with the 202 solution).
 
 - Did it write a fake, a mock, or something else?
 - Is the fake checked against the real repository?

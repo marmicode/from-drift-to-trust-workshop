@@ -30,14 +30,14 @@ Find out whether the `angular-mermaid` skill actually changes the diagrams the a
 #### 1. Set the key.
 
 ```sh
-export ANTHROPIC_API_KEY=... # the shared key
+export ANTHROPIC_API_KEY=... # the shared key, from the trainer
 ```
 
 :::warning
 The whole room shares this key. A full run costs a few cents; don't loop it.
 :::
 
-Without `ANTHROPIC_API_KEY`, the eval falls back to your Claude Code login without telling you, and nothing is cached: every run calls the agent again.
+Without `ANTHROPIC_API_KEY`, the eval falls back to your Claude Code login without telling you, and nothing is cached: every run calls the agent again. Working on your own, without the shared key? Expect each run to be a fresh sample, and skip the cache checks in steps 5 and 6.
 
 #### 2. Read the suite.
 
@@ -90,7 +90,7 @@ pnpm nx view-eval
 
 The command ends with "Running target eval ... failed" as long as a cell is red. The baseline is expected to fail, so this is normal.
 
-Compare the two columns. Which assertions fail on the baseline only?
+Compare the two columns. Which assertions fail on the baseline only? The terminal table only shows PASS or FAIL per cell: open a cell in `view-eval` to see which assertion failed, and why.
 
 If an `llm-rubric` fails with "Could not extract JSON from llm-rubric response", the grader stumbled, not the agent. Run the eval again. If the same error comes back, the grader's reply was cached: reword the rubric slightly to grade the answer again.
 
@@ -106,6 +106,13 @@ A teammate finds a rule redundant. Delete this line from `.claude/skills/angular
 - One arrow per direction between two nodes. Put all the inputs in one label, and all the outputs in another: `"[pageNumber: number, hasNextPage: boolean]"`, `"(previousPage, nextPage)"`.
 ```
 
+The first example of the skill still shows the shared arrow, and the agent copies examples. So the teammate also "clarifies" the example, replacing its `pager -.->|"(previousPage, nextPage)"| search` line with one arrow per output:
+
+```md
+  pager -.->|"(previousPage)"| search
+  pager -.->|"(nextPage)"| search
+```
+
 ```sh
 pnpm nx eval
 ```
@@ -118,7 +125,7 @@ One run is one sample. Run the `with-skill` provider a few more times before you
 pnpm nx eval -- --filter-providers with-skill --repeat 3
 ```
 
-Undo the edit.
+Undo both edits.
 
 #### 7. Debrief.
 

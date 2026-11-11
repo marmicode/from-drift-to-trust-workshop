@@ -36,25 +36,33 @@ Change `it.fails` to `it` on `adds the recipe to the meal plan` in `apps/whiskma
 pnpm nx test -- recipe-search --browser.headless
 ```
 
-The test times out on the Shakshuka card. Read the error. It says little: the test ran out of time while clicking "ADD".
+The test times out on the Shakshuka card:
+
+```text
+locator.click: Timeout 300ms exceeded.
+...
+  - element is not enabled
+```
+
+Read the error. It says the "ADD" button is disabled, but not why.
 
 #### 2. Ask the agent, blind.
 
 ```text
-Suggest a grounded fix for the failing test. Do not fix. Run tests with nx test -- recipe-search --browser.headless
+Suggest a grounded fix for the failing test. Do not fix. Run tests with pnpm nx test -- recipe-search --browser.headless
 ```
 
-Write down its hypothesis, how many files it opened, how many times it ran the tests, and whether it added a `console.log` to see what happens at runtime.
+Write down its hypothesis, how many files it opened, how many times it ran the tests, whether it ran throwaway scripts (such as `node -e`), and whether it added a `console.log` to see what happens at runtime.
 
 #### 3. Expose runtime truth.
 
-Chrome DevTools can call tools that the page itself exposes. `apps/whiskmate/src/testing/devtools.ts` already answers DevTools' `devtoolstooldiscovery` event, and `apps/whiskmate/src/app/recipe/domain/meal-planner.devtools.ts` already defines two tools: `MealPlanner.getRecipes` and `MealPlanner.explainCatalog`.
+Chrome DevTools can call tools that the page itself exposes. `apps/whiskmate/src/app/shared/testing/devtools.ts` already answers DevTools' `devtoolstooldiscovery` event, and `apps/whiskmate/src/app/recipe/domain/meal-planner.devtools.ts` already defines two tools: `MealPlanner.getRecipes` and `MealPlanner.explainCatalog`.
 
 Register them in `apps/whiskmate/src/test-setup.ts`:
 
 ```ts
 import { mealPlannerDevTools } from '@whiskmate/recipe/domain/devtools';
-import { registerDevTools } from '@whiskmate/testing';
+import { registerDevTools } from '@whiskmate/shared/testing';
 
 /* ... */
 
@@ -102,12 +110,14 @@ Install the `chrome-devtools-cli` skill so the agent knows how to drive the CLI:
 npx skills add ChromeDevTools/chrome-devtools-mcp --skill chrome-devtools-cli
 ```
 
+When prompted, pick your agent and the **project** scope. Check that `.claude/skills/chrome-devtools-cli/SKILL.md` now exists. If the install fails, `pnpm cook solution` ships the skill already installed.
+
 Start a fresh agent session and ask again, this time with the runtime first:
 
 ```text
 Suggest a grounded fix for the failing test. Do not fix.
 ## Debugging rules
-- Monitor background command: `VITEST_DEBUG=1 nx test -- <test-file-pattern> -t <test-name-pattern> --no-file-parallelism --watch`
+- Monitor background command: `VITEST_DEBUG=1 pnpm nx test -- <test-file-pattern> -t <test-name-pattern> --no-file-parallelism --watch`
 - Retrieve system under test runtime context using chrome devtools:
   - Start chrome-devtools: `pnpm chrome-devtools stop && pnpm chrome-devtools start -u http://127.0.0.1:9200 --categoryExperimentalThirdParty --no-usage-statistics`
   - Call `pnpm chrome-devtools list_3p_developer_tools 1`

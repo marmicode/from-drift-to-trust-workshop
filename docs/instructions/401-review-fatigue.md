@@ -26,6 +26,8 @@ A contradiction is two statements in your packet that cannot both be true, for e
 
 #### 1. Read only the packet you are assigned.
 
+The facilitator splits the room into two groups. Working alone? Do Group A now, and Group B another day.
+
 - Group A - Design doc: `design-docs/001-weekly-meal-plan.md`
 - Group B - Spec Kit folder: `specs/001-weekly-meal-plan/`
 
@@ -42,4 +44,15 @@ Ten minutes. Both groups stop together.
 
 #### 3. Note the contradictions you found.
 
-Write them down.
+Write them down, on paper or in a file outside the repository. For each one, name the two statements and the sections they come from.
+
+#### 4. Compare.
+
+Share your count with the room, then compare Group A with Group B: which packet was easier to review, and why?
+
+<details>
+<summary>Answer key</summary>
+
+`pnpm cook solution` adds `contradictions.md` at the workspace root. It lists the contradictions planted in both packets.
+
+</details>

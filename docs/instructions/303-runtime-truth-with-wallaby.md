@@ -40,7 +40,9 @@ Install the `wallaby-cli` skill so the agent knows how to drive Wallaby:
 npx skills add wallabyjs/skills --skill wallaby-cli
 ```
 
-The Wallaby CLI is already a devDependency (`@wallabyjs/cli`), so the skill runs it with `pnpm exec wallaby-skill`. Nothing else to install.
+When prompted, pick your agent and the **project** scope. Check that `.claude/skills/wallaby-cli/SKILL.md` now exists. If the install fails, `pnpm cook solution` ships the skill already installed.
+
+The Wallaby CLI is already a devDependency (`@wallabyjs/cli`), so the skill runs it with `pnpm exec wallaby-skill`. Nothing else to install. Run it from the repository root, so that every command talks to the same Wallaby instance.
 
 #### 3. Ask the agent.
 
@@ -53,7 +55,9 @@ Inspect whole objects, not just their `.id`.
 ```
 
 :::tip
-`inspect` only captures an expression that is written at the line you point it at. To see a value, pick a line where the code already mentions it.
+`inspect` only captures an expression that is written at the line you point it at. To see a value, pick a line where the code already mentions it, ideally where the variable stands on its own (a function signature) rather than inside a callback.
+
+Pass the test with `--test "RecipeSearch / adds the recipe to the meal plan"` to skip values from other tests. If a value is reported as not found, inspect the same location once more before moving on.
 :::
 
 Write down its hypothesis, how many files it opened, how many test runs and `inspect` calls it made, and whether it added a `console.log`.
