@@ -30,16 +30,16 @@ The contract is a smoke test: it only reads the catalog that is already in place
 
 #### 1. Write the contract.
 
-`recipe-repository.contract.ts` lists the cases as `it.todo`:
+`apps/whiskmate/src/app/recipe/infra/recipe-repository.contract.ts` lists the cases as `it.todo`:
 
 - returns an empty list when no keywords match
 - filters by keywords, ignoring case (search `SHAK` and expect Shakshuka)
 
 Each case calls `createRecipeRepository()` to get a `RecipeRepositoryDef` back.
 
-`recipe-repository.wide.spec.ts` already runs the contract against the real `RecipeRepository`. The server has Shakshuka and Hummus with Ful amongst others, and the API is treated as read-only.
+`apps/whiskmate/src/app/recipe/infra/recipe-repository.wide.spec.ts` already runs the contract against the real `RecipeRepository`. The server has Shakshuka and Hummus with Ful amongst others, and the API is treated as read-only.
 
-`recipe-repository.fake.spec.ts` must run the same contract against the fake, but it is still a stub. Use the wide spec as a model:
+`apps/whiskmate/src/app/recipe/infra/recipe-repository.fake.spec.ts` must run the same contract against the fake, but it is still a stub. Use the wide spec as a model:
 
 - implement `createRecipeRepositoryFake()`: provide the fake with `provideRecipeRepositoryFake()`, inject `RecipeRepositoryFake`, configure it with two recipes built with `recipeMother`, Shakshuka and Hummus with Ful (a starter), and return it as `recipeRepository`,
 - call `verifyRecipeRepositoryContract(createRecipeRepositoryFake)` inside the `describe`.

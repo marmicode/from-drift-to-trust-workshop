@@ -30,7 +30,7 @@ Write the first Vitest Browser Mode tests of `RecipeSearch`: the recipes show up
 pnpm test
 ```
 
-`recipe-search.browser.spec.ts` has two todos. `mountRecipeSearch()` creates the component and returns `getRecipePreviewHeadings()`. That glove is still a stub.
+`apps/whiskmate/src/app/recipe/feature-search/recipe-search.browser.spec.ts` has two todos. `mountRecipeSearch()` creates the component and returns `getRecipePreviewHeadings()`. That glove is still a stub.
 
 #### 2. Show the recipes.
 

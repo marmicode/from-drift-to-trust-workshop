@@ -30,7 +30,7 @@ Find the same runtime bug twice with an agent: blind, then with eyes on the runn
 pnpm test
 ```
 
-Change `it.fails` to `it` on `adds the recipe to the meal plan` in `recipe-search.browser.spec.ts`, then run that spec again:
+Change `it.fails` to `it` on `adds the recipe to the meal plan` in `apps/whiskmate/src/app/recipe/feature-search/recipe-search.browser.spec.ts`, then run that spec again:
 
 ```sh
 pnpm nx test -- recipe-search --browser.headless
@@ -48,9 +48,9 @@ Write down its hypothesis, how many files it opened, how many times it ran the t
 
 #### 3. Expose runtime truth.
 
-Chrome DevTools can call tools that the page itself exposes. `src/testing/devtools.ts` already answers DevTools' `devtoolstooldiscovery` event, and `recipe/domain/meal-planner.devtools.ts` already defines two tools: `MealPlanner.getRecipes` and `MealPlanner.explainCatalog`.
+Chrome DevTools can call tools that the page itself exposes. `apps/whiskmate/src/testing/devtools.ts` already answers DevTools' `devtoolstooldiscovery` event, and `apps/whiskmate/src/app/recipe/domain/meal-planner.devtools.ts` already defines two tools: `MealPlanner.getRecipes` and `MealPlanner.explainCatalog`.
 
-Register them in `src/test-setup.ts`:
+Register them in `apps/whiskmate/src/test-setup.ts`:
 
 ```ts
 import { mealPlannerDevTools } from '@whiskmate/recipe/domain/devtools';
@@ -61,7 +61,7 @@ import { registerDevTools } from '@whiskmate/testing';
 registerDevTools([mealPlannerDevTools]);
 ```
 
-Then write your own tool. Fill in the TODO in `recipe/domain/device-signature.devtools.ts`: a `DeviceProfile.getCurrentHash` tool that returns `currentDeviceHash()`. Take `meal-planner.devtools.ts` as a model, then register `deviceSignatureDevTools` next to `mealPlannerDevTools`.
+Then write your own tool. Fill in the TODO in `apps/whiskmate/src/app/recipe/domain/device-signature.devtools.ts`: a `DeviceProfile.getCurrentHash` tool that returns `currentDeviceHash()`. Take `meal-planner.devtools.ts` as a model, then register `deviceSignatureDevTools` next to `mealPlannerDevTools`.
 
 :::tip
 The tools call `TestBed.inject()`, and they keep working after the run: `teardown: { destroyAfterEach: false }` keeps the last test's injector alive, and `registerDevTools()` listens on `window.parent`, the Vitest page that hosts the test iframe.
@@ -75,7 +75,7 @@ Run the spec in watch mode with `VITEST_DEBUG` set. That is what opens the DevTo
 VITEST_DEBUG=1 pnpm nx test -- recipe-search --watch
 ```
 
-Chromium now listens for DevTools connections on port 9200. Open `vitest.config.mts` and find how `VITEST_DEBUG` turns that on. Add `--browser.headless=false` if you want to see the browser.
+Chromium now listens for DevTools connections on port 9200. Open `apps/whiskmate/vitest.config.mts` and find how `VITEST_DEBUG` turns that on. Add `--browser.headless=false` if you want to see the browser.
 
 In another terminal, start the CLI against the test browser and call your tools:
 

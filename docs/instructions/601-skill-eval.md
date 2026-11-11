@@ -41,6 +41,8 @@ Without `ANTHROPIC_API_KEY`, the eval falls back to your Claude Code login witho
 
 #### 2. Read the suite.
 
+The files are in `evals/angular-mermaid/`.
+
 - `promptfooconfig.ts`: the grader (Haiku), the cache, the `beforeAll` hook, and `_sharedOptions()`, the Claude Code options every provider shares. The agent only has read-only tools: it replies with the diagram, so its answer can be cached and graded as text.
 - `hooks.ts`: before the run, copies the app's sources into two workspaces outside the repository, and the skill into the `with-skill` one only. It exports their paths: `WITH_SKILL_DIR` and `BASELINE_DIR`.
 - `assertions.ts`: `diagramAssertions()` checks what every diagram needs. `mermaidContains()`, `mermaidOmits()`, `component()` and `service()` test the first ` ```mermaid ` block only, not the prose around it.

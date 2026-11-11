@@ -27,7 +27,7 @@ Replace the real `RecipeRepository` with an in-memory `RecipeRepositoryFake`.
 
 #### 1. Implement `RecipeRepositoryFake`.
 
-Edit `recipe/infra/recipe-repository.fake.ts`. It already exists.
+Edit `apps/whiskmate/src/app/recipe/infra/recipe-repository.fake.ts`. It already exists.
 
 - Make `RecipeRepositoryFake` implement `RecipeRepositoryDef`, the same interface as `RecipeRepository`
 - Implement `search` like the recipe API does: keep the recipes whose name contains the keywords, ignoring case. Empty keywords match every recipe. Each other criterion only applies when it is set: at most `maxIngredientCount` ingredients, at most `maxStepCount` steps, and a course in `courses`.
@@ -35,7 +35,7 @@ Edit `recipe/infra/recipe-repository.fake.ts`. It already exists.
 
 #### 2. Create a provider utility for the fake.
 
-Add it to `recipe/infra/recipe-repository.fake.ts`, next to the fake:
+Add it to `apps/whiskmate/src/app/recipe/infra/recipe-repository.fake.ts`, next to the fake:
 
 ```ts
 export function provideRecipeRepositoryFake(): EnvironmentProviders {
@@ -43,11 +43,11 @@ export function provideRecipeRepositoryFake(): EnvironmentProviders {
 }
 ```
 
-Export `provideRecipeRepositoryFake` from `recipe/infra/index.ts`, next to `RecipeRepositoryFake`.
+Export `provideRecipeRepositoryFake` from `apps/whiskmate/src/app/recipe/infra/index.ts`, next to `RecipeRepositoryFake`.
 
 #### 3. Filter recipes with the fake.
 
-`recipe/feature-search/recipe-search.browser.spec.ts` already mounts `RecipeSearch`. `mountRecipeSearch()` creates the component and returns `getRecipePreviewHeadings()`. That glove returns the locator for the recipe preview headings.
+`apps/whiskmate/src/app/recipe/feature-search/recipe-search.browser.spec.ts` already mounts `RecipeSearch`. `mountRecipeSearch()` creates the component and returns `getRecipePreviewHeadings()`. That glove returns the locator for the recipe preview headings.
 
 Provide the fake with `provideRecipeRepositoryFake()`, before calling `mountRecipeSearch()`:
 

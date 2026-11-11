@@ -30,7 +30,7 @@ Find the same runtime bug with an agent that reads runtime values from the tests
 pnpm test
 ```
 
-Change `it.fails` to `it` on `adds the recipe to the meal plan` in `recipe-search.browser.spec.ts`. The test times out on the Shakshuka card.
+Change `it.fails` to `it` on `adds the recipe to the meal plan` in `apps/whiskmate/src/app/recipe/feature-search/recipe-search.browser.spec.ts`. The test times out on the Shakshuka card.
 
 #### 2. Install the skill.
 
@@ -72,7 +72,7 @@ Two different recipes end up with the same id, so the meal plan thinks Shakshuka
 #### 5. Debrief.
 
 - Wallaby needed no tool of your own, while CDP needed `DeviceProfile.getCurrentHash`. What did each one see that the other could not?
-- Did `inspect` get past the console output that `vitest.config.mts` swallows?
+- Did `inspect` get past the console output that `apps/whiskmate/vitest.config.mts` swallows?
 - When would you reach for CDP rather than Wallaby, and the other way around?
 
 :::tip
