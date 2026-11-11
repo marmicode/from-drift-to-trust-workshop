@@ -4,7 +4,7 @@ import {
   createRecipeSearchParams,
   RecipeRepositoryFake,
 } from '@whiskmate/recipe/infra';
-import { defineDevTools } from '@whiskmate/testing';
+import { defineDevTools } from '@whiskmate/shared/testing';
 import { MealPlanner } from './meal-planner';
 
 export const mealPlannerDevTools = defineDevTools({

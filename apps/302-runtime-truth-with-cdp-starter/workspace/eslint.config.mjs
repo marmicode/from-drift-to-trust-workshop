@@ -16,6 +16,7 @@ export default [
     ignores: [
       '**/*.spec.ts',
       '**/*.contract.ts',
+      '**/*devtools.ts',
       '**/test-setup.ts',
       '**/vite.config.ts',
       '**/workspace/**/*.ts',
@@ -31,7 +32,8 @@ export default [
     },
   },
   {
-    files: ['**/*.spec.ts', '**/*.contract.ts'],
+    /* Dev tools only run in tests: test-setup.ts registers them. */
+    files: ['**/*.spec.ts', '**/*.contract.ts', '**/*devtools.ts'],
     rules: {
       '@nx/enforce-module-boundaries': [
         'error',

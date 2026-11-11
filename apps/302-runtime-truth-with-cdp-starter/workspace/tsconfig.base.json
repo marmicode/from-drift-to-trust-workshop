@@ -44,7 +44,9 @@
         "./apps/whiskmate/src/app/shared-recipe/testing/index.ts"
       ],
       "@whiskmate/shared/ui": ["./apps/whiskmate/src/app/shared/ui/index.ts"],
-      "@whiskmate/testing": ["./apps/whiskmate/src/testing/index.ts"]
+      "@whiskmate/shared/testing": [
+        "./apps/whiskmate/src/app/shared/testing/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

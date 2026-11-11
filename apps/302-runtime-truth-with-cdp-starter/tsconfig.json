@@ -23,7 +23,7 @@
         "./src/app/shared-recipe/testing/index.ts"
       ],
       "@whiskmate/shared/ui": ["./src/app/shared/ui/index.ts"],
-      "@whiskmate/testing": ["./src/testing/index.ts"]
+      "@whiskmate/shared/testing": ["./src/app/shared/testing/index.ts"]
     },
     "strict": true,
     "noImplicitOverride": true,

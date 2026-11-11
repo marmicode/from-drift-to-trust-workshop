@@ -93,7 +93,12 @@ export const depConstraints: Array<{
       type('model'),
       type('util'),
     ],
-    allowedExternalImports: ['@angular/core', 'rxjs', 'rxjs/*'],
+    allowedExternalImports: [
+      '@angular/core',
+      '@angular/core/rxjs-interop',
+      'rxjs',
+      'rxjs/*',
+    ],
   },
   {
     sourceTag: type('infra'),

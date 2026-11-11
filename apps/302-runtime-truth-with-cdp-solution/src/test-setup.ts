@@ -5,7 +5,7 @@ import {
   deviceSignatureDevTools,
   mealPlannerDevTools,
 } from '@whiskmate/recipe/domain/devtools';
-import { registerDevTools } from '@whiskmate/testing';
+import { registerDevTools } from '@whiskmate/shared/testing';
 
 setupTestBed({
   /* Keeps the last test's injector alive for the dev tools. */

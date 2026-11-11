@@ -1,4 +1,4 @@
-import { defineDevTools } from '@whiskmate/testing';
+import { defineDevTools } from '@whiskmate/shared/testing';
 import { currentDeviceHash } from './device-signature';
 
 export const deviceSignatureDevTools = defineDevTools({
