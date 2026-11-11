@@ -29,10 +29,10 @@ await runHook({
         hookSpecificOutput: {
           hookEventName: 'PostToolUse',
           additionalContext: `ESLint reported issues in the file you just edited (${toolInput.file_path}).
-  Fix the issues that are related to the changes you made even if it's not caused by the changes you made.
-  Boy scout rule: leave the code better than you found it.
-          
-          ${lintErr}`,
+Fix the issues that are related to the changes you made even if it's not caused by the changes you made.
+Boy scout rule: leave the code better than you found it.
+
+${lintErr}`,
         },
       },
     };

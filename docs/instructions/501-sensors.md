@@ -20,6 +20,8 @@ Same code as the [404](./404-charted-autopilot.md) solution, plus a `ClockAdapte
 
 `.claude/settings.json` wires no hooks, and the two hooks in `.claude/hooks/` are work in progress.
 
+Run `pnpm test` once after cooking: `pnpm cook start` resets the Nx cache, and the first ESLint run would otherwise start with a "No cached ProjectGraph" warning.
+
 ## 🎯 Goal
 
 Give the agent two sensors so it catches its own mistakes before it hands control back to you:
@@ -41,8 +43,10 @@ prompt user with "are you still hungry?" if current date is december 25th
 Make sure the generated code uses `Date` instead of `ClockAdapter`, then revert the change:
 
 ```sh
-git checkout .
+git checkout apps/whiskmate
 ```
+
+From step 2 on, `.claude/` holds your uncommitted hooks, so only revert `apps/whiskmate`.
 
 #### 2. Implement the hook.
 
@@ -53,19 +57,29 @@ git checkout .
 - Use `zx` to run ESLint on the file:
 
 ```ts
-$`pnpm eslint --flag v10_config_lookup_from_file ${toolInput.file_path}`.nothrow();
+const result =
+  await $`pnpm eslint --flag v10_config_lookup_from_file ${toolInput.file_path}`.nothrow();
 ```
 
 - If ESLint exits with code 0, everything is fine. Return nothing.
 
-- Otherwise, return an output with `hookSpecificOutput` containing `additionalContext`. The agent receives it as a prompt:
+- Otherwise, return an output with `hookSpecificOutput` containing `additionalContext`. The agent receives it as a prompt. ESLint prints some errors on stderr and the issues on stdout, so keep both:
 
-```text
-ESLint reported issues in the file you just edited (${toolInput.file_path}).
+```ts
+const lintErr = `${result.stderr}${result.stdout}`.trim();
+
+return {
+  output: {
+    hookSpecificOutput: {
+      hookEventName: 'PostToolUse',
+      additionalContext: `ESLint reported issues in the file you just edited (${toolInput.file_path}).
 Fix the issues that are related to the changes you made even if it's not caused by the changes you made.
 Boy scout rule: leave the code better than you found it.
 
-${lintErr}
+${lintErr}`,
+    },
+  },
+};
 ```
 
 #### 3. Wire the hook.
@@ -129,9 +143,11 @@ const result =
 
 - If Vitest exits with code 0, return nothing.
 
-- Otherwise, block the stop and give the failures as the reason. _(See [Stop hook](https://code.claude.com/docs/en/hooks))_
+- Otherwise, block the stop and give the failures as the reason. Vitest prints the failure details on stdout, so keep both streams. _(See [Stop hook](https://code.claude.com/docs/en/hooks))_
 
 ```ts
+const testErr = `${result.stderr}${result.stdout}`.trim();
+
 return {
   output: {
     decision: 'block',
