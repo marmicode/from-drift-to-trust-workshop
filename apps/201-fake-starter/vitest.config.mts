@@ -4,6 +4,7 @@ import { defineConfig, mergeConfig } from 'vitest/config';
 import viteConfig from './vite.config';
 
 const projectName = basename(import.meta.dirname);
+const isCI = !!process.env['CI'];
 
 /**
  * - `*.browser.spec.ts` runs in a real browser.
@@ -17,7 +18,7 @@ export default mergeConfig(
     test: {
       isolate: false,
       globals: true,
-      testTimeout: 500,
+      testTimeout: isCI ? 1000 : 500,
       setupFiles: ['src/test-setup.ts'],
       reporters: ['default'],
       coverage: {
@@ -35,7 +36,7 @@ export default mergeConfig(
               enabled: true,
               screenshotFailures: false,
               headless: true,
-              provider: playwright({ actionTimeout: 300 }),
+              provider: playwright({ actionTimeout: isCI ? 600 : 300 }),
               instances: [
                 { browser: 'chromium', viewport: { width: 1280, height: 800 } },
               ],
