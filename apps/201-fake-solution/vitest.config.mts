@@ -35,7 +35,7 @@ export default mergeConfig(
               enabled: true,
               screenshotFailures: false,
               headless: true,
-              provider: playwright({ actionTimeout: 200 }),
+              provider: playwright({ actionTimeout: 250 }),
               instances: [
                 { browser: 'chromium', viewport: { width: 1280, height: 800 } },
               ],

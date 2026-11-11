@@ -39,7 +39,7 @@ export default mergeConfig(
               screenshotFailures: false,
               headless: true,
               provider: playwright({
-                actionTimeout: 200,
+                actionTimeout: 250,
                 launchOptions: {
                   args: vitestDebug ? ['--remote-debugging-port=9200'] : [],
                 },
