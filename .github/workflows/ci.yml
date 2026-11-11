@@ -41,7 +41,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
 
       - name: Playwright browsers install
-        run: pnpm playwright install --with-deps --only-shell chromium
+        run: pnpm playwright install --only-shell chromium
 
       # Browser tests use tight Playwright timeouts, so run tasks one at a time
       # to keep concurrent Chromium instances from starving each other.
