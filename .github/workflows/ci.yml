@@ -40,9 +40,6 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
-      - name: Playwright browsers install
-        run: pnpm playwright install --only-shell chromium
-
       - run: pnpm exec nx run-many -t build,lint,test,typecheck
 
   deploy-gh-pages:
