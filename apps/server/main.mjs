@@ -31,8 +31,8 @@ const server = createServer(async (req, res) => {
       }
     } else if (id === 'search') {
       switch (req.method) {
-        case 'POST':
-          return send(res, 200, searchRecipes(await readBody(req)));
+        case 'GET':
+          return send(res, 200, searchRecipes(url.searchParams));
       }
     } else {
       const recipeId = decodeURIComponent(id);
@@ -56,17 +56,19 @@ server.listen(PORT, () => {
 });
 
 /**
+ * Criteria come as query params and only apply when they are set.
  * `offset` skips the first matching recipes and `limit` caps how many are
  * returned. Without them, every matching recipe is returned.
  */
-function searchRecipes({
-  keywords,
-  maxIngredientCount,
-  maxStepCount,
-  courses,
-  offset = 0,
-  limit = null,
-} = {}) {
+function searchRecipes(searchParams) {
+  const keywords = searchParams.get('keywords');
+  const maxIngredientCount = getNumber(searchParams, 'maxIngredientCount');
+  const maxStepCount = getNumber(searchParams, 'maxStepCount');
+  const courses = searchParams.has('courses')
+    ? searchParams.getAll('courses')
+    : null;
+  const offset = getNumber(searchParams, 'offset') ?? 0;
+  const limit = getNumber(searchParams, 'limit');
   const lowerCaseKeywords = keywords?.toLowerCase();
 
   const matchingRecipes = recipes.filter(
@@ -83,6 +85,18 @@ function searchRecipes({
     offset,
     limit == null ? undefined : offset + limit,
   );
+}
+
+function getNumber(searchParams, name) {
+  const value = searchParams.get(name);
+  if (value == null || value === '') {
+    return null;
+  }
+  const number = Number(value);
+  if (!Number.isInteger(number) || number < 0) {
+    throw new Error(`${name} must be a non-negative integer`);
+  }
+  return number;
 }
 
 function findRecipe(res, id) {

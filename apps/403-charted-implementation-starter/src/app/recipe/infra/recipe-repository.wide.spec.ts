@@ -1,10 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import type { Recipe } from '@whiskmate/shared-recipe/model';
 import { describe } from 'vitest';
-import {
-  createRecipeSearchParams,
-  RecipeRepository,
-} from './recipe-repository';
+import { RecipeRepository } from './recipe-repository';
 import { verifyRecipeRepositoryContract } from './recipe-repository.contract';
 
 const RECIPES_URL = 'http://localhost:3333/api/recipes';
@@ -23,10 +20,8 @@ async function createRecipeRepository({ recipes }: { recipes: Recipe[] }) {
  * before the given recipes are added.
  */
 async function resetCatalog(recipes: Recipe[]): Promise<void> {
-  const existingRecipes = await requestJson<Recipe[]>(`${RECIPES_URL}/search`, {
-    method: 'POST',
-    body: createRecipeSearchParams(),
-  });
+  const response = await fetch(`${RECIPES_URL}/search`);
+  const existingRecipes: Recipe[] = await response.json();
   for (const recipe of existingRecipes) {
     await fetch(`${RECIPES_URL}/${encodeURIComponent(recipe.id)}`, {
       method: 'DELETE',

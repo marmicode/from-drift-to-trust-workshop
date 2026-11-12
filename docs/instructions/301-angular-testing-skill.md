@@ -40,7 +40,7 @@ npx skills add marmicode/skills --skill angular-testing
 
 ```text
 Cover `RecipeSearch` with browser-mode tests: the recipes show up, and typing keywords filters them.
-Then move the recipe catalog to the backend: `RecipeRepository` must call the recipe API in `apps/server` (POST http://localhost:3333/api/recipes/search).
+Then move the recipe catalog to the backend: `RecipeRepository` must call the recipe API in `apps/server` (GET http://localhost:3333/api/recipes/search?keywords=shak&maxIngredientCount=5).
 The tests must keep passing without hitting the network.
 ```
 

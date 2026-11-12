@@ -4,7 +4,7 @@ import type { Observable } from 'rxjs';
 import type { Course, Recipe } from '@whiskmate/shared-recipe/model';
 
 /**
- * Body sent to the backend's recipe search endpoint.
+ * Query params sent to the backend's recipe search endpoint.
  */
 export interface RecipeSearchParams {
   keywords: string;
@@ -41,6 +41,23 @@ export class RecipeRepository implements RecipeRepositoryDef {
   private _http = inject(HttpClient);
 
   search(params: RecipeSearchParams): Observable<Recipe[]> {
-    return this._http.post<Recipe[]>(`${RECIPES_URL}/search`, params);
+    return this._http.get<Recipe[]>(`${RECIPES_URL}/search`, {
+      params: toQueryParams(params),
+    });
   }
+}
+
+/**
+ * Leaves out the unset params so the query string only holds flat values.
+ * An empty list is kept as an empty value: it still filters, and matches nothing.
+ */
+function toQueryParams(params: RecipeSearchParams) {
+  return Object.fromEntries(
+    Object.entries(params)
+      .filter(([, value]) => value != null)
+      .map(([key, value]) => [
+        key,
+        Array.isArray(value) && value.length === 0 ? '' : value,
+      ]),
+  );
 }

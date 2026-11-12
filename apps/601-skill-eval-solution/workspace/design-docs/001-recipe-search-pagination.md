@@ -10,7 +10,7 @@
 - No page size picker. Four recipes per page.
 - No page in the URL. Reloading goes back to the first page.
 - No infinite scroll or "Load more".
-- No API changes. The recipe API already takes `offset` and `limit` in the search body.
+- No API changes. The recipe API already takes `offset` and `limit` as search query params.
 
 # Desired Behavior
 
