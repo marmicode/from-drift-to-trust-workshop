@@ -19,9 +19,13 @@ describe(App, () => {
   it('searches all recipes', async () => {
     mountApp();
 
+    await expect.element(getRecipeHeadings()).toHaveLength(2);
     await expect
-      .poll(recipeNames)
-      .toEqual(['Shakshuka', 'Lemon and Ricotta Cheesecake']);
+      .element(getRecipeHeadings().nth(0))
+      .toHaveTextContent('Shakshuka');
+    await expect
+      .element(getRecipeHeadings().nth(1))
+      .toHaveTextContent('Lemon and Ricotta Cheesecake');
   });
 });
 
@@ -36,9 +40,6 @@ function mountApp() {
   TestBed.createComponent(App);
 }
 
-function recipeNames() {
-  return page
-    .getByRole('heading')
-    .elements()
-    .map((element) => element.textContent?.trim() ?? '');
+function getRecipeHeadings() {
+  return page.getByRole('heading');
 }

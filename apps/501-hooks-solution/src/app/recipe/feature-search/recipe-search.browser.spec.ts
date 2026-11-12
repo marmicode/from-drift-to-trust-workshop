@@ -28,21 +28,28 @@ describe(RecipeSearch, () => {
   it('searches all recipes on load', async () => {
     mountRecipeSearch();
 
+    await expect.element(getRecipeHeadings()).toHaveLength(3);
     await expect
-      .poll(recipeNames)
-      .toEqual([
-        'Hummus with Ful',
-        'Shakshuka',
-        'Lemon and Ricotta Cheesecake',
-      ]);
+      .element(getRecipeHeadings().nth(0))
+      .toHaveTextContent('Hummus with Ful');
+    await expect
+      .element(getRecipeHeadings().nth(1))
+      .toHaveTextContent('Shakshuka');
+    await expect
+      .element(getRecipeHeadings().nth(2))
+      .toHaveTextContent('Lemon and Ricotta Cheesecake');
   });
 
   it('renders the recipes returned by the repository', async () => {
     mountRecipeSearch({ recipes: [shakshuka, cheesecake] });
 
+    await expect.element(getRecipeHeadings()).toHaveLength(2);
     await expect
-      .poll(recipeNames)
-      .toEqual(['Shakshuka', 'Lemon and Ricotta Cheesecake']);
+      .element(getRecipeHeadings().nth(0))
+      .toHaveTextContent('Shakshuka');
+    await expect
+      .element(getRecipeHeadings().nth(1))
+      .toHaveTextContent('Lemon and Ricotta Cheesecake');
   });
 
   it('shows "no recipes" when the repository returns nothing', async () => {
@@ -76,7 +83,10 @@ describe(RecipeSearch, () => {
 
     await page.getByLabelText('Keywords').fill('shak');
 
-    await expect.poll(recipeNames).toEqual(['Shakshuka']);
+    await expect.element(getRecipeHeadings()).toHaveLength(1);
+    await expect
+      .element(getRecipeHeadings().nth(0))
+      .toHaveTextContent('Shakshuka');
   });
 
   it('searches by max ingredients', async () => {
@@ -84,7 +94,13 @@ describe(RecipeSearch, () => {
 
     await page.getByLabelText('Max Ingredients').fill('5');
 
-    await expect.poll(recipeNames).toEqual(['Hummus with Ful', 'Shakshuka']);
+    await expect.element(getRecipeHeadings()).toHaveLength(2);
+    await expect
+      .element(getRecipeHeadings().nth(0))
+      .toHaveTextContent('Hummus with Ful');
+    await expect
+      .element(getRecipeHeadings().nth(1))
+      .toHaveTextContent('Shakshuka');
   });
 
   it('searches by max steps', async () => {
@@ -92,9 +108,13 @@ describe(RecipeSearch, () => {
 
     await page.getByLabelText('Max Steps').fill('5');
 
+    await expect.element(getRecipeHeadings()).toHaveLength(2);
     await expect
-      .poll(recipeNames)
-      .toEqual(['Hummus with Ful', 'Lemon and Ricotta Cheesecake']);
+      .element(getRecipeHeadings().nth(0))
+      .toHaveTextContent('Hummus with Ful');
+    await expect
+      .element(getRecipeHeadings().nth(1))
+      .toHaveTextContent('Lemon and Ricotta Cheesecake');
   });
 
   it('searches by course', async () => {
@@ -102,7 +122,10 @@ describe(RecipeSearch, () => {
 
     await page.getByRole('button', { name: 'dessert' }).click();
 
-    await expect.poll(recipeNames).toEqual(['Lemon and Ricotta Cheesecake']);
+    await expect.element(getRecipeHeadings()).toHaveLength(1);
+    await expect
+      .element(getRecipeHeadings().nth(0))
+      .toHaveTextContent('Lemon and Ricotta Cheesecake');
   });
 
   it('searches by multiple courses', async () => {
@@ -111,9 +134,13 @@ describe(RecipeSearch, () => {
     await page.getByRole('button', { name: 'starter' }).click();
     await page.getByRole('button', { name: 'dessert' }).click();
 
+    await expect.element(getRecipeHeadings()).toHaveLength(2);
     await expect
-      .poll(recipeNames)
-      .toEqual(['Hummus with Ful', 'Lemon and Ricotta Cheesecake']);
+      .element(getRecipeHeadings().nth(0))
+      .toHaveTextContent('Hummus with Ful');
+    await expect
+      .element(getRecipeHeadings().nth(1))
+      .toHaveTextContent('Lemon and Ricotta Cheesecake');
   });
 
   it('shows all recipes again once every course is unselected', async () => {
@@ -122,13 +149,16 @@ describe(RecipeSearch, () => {
     await page.getByRole('button', { name: 'main' }).click();
     await page.getByRole('button', { name: 'main' }).click();
 
+    await expect.element(getRecipeHeadings()).toHaveLength(3);
     await expect
-      .poll(recipeNames)
-      .toEqual([
-        'Hummus with Ful',
-        'Shakshuka',
-        'Lemon and Ricotta Cheesecake',
-      ]);
+      .element(getRecipeHeadings().nth(0))
+      .toHaveTextContent('Hummus with Ful');
+    await expect
+      .element(getRecipeHeadings().nth(1))
+      .toHaveTextContent('Shakshuka');
+    await expect
+      .element(getRecipeHeadings().nth(2))
+      .toHaveTextContent('Lemon and Ricotta Cheesecake');
   });
 
   it('combines keywords and course', async () => {
@@ -136,13 +166,20 @@ describe(RecipeSearch, () => {
 
     await page.getByLabelText('Keywords').fill('a');
 
+    await expect.element(getRecipeHeadings()).toHaveLength(2);
     await expect
-      .poll(recipeNames)
-      .toEqual(['Shakshuka', 'Lemon and Ricotta Cheesecake']);
+      .element(getRecipeHeadings().nth(0))
+      .toHaveTextContent('Shakshuka');
+    await expect
+      .element(getRecipeHeadings().nth(1))
+      .toHaveTextContent('Lemon and Ricotta Cheesecake');
 
     await page.getByRole('button', { name: 'dessert' }).click();
 
-    await expect.poll(recipeNames).toEqual(['Lemon and Ricotta Cheesecake']);
+    await expect.element(getRecipeHeadings()).toHaveLength(1);
+    await expect
+      .element(getRecipeHeadings().nth(0))
+      .toHaveTextContent('Lemon and Ricotta Cheesecake');
   });
 
   it('combines max ingredients and max steps', async () => {
@@ -151,7 +188,10 @@ describe(RecipeSearch, () => {
     await page.getByLabelText('Max Ingredients').fill('5');
     await page.getByLabelText('Max Steps').fill('5');
 
-    await expect.poll(recipeNames).toEqual(['Hummus with Ful']);
+    await expect.element(getRecipeHeadings()).toHaveLength(1);
+    await expect
+      .element(getRecipeHeadings().nth(0))
+      .toHaveTextContent('Hummus with Ful');
   });
 
   it('searches all recipes again once keywords are cleared', async () => {
@@ -160,13 +200,16 @@ describe(RecipeSearch, () => {
     await page.getByLabelText('Keywords').fill('shak');
     await page.getByLabelText('Keywords').fill('');
 
+    await expect.element(getRecipeHeadings()).toHaveLength(3);
     await expect
-      .poll(recipeNames)
-      .toEqual([
-        'Hummus with Ful',
-        'Shakshuka',
-        'Lemon and Ricotta Cheesecake',
-      ]);
+      .element(getRecipeHeadings().nth(0))
+      .toHaveTextContent('Hummus with Ful');
+    await expect
+      .element(getRecipeHeadings().nth(1))
+      .toHaveTextContent('Shakshuka');
+    await expect
+      .element(getRecipeHeadings().nth(2))
+      .toHaveTextContent('Lemon and Ricotta Cheesecake');
   });
 
   it('keeps the keywords once the course is unselected', async () => {
@@ -176,15 +219,31 @@ describe(RecipeSearch, () => {
     await page.getByRole('button', { name: 'dessert' }).click();
     await page.getByRole('button', { name: 'dessert' }).click();
 
+    await expect.element(getRecipeHeadings()).toHaveLength(2);
     await expect
-      .poll(recipeNames)
-      .toEqual(['Shakshuka', 'Lemon and Ricotta Cheesecake']);
+      .element(getRecipeHeadings().nth(0))
+      .toHaveTextContent('Shakshuka');
+    await expect
+      .element(getRecipeHeadings().nth(1))
+      .toHaveTextContent('Lemon and Ricotta Cheesecake');
   });
 
   it('shows the first four recipes', async () => {
     mountRecipeSearch({ recipes: createRecipes(5) });
 
-    await expect.poll(recipeNames).toEqual(FIRST_FOUR_RECIPE_NAMES);
+    await expect.element(getRecipeHeadings()).toHaveLength(4);
+    await expect
+      .element(getRecipeHeadings().nth(0))
+      .toHaveTextContent('Recipe 1');
+    await expect
+      .element(getRecipeHeadings().nth(1))
+      .toHaveTextContent('Recipe 2');
+    await expect
+      .element(getRecipeHeadings().nth(2))
+      .toHaveTextContent('Recipe 3');
+    await expect
+      .element(getRecipeHeadings().nth(3))
+      .toHaveTextContent('Recipe 4');
   });
 
   it('shows the next page', async () => {
@@ -192,7 +251,10 @@ describe(RecipeSearch, () => {
 
     await page.getByRole('button', { name: 'Next' }).click();
 
-    await expect.poll(recipeNames).toEqual(['Recipe 5']);
+    await expect.element(getRecipeHeadings()).toHaveLength(1);
+    await expect
+      .element(getRecipeHeadings().nth(0))
+      .toHaveTextContent('Recipe 5');
     await expect.element(page.getByText('Page 2')).toBeVisible();
   });
 
@@ -202,7 +264,19 @@ describe(RecipeSearch, () => {
     await page.getByRole('button', { name: 'Next' }).click();
     await page.getByRole('button', { name: 'Previous' }).click();
 
-    await expect.poll(recipeNames).toEqual(FIRST_FOUR_RECIPE_NAMES);
+    await expect.element(getRecipeHeadings()).toHaveLength(4);
+    await expect
+      .element(getRecipeHeadings().nth(0))
+      .toHaveTextContent('Recipe 1');
+    await expect
+      .element(getRecipeHeadings().nth(1))
+      .toHaveTextContent('Recipe 2');
+    await expect
+      .element(getRecipeHeadings().nth(2))
+      .toHaveTextContent('Recipe 3');
+    await expect
+      .element(getRecipeHeadings().nth(3))
+      .toHaveTextContent('Recipe 4');
     await expect
       .element(page.getByRole('button', { name: 'Previous' }))
       .toBeDisabled();
@@ -229,11 +303,26 @@ describe(RecipeSearch, () => {
   it('goes back to the first page when the filter changes', async () => {
     mountRecipeSearch({ recipes: createRecipes(5) });
     await page.getByRole('button', { name: 'Next' }).click();
-    await expect.poll(recipeNames).toEqual(['Recipe 5']);
+    await expect.element(getRecipeHeadings()).toHaveLength(1);
+    await expect
+      .element(getRecipeHeadings().nth(0))
+      .toHaveTextContent('Recipe 5');
 
     await page.getByLabelText('Keywords').fill('Recipe');
 
-    await expect.poll(recipeNames).toEqual(FIRST_FOUR_RECIPE_NAMES);
+    await expect.element(getRecipeHeadings()).toHaveLength(4);
+    await expect
+      .element(getRecipeHeadings().nth(0))
+      .toHaveTextContent('Recipe 1');
+    await expect
+      .element(getRecipeHeadings().nth(1))
+      .toHaveTextContent('Recipe 2');
+    await expect
+      .element(getRecipeHeadings().nth(2))
+      .toHaveTextContent('Recipe 3');
+    await expect
+      .element(getRecipeHeadings().nth(3))
+      .toHaveTextContent('Recipe 4');
   });
 
   it('hides the pager when there are no recipes', async () => {
@@ -248,13 +337,6 @@ describe(RecipeSearch, () => {
       .not.toBeInTheDocument();
   });
 });
-
-const FIRST_FOUR_RECIPE_NAMES = [
-  'Recipe 1',
-  'Recipe 2',
-  'Recipe 3',
-  'Recipe 4',
-];
 
 function createRecipes(count: number): Recipe[] {
   return Array.from({ length: count }, (_, index) =>
@@ -274,11 +356,8 @@ function mountRecipeSearch({
   TestBed.createComponent(RecipeSearch);
 }
 
-function recipeNames() {
-  return page
-    .getByRole('heading')
-    .elements()
-    .map((element) => element.textContent?.trim() ?? '');
+function getRecipeHeadings() {
+  return page.getByRole('heading');
 }
 
 function mealPlanRecipeNames() {
