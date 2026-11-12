@@ -34,7 +34,7 @@ Add the resolver under the `resolve` key.
 
 ```ts
 private readonly route = inject(ActivatedRoute);
-protected readonly data = toSignal(this.route.data);
+protected readonly data = toSignal(this.route.data, {requireSync: true});
 protected readonly user = computed(() => this.data().user);
 ```
 
@@ -58,7 +58,9 @@ Navigation is blocked if a resolver fails.
 - Use `catchError` within the resolver to return a `RedirectCommand` or fallback data.
 
 ```ts
-return userService.get(id).pipe(catchError(() => of(new RedirectCommand(router.parseUrl('/error')))));
+return userService
+  .get(id)
+  .pipe(catchError(() => of(new RedirectCommand(router.parseUrl('/error')))));
 ```
 
 ## Best Practices

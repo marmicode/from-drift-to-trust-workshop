@@ -10,15 +10,13 @@ Each report starts with the shared coverage summary:
 
 ```md
 Top 5 files by change risk anti-patterns:
-
 - <source-file-path> (Change Risk Anti-Patterns: <number>, Coverage: <percent>%)
 - ...
 
 Metric guide:
-
 - Coverage: percentage of coverable code ranges covered by tests.
 - Cyclomatic Complexity: sum of per-function cyclomatic complexity values in the file, counting each function once.
-- Change Risk Anti-Patterns: CRAP = C^2 \* (1 - P / 100)^3 + C, rounded to one decimal, where C is Cyclomatic Complexity and P is file Coverage percentage. Higher values indicate riskier files to change.
+- Change Risk Anti-Patterns: CRAP = C^2 * (1 - P / 100)^3 + C, rounded to one decimal, where C is Cyclomatic Complexity and P is file Coverage percentage. Higher values indicate riskier files to change.
 ```
 
 The file then lists covered source files:

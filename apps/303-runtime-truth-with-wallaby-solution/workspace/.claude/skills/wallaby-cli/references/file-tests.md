@@ -30,7 +30,6 @@ A source-file report uses this shape:
 ## Covering Tests
 
 ### <test name>
-
 - status: passed|failed|skipped|todo|disabled
 - loc: <test-file-path>:<line>
 - time: <time>ms
@@ -51,14 +50,12 @@ A test-file report uses this shape:
 - size: <size>
 
 Top 5 tests by execution time:
-
 - <test name> (<time>ms, <test-file-path>:<line>)
 - ...
 
 ## Tests
 
 ### <test name>
-
 - status: passed|failed|skipped|todo|disabled
 - loc: <test-file-path>:<line>
 - time: <time>ms
@@ -66,28 +63,23 @@ Top 5 tests by execution time:
 ```
 <error message or formatted assertion output>
 ```
-
 Stack trace:
-
 - <stack-file-path>:<line>
   `<stack-context-content>`
   `<stack-context-code>`
 
 #### Logs
-
 - loc: <log-file>:<line>
-- context: `<runtime context>`
-
+- context: ``` <runtime context> ```
 ```
 <log message>
 ```
 
 #### Covered Files
-
 - <covered-source-file>
 - ...
 ````
 
 `Tests` lists the tests belonging to the selected test file. The ranking shows up to five tests by execution time and is omitted when the report has no tests or an applied filter matched a test. Test entries include errors, stack traces, logs, and covered files when available.
 
-If either report has no listed tests, its test section says `No tests found.` instead of showing test entries. Test names include their full suite path, joined with `/`; location and time appear when Wallaby has those values.
+If either report has no listed tests, its test section says `No tests found.` instead of showing test entries. Test names include their full suite path, joined with ` / `; location and time appear when Wallaby has those values.

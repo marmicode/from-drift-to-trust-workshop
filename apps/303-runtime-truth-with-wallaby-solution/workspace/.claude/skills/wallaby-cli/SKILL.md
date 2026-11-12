@@ -3,7 +3,7 @@ name: wallaby-cli
 description: Run, verify, and investigate JavaScript, TypeScript, and Python tests through Wallaby's live test state. Use for test execution or status checks, baselines before editing, post-change verification, diagnosing failures or unexpected behavior, analyzing coverage or assertions, tracing execution, inspecting runtime values or logs, assessing file or test impact, and updating snapshots. Also use when the user mentions Wallaby or a conventional test framework or command such as Vitest, Jest, Jasmine, Mocha, ng test, pytest, unittest, or npm test.
 metadata:
   author: Wallaby.js
-  version: '4.0'
+  version: "4.0"
 ---
 
 Wallaby keeps JavaScript, TypeScript, and Python tests live and queryable throughout a coding task. It runs affected tests as files change and keeps current results, coverage, and execution data available, so an agent can inspect what the code did instead of reconstructing it from terminal output.
@@ -96,7 +96,7 @@ Default to omitting `--rerun`. A recent edit, final verification, or timing meas
 
 Use `--snapshots` after confirming that snapshot failures represent intended output changes. Scope the update to the affected tests: pass test file paths to update snapshots only for those files, and add `--test` to update snapshots for one named test. In project mode, a targeted snapshot update leaves the session in project mode and does not update snapshots from other tests. Omit test file paths only when snapshots across the entire project should be updated. If Wallaby is not running yet, the first-run mode rules above still apply.
 
-To target one test with `--test`, pass exactly one test file and the test's exact full name, including its suite path joined with `/`. If the name does not match an executed test in that file, Wallaby falls back to the whole test file. With multiple file paths, `--test` does not narrow the selection.
+To target one test with `--test`, pass exactly one test file and the test's exact full name, including its suite path joined with ` / `. If the name does not match an executed test in that file, Wallaby falls back to the whole test file. With multiple file paths, `--test` does not narrow the selection.
 
 ```sh
 npx wallaby-skill run # starts or reuses project mode and reports project-wide test results
@@ -174,7 +174,7 @@ The command prints a Markdown report and saves the same content as `analyze.md`.
 
 Use `--target test` when you need to investigate one test's result, errors, or logs, verify its coverage across source files, or trace its execution to explain unexpected behavior.
 
-Pass the test-file path and exact full test name, including suite names joined with `/`:
+Pass the test-file path and exact full test name, including suite names joined with ` / `:
 
 ```sh
 npx wallaby-skill analyze --target="test" "{path:'tests/temperature.spec.ts',name:'celsiusToFahrenheit / converts boiling point'}"
@@ -219,7 +219,7 @@ npx wallaby-skill analyze --target="file" "{path:'src/temperature.ts',location:{
 npx wallaby-skill analyze --target="file" "{path:'src/temperature.ts',location:{fragment:'cmV0dXJuIChjZWxzaXVzICogOSkgLyA1ICsgMzI7',expression:'celsius'}}" # analyzes the specified location in the source file by base64-encoded fragment search, using the expression to resolve the line and column in the first fragment match
 ```
 
-To filter the selected file's coverage and related tests to one test, add `--test` with its test-file path and exact full name, including suite names joined with `/`.
+To filter the selected file's coverage and related tests to one test, add `--test` with its test-file path and exact full name, including suite names joined with ` / `.
 
 ```sh
 npx wallaby-skill analyze --target="file" "{path:'src/temperature.ts'}" --test "{path:'tests/temperature.spec.ts',name:'celsiusToFahrenheit / converts boiling point'}" # analyzes the specified source file and filters to the exact test

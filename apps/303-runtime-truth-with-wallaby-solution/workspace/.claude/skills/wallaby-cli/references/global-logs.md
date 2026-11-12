@@ -12,14 +12,12 @@ After the heading, the file contains one numbered section per global log entry:
 ## Log 1
 
 - loc: <file-path>:<line>
-- context: `<runtime context>`
-
+- context: ``` <runtime context> ```
 ```
 <log message>
 ```
 
 ## Log 2
-
 ...
 ````
 

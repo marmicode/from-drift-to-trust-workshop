@@ -9,8 +9,7 @@ import { round } from './math'; /* line: 1; coverage: full */
 /* line: 2 */
 const factor = 9 / 5; /* line: 3; coverage: full */
 /* line: 4 */
-export function celsiusToFahrenheit(celsius: number): number {
-  /* line: 5 */
+export function celsiusToFahrenheit(celsius: number): number { /* line: 5 */
   return celsius <= -273.15 ? NaN : round(celsius * factor + 32); /* line: 6; coverage: partial [36-63: round(celsius * factor + 32)] */
 }
 ```
@@ -26,7 +25,7 @@ Format details:
 - `coverage: none` means no coverable ranges on the line were executed.
 - Partially covered lines can include one or more uncovered column ranges and source expressions in brackets.
 - Each uncovered range uses zero-based inclusive columns and the shape `<start>-<end>: <trimmed source expression>`.
-- Multiple uncovered ranges on the same line are separated with `|`.
+- Multiple uncovered ranges on the same line are separated with ` | `.
 - Non-coverable lines have only the line annotation. Blank lines are emitted as standalone annotation comments.
 - The comment syntax follows the target file type. JavaScript and TypeScript use `/* ... */`; other file types use their own supported comment syntax when available.
 - When `--test` filters file analysis, coverage annotations and metrics are calculated for the selected test only. Uncovered lines that other tests cover can therefore appear as `coverage: none` in the filtered `.wcov` artifact.

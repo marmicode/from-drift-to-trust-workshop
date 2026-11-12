@@ -10,33 +10,26 @@ The run command writes this file when the main report omits additional failing t
 
 ````md
 ## <test-file-path>
-
 ### <test name>
-
 - loc: <test-file-path>:<line>
 - time: <time>ms
 
 ```
 <error message or formatted assertion output>
 ```
-
 Stack trace:
-
 - <stack-file-path>:<line>
   `<stack-context-content>`
   `<stack-context-code>`
 
 #### Logs
-
 - loc: <log-file>:<line>
-- context: `<runtime context>`
-
+- context: ``` <runtime context> ```
 ```
 <log message>
 ```
 
 #### Covered Files
-
 - <covered-source-file>
 - ...
 ````
@@ -44,7 +37,7 @@ Stack trace:
 Format details:
 
 - `## <test-file-path>` starts a group for one test file.
-- `### <test name>` is the full test name. Nested suite names are joined with `/`.
+- `### <test name>` is the full test name. Nested suite names are joined with ` / `.
 - The formatter groups tests in the order it receives them. It does not alphabetize test-file sections or test entries.
 - `- loc:` optional, uses the test file path and, when known, the declaration line number.
 - `- time:` optional, uses the test execution time in milliseconds.

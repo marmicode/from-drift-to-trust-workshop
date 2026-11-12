@@ -15,7 +15,7 @@ ng add @angular/fire
 To update the application and its dependencies (which automatically runs code migrations):
 
 ```bash
-ng update @angular/core@<latest or specific version> @angular/cli<latest or specific version>
+ng update @angular/core@<latest or specific version> @angular/cli@<latest or specific version>
 ```
 
 ## 2. Generating Code (`ng generate` or `ng g`)
@@ -48,7 +48,7 @@ To proxy API requests during development (e.g., rerouting `/api` to a local Node
 1. Create `src/proxy.conf.json`:
    ```json
    {
-     "/api/**": { "target": "http://localhost:3000", "secure": false }
+     "/api/**": {"target": "http://localhost:3000", "secure": false}
    }
    ```
 2. Update `angular.json` under the `serve` target:

@@ -1,47 +1,47 @@
 {
-  "version": 1,
+  "version": 2,
   "skills": {
+    "angular-developer": {
+      "source": "angular/skills",
+      "sourceType": "github",
+      "skillPath": "angular-developer/SKILL.md",
+      "computedHash": "50ac5be541125767b4864c31ecf2947558bf4a897b54cedd1d43e04b857f4e42"
+    },
     "charted-continue": {
       "source": "marmicode/skills",
       "sourceType": "github",
       "skillPath": "skills/charted-continue/SKILL.md",
-      "computedHash": "49562c15b0b5e50fb949d618a3b3edfd1e737dfefcce854113b692e295abd44c"
+      "computedHash": "27f44d728f98fd59c7fd1582544b07836753e6de89b4ea4982177b5ddaf20d60"
     },
     "charted-design": {
       "source": "marmicode/skills",
       "sourceType": "github",
       "skillPath": "skills/charted-design/SKILL.md",
-      "computedHash": "c5087aca1704e8c24ca605b03c95dde746d22fd5214be0f4b394d1e208f8c21f"
+      "computedHash": "7636ffae32d1681b4cd8f3034614f9ae61358c494b2621f8107608610eae664d"
     },
     "charted-green": {
       "source": "marmicode/skills",
       "sourceType": "github",
       "skillPath": "skills/charted-green/SKILL.md",
-      "computedHash": "467f4e710d2d628e078020d4c9b7a6a315311454a746c8904440ad2ef3abed36"
+      "computedHash": "e9bf57b27ffeb7e124499a7e67affe5cc9fa9eff37f4a2666cbc0c89f34cc8f0"
     },
     "charted-red": {
       "source": "marmicode/skills",
       "sourceType": "github",
       "skillPath": "skills/charted-red/SKILL.md",
-      "computedHash": "f5ef2fa86340f34f1d5536c5793bd41de1089d829fa315318efd9d3d9f3a6dc4"
+      "computedHash": "634a23662bbdc75b7c5e0b51519c6ca6f95187f917ac6494a7e0e185e73d3696"
     },
     "charted-review": {
       "source": "marmicode/skills",
       "sourceType": "github",
       "skillPath": "skills/charted-review/SKILL.md",
-      "computedHash": "90104c82db8e3fbfa955a5213792391ce8792b7c5fafd3d665c6b5adc4d974b4"
+      "computedHash": "465a7e198709c2119219c29c23b748cdc75ddbdf54ae471c5c9e33fcb36e4e0a"
     },
     "charted-scaffold": {
       "source": "marmicode/skills",
       "sourceType": "github",
       "skillPath": "skills/charted-scaffold/SKILL.md",
-      "computedHash": "d4aeebda9b1af84ff10d0fcf9ab308918775ff5b12de1e963081d7c1805a8fb0"
-    },
-    "angular-developer": {
-      "source": "angular/skills",
-      "sourceType": "github",
-      "skillPath": "angular-developer/SKILL.md",
-      "computedHash": "0850aa966b6a7da1151daa9d0ef2081bf397f052573a35c1643fb92b948f0f00"
+      "computedHash": "77b5714cb79032abd06b7942d33fe78f7dbb3a4a42fc5c96891f97e21391692f"
     }
   }
 }

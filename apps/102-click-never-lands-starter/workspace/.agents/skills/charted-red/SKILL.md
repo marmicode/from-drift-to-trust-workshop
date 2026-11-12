@@ -21,7 +21,7 @@ Based on the design doc at ${designDocPath} (if present), implement the body of 
 ### Before
 
 ```ts
-it.todo('compute sum', () => {
+it.todo("compute sum", () => {
   // Inject calculator
   // Call calculator.sum(1, 2)
   // Assert that the result is 3
@@ -31,7 +31,7 @@ it.todo('compute sum', () => {
 ### After
 
 ```ts
-it.todo('compute sum', () => {
+it.todo("compute sum", () => {
   const calculator = t.inject(Calculator);
   const result = calculator.sum(1, 2);
   expect(result).toBe(3);

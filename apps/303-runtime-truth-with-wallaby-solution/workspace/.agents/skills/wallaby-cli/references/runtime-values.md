@@ -14,21 +14,16 @@ Wallaby could not capture runtime values for the locations listed below:
 - path: `<source-file-path>`; expression: `<expression>`; location: <location>; reason: <reason>
 
 ## <source-file-path>
-
 - line: <line>
 - expression: `<expression>`
-
 ```
 <formatted runtime value>
 ```
-
 ### Test
-
 - name: <test name>
 - file: <test-file-path>
 
 ## <source-file-path>
-
 ...
 ````
 
@@ -43,7 +38,7 @@ Format details:
 - `- expression:` is the inspected expression.
 - The fenced block contains Wallaby's formatted runtime value. Values can be primitives, arrays, objects, `undefined`, thrown evaluation output, or any other display text Wallaby captures for the expression.
 - `### Test` appears when Wallaby can associate the value with a test.
-- `- name:` is the full test name. Nested suite names are joined with `/`.
+- `- name:` is the full test name. Nested suite names are joined with ` / `.
 - `- file:` is the test file that produced the value.
 - Entries are written in the order Wallaby exports them. The formatter does not group, deduplicate, or sort them.
 

@@ -19,17 +19,14 @@ The opening summary uses this shape:
 # All Tests
 
 Top 5 tests by execution time:
-
 - <test name> (<time>ms, <test-file-path>:<line>)
 - ...
 
 Top 5 files by execution time:
-
 - <test-file-path> (<total-time>ms, <test-count> tests)
 - ...
 
 Top 5 files by test count:
-
 - <test-file-path> (<test-count> tests, <total-time>ms)
 - ...
 ```
@@ -40,24 +37,19 @@ The rest of the file is the full inventory, grouped like this:
 
 ````md
 ## <test-file-path>
-
 ### <test name>
-
 - status: passed|failed|skipped|todo|disabled
 - loc: <test-file-path>:<line>
 - time: <time>ms
 
 #### Logs
-
 - loc: <log-file>:<line>
-- context: `<runtime context>`
-
+- context: ``` <runtime context> ```
 ```
 <log message>
 ```
 
 #### Covered Files
-
 - <covered-source-file>
 - ...
 ````
@@ -65,7 +57,7 @@ The rest of the file is the full inventory, grouped like this:
 Format details:
 
 - `## <test-file-path>` starts a group for one test file.
-- `### <test name>` is the full test name. Nested suite names are joined with `/`.
+- `### <test name>` is the full test name. Nested suite names are joined with ` / `.
 - The formatter groups tests in the order it receives them. It does not alphabetize test-file sections or test entries.
 - `- status:` is always present in `all-tests.md` and is one of `passed`, `failed`, `skipped`, `todo`, or `disabled`.
 - `- loc:` optional, uses the test file path and, when known, the declaration line number.

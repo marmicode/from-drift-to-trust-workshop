@@ -14,15 +14,12 @@ After the heading, the file contains one numbered section per global error:
 ```
 <error message or formatted error output>
 ```
-
 Stack trace:
-
 - <stack-file-path>:<line>
   `<stack-context-content>`
   `<stack-context-code>`
 
 ## Error 2
-
 ...
 ````
 

@@ -59,7 +59,7 @@ class Greetings {
  */
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'wm-rules',
+  selector: "wm-rules",
   template: `Rules - 🚧 work in progress`,
 })
 class Rules {
@@ -73,16 +73,16 @@ class Rules {
 Note: test names start in lower case (e.g. "search rules ...").
 
 ```ts
-import { describe, it } from 'vitest';
+import { describe, it } from "vitest";
 
 describe(RuleSearch.name, () => {
-  it.todo('search rules without filtering', () => {
+  it.todo("search rules without filtering", () => {
     // mount RuleSearch
     // click on first rule
     // assert output was triggered once
   });
 
-  it.todo('...', () => {
+  it.todo("...", () => {
     // ...
   });
 });
