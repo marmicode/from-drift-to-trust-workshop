@@ -1,4 +1,3 @@
-export { currentDeviceHash } from './device-signature';
 export { MealPlanner } from './meal-planner';
 export {
   MEAL_PLANNER_POLICIES,

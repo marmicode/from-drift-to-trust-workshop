@@ -30,6 +30,9 @@
       "@whiskmate/recipe/infra": [
         "./apps/whiskmate/src/app/recipe/infra/index.ts"
       ],
+      "@whiskmate/recipe/infra/devtools": [
+        "./apps/whiskmate/src/app/recipe/infra/devtools.ts"
+      ],
       "@whiskmate/recipe/model": [
         "./apps/whiskmate/src/app/recipe/model/index.ts"
       ],

@@ -1,3 +1,4 @@
+import { Service } from '@angular/core';
 import type { Recipe } from '@whiskmate/shared-recipe/model';
 
 /**
@@ -54,6 +55,7 @@ const WEEKLY_CALORIE_BUDGET = 14_000;
 /**
  * Keeps the weekly meal plan within the household calorie budget.
  */
+@Service()
 export class WeeklyCalorieBudgetPolicy {
   readonly name = 'weekly-calorie-budget';
 

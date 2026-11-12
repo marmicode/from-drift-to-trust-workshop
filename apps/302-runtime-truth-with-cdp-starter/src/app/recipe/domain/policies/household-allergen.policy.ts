@@ -1,3 +1,4 @@
+import { Service } from '@angular/core';
 import type { Recipe } from '@whiskmate/shared-recipe/model';
 
 /**
@@ -12,6 +13,7 @@ const HOUSEHOLD_ALLERGENS: Record<string, string[]> = {
 /**
  * Keeps recipes containing a household allergen out of the plan.
  */
+@Service()
 export class HouseholdAllergenPolicy {
   readonly name = 'household-allergen';
 

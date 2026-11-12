@@ -1,3 +1,4 @@
+import { Service } from '@angular/core';
 import type { Recipe } from '@whiskmate/shared-recipe/model';
 
 /**
@@ -8,6 +9,7 @@ const MAX_MAIN_COURSES = 14;
 /**
  * Keeps the weekly meal plan within a reasonable number of main courses.
  */
+@Service()
 export class MealPlanCapacityPolicy {
   readonly name = 'meal-plan-capacity';
 

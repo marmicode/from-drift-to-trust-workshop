@@ -1,12 +1,13 @@
+import { inject, Service } from '@angular/core';
 import type { Recipe } from '@whiskmate/shared-recipe/model';
-import { currentDeviceHash } from '../device-signature';
+import { DeviceSignature } from '@whiskmate/recipe/infra';
 
 const RESTRICTED_KEYWORDS = ['shakshuka', 'harissa', 'chilli'];
 
 /**
  * Device profiles that cannot plan spicy dishes (shared family tablets, kids' profiles).
  *
- * Hashes are derived from {@link collectDeviceSignature}; do not edit them by hand
+ * Hashes are derived from {@link DeviceSignature}; do not edit them by hand
  * unless you recompute them after changing the signature schema.
  */
 const BLOCKED_DEVICE_PROFILES = new Set([
@@ -20,11 +21,16 @@ const BLOCKED_DEVICE_PROFILES = new Set([
 /**
  * Spicy dishes cannot be planned from restricted device profiles.
  */
+@Service()
 export class RestrictedDeviceProfilePolicy {
   readonly name = 'restricted-device-profile';
 
+  private readonly _deviceSignature = inject(DeviceSignature);
+
   allows(recipe: Recipe): boolean {
-    if (!BLOCKED_DEVICE_PROFILES.has(currentDeviceHash())) {
+    if (
+      !BLOCKED_DEVICE_PROFILES.has(this._deviceSignature.currentDeviceHash())
+    ) {
       return true;
     }
 

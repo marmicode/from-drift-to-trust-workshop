@@ -1,8 +1,20 @@
+import { Service } from '@angular/core';
+
 /**
- * Builds a coarse runtime profile from ambient browser signals.
+ * Identifies the current device from ambient browser signals.
  * Used to gate meal plan actions for restricted client environments.
  */
-export function collectDeviceSignature(): string {
+@Service()
+export class DeviceSignature {
+  currentDeviceHash(): string {
+    return hashDeviceSignature(collectDeviceSignature());
+  }
+}
+
+/**
+ * Builds a coarse runtime profile from ambient browser signals.
+ */
+function collectDeviceSignature(): string {
   const nav = globalThis.navigator;
   const screen = globalThis.screen;
 
@@ -31,7 +43,7 @@ export function collectDeviceSignature(): string {
   return segments.join('␞');
 }
 
-export function hashDeviceSignature(signature: string): string {
+function hashDeviceSignature(signature: string): string {
   let hash = 2_166_136_261;
 
   for (let index = 0; index < signature.length; index++) {
@@ -40,10 +52,6 @@ export function hashDeviceSignature(signature: string): string {
   }
 
   return (hash >>> 0).toString(16).padStart(8, '0');
-}
-
-export function currentDeviceHash(): string {
-  return hashDeviceSignature(collectDeviceSignature());
 }
 
 function resolveTimeZone(): string {

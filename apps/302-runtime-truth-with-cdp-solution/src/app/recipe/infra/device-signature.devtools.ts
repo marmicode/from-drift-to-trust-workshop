@@ -1,5 +1,6 @@
+import { TestBed } from '@angular/core/testing';
 import { defineDevTool, defineDevToolGroup } from '@whiskmate/shared/testing';
-import { currentDeviceHash } from './device-signature';
+import { DeviceSignature } from './device-signature';
 
 export const deviceSignatureDevTools = defineDevToolGroup({
   name: 'Device Signature',
@@ -8,7 +9,7 @@ export const deviceSignatureDevTools = defineDevToolGroup({
     defineDevTool({
       name: 'DeviceSignature.getCurrentHash',
       description: 'Hash of the current device signature',
-      execute: async () => currentDeviceHash(),
+      execute: async () => TestBed.inject(DeviceSignature).currentDeviceHash(),
     }),
   ],
 });

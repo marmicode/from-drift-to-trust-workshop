@@ -69,7 +69,7 @@ import { registerDevTools } from '@whiskmate/shared/testing';
 registerDevTools([mealPlannerDevTools]);
 ```
 
-Then write your own tool. Fill in the TODO in `apps/whiskmate/src/app/recipe/domain/device-signature.devtools.ts`: a `DeviceSignature.getCurrentHash` tool that returns `currentDeviceHash()`. Take `meal-planner.devtools.ts` as a model, then register `deviceSignatureDevTools` next to `mealPlannerDevTools`.
+Then write your own tool. Fill in the TODO in `apps/whiskmate/src/app/recipe/infra/device-signature.devtools.ts`: a `DeviceSignature.getCurrentHash` tool that returns `DeviceSignature.currentDeviceHash()`. Take `meal-planner.devtools.ts` as a model, then import `deviceSignatureDevTools` from `@whiskmate/recipe/infra/devtools` and register it next to `mealPlannerDevTools`.
 
 :::tip
 The tools call `TestBed.inject()`, and they keep working after the run: `teardown: { destroyAfterEach: false }` keeps the last test's injector alive, and `registerDevTools()` listens on `window.parent`, the Vitest page that hosts the test iframe.

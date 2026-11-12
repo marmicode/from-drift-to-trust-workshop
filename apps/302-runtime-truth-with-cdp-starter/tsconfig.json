@@ -13,6 +13,9 @@
         "./src/app/recipe/feature-search/index.ts"
       ],
       "@whiskmate/recipe/infra": ["./src/app/recipe/infra/index.ts"],
+      "@whiskmate/recipe/infra/devtools": [
+        "./src/app/recipe/infra/devtools.ts"
+      ],
       "@whiskmate/recipe/model": ["./src/app/recipe/model/index.ts"],
       "@whiskmate/recipe/ui": ["./src/app/recipe/ui/index.ts"],
       "@whiskmate/recipe/ui-search": ["./src/app/recipe/ui-search/index.ts"],

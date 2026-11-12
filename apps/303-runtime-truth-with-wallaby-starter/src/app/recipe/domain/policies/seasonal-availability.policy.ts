@@ -1,3 +1,4 @@
+import { Service } from '@angular/core';
 import type { Recipe } from '@whiskmate/shared-recipe/model';
 
 /**
@@ -33,6 +34,7 @@ const SEASONAL_KEYWORDS: Record<number, string[]> = {
  * Keeps recipes that are not on the current menu out of the plan.
  * ADD buttons stay disabled until the recipe is in season.
  */
+@Service()
 export class SeasonalAvailabilityPolicy {
   readonly name = 'seasonal-availability';
 

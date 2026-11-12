@@ -1,3 +1,4 @@
+export { DeviceSignature } from './device-signature';
 export { LocalStorage } from './local-storage';
 export {
   LocalStorageFake,
