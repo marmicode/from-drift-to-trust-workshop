@@ -13,7 +13,7 @@ Add a weekly meal plan to Whiskmate so users can assign existing recipes to week
 **Language/Version**: TypeScript 6.0 / Angular 22.1  
 **Primary Dependencies**: Angular Router, Angular Signals, RxJS, Angular Material, Nx 23.2  
 **Storage**: Browser `localStorage` via existing `LocalStorage` abstraction (`whiskmate:meal-plan` key)  
-**Testing**: Vitest 4.1 + jsdom (`@analogjs/vitest-angular`)  
+**Testing**: Vitest 5.1 + jsdom (`@analogjs/vitest-angular`)  
 **Target Platform**: Web browser (SPA served by `@angular/build:dev-server`)  
 **Project Type**: Nx monorepo, single Angular frontend app (`apps/whiskmate`)  
 **Performance Goals**: Instant UI updates on assignment (<100ms perceived); no network latency (local data)  

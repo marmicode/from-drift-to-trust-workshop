@@ -49,9 +49,9 @@
     "@swc/helpers": "~0.5.18",
     "@types/node": "^22.0.0",
     "@typescript-eslint/utils": "^8.58.0",
-    "@vitest/browser-playwright": "~5.0.5",
-    "@vitest/coverage-v8": "~5.0.5",
-    "@vitest/ui": "~5.0.5",
+    "@vitest/browser-playwright": "~5.1.0",
+    "@vitest/coverage-v8": "~5.1.0",
+    "@vitest/ui": "~5.1.0",
     "@wallabyjs/cli": "1.0.29",
     "angular-eslint": "^22.1.0",
     "chrome-devtools-mcp": "1.12.0",
@@ -67,7 +67,7 @@
     "typescript": "~6.0.3",
     "typescript-eslint": "^8.58.0",
     "vite": "^8.0.0",
-    "vitest": "~5.0.5",
+    "vitest": "~5.1.0",
     "zod": "4.6.5",
     "zx": "8.8.5"
   }
