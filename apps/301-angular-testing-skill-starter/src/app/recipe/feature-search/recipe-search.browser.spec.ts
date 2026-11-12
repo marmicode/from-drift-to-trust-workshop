@@ -5,15 +5,11 @@ import { RecipeSearch } from './recipe-search.ng';
 
 describe(RecipeSearch.name, () => {
   it.todo('shows the recipes', () => {
-    const { getRecipePreviewHeadings } = mountRecipeSearch();
-
-    getRecipePreviewHeadings();
+    const { recipePreviewHeadings } = mountRecipeSearch();
   });
 
   it.todo('filters recipes by keywords', () => {
-    const { getRecipePreviewHeadings } = mountRecipeSearch();
-
-    getRecipePreviewHeadings();
+    const { recipePreviewHeadings } = mountRecipeSearch();
   });
 });
 
@@ -21,8 +17,6 @@ function mountRecipeSearch() {
   TestBed.createComponent(RecipeSearch);
 
   return {
-    getRecipePreviewHeadings() {
-      return page.getByRole('heading', { level: 2 });
-    },
+    recipePreviewHeadings: page.getByRole('heading', { level: 2 }),
   };
 }

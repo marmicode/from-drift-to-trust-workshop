@@ -17,8 +17,6 @@ function mountRecipeSearch() {
   TestBed.createComponent(RecipeSearch);
 
   return {
-    getRecipePreviewHeadings() {
-      throw new Error('🚧 Work in progress!');
-    },
+    recipePreviewHeadings: page.getByText('🚧 Work in progress!'),
   };
 }

@@ -6,27 +6,27 @@ import { RecipeSearch } from './recipe-search.ng';
 
 describe(RecipeSearch.name, () => {
   it('shows the recipes', async () => {
-    const { getRecipePreviewHeadings } = mountRecipeSearch();
+    const { recipePreviewHeadings } = mountRecipeSearch();
 
     await expect
-      .element(getRecipePreviewHeadings().first())
+      .element(recipePreviewHeadings.first())
       .toHaveTextContent('Shakshuka');
   });
 
   it('filters recipes by keywords', async () => {
-    const { getRecipePreviewHeadings } = mountRecipeSearch();
+    const { recipePreviewHeadings } = mountRecipeSearch();
 
     await page.getByLabelText('Keywords').fill('cheese');
 
     await expect
-      .element(getRecipePreviewHeadings())
+      .element(recipePreviewHeadings)
       .toHaveTextContent('Lemon and Ricotta Cheesecake');
   });
 
   it.fails('adds the recipe to the meal plan', async () => {
-    const { getAddButtons, getMealPlanRecipeNames } = mountRecipeSearch();
+    const { addButtons, getMealPlanRecipeNames } = mountRecipeSearch();
 
-    await getAddButtons().first().click();
+    await addButtons.first().click();
 
     await expect.poll(getMealPlanRecipeNames).toEqual(['Shakshuka']);
   });
@@ -34,11 +34,11 @@ describe(RecipeSearch.name, () => {
   it.fails(
     'disables the add button once the recipe is in the meal plan',
     async () => {
-      const { getAddButtons } = mountRecipeSearch();
+      const { addButtons } = mountRecipeSearch();
 
-      await getAddButtons().first().click();
+      await addButtons.first().click();
 
-      await expect.element(getAddButtons().first()).toBeDisabled();
+      await expect.element(addButtons.first()).toBeDisabled();
     },
   );
 });
@@ -47,16 +47,12 @@ function mountRecipeSearch() {
   TestBed.createComponent(RecipeSearch);
 
   return {
-    getAddButtons() {
-      return page.getByRole('button', { name: 'ADD' });
-    },
+    addButtons: page.getByRole('button', { name: 'ADD' }),
     getMealPlanRecipeNames() {
       return TestBed.inject(MealPlanner)
         .recipes()
         .map((recipe) => recipe.name);
     },
-    getRecipePreviewHeadings() {
-      return page.getByRole('heading', { level: 2 });
-    },
+    recipePreviewHeadings: page.getByRole('heading', { level: 2 }),
   };
 }

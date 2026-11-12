@@ -12,31 +12,43 @@ describe(Pager, () => {
   });
 
   it('disables previous on the first page', async () => {
-    mountPager({ pageNumber: 1, hasNextPage: true });
+    const { previousButton, nextButton } = mountPager({
+      pageNumber: 1,
+      hasNextPage: true,
+    });
 
-    await expect.element(previousButton()).toBeDisabled();
-    await expect.element(nextButton()).toBeEnabled();
+    await expect.element(previousButton).toBeDisabled();
+    await expect.element(nextButton).toBeEnabled();
   });
 
   it('disables next when there is no next page', async () => {
-    mountPager({ pageNumber: 2, hasNextPage: false });
+    const { previousButton, nextButton } = mountPager({
+      pageNumber: 2,
+      hasNextPage: false,
+    });
 
-    await expect.element(nextButton()).toBeDisabled();
-    await expect.element(previousButton()).toBeEnabled();
+    await expect.element(nextButton).toBeDisabled();
+    await expect.element(previousButton).toBeEnabled();
   });
 
   it('emits previous page', async () => {
-    const { previousPage } = mountPager({ pageNumber: 2, hasNextPage: true });
+    const { previousPage, previousButton } = mountPager({
+      pageNumber: 2,
+      hasNextPage: true,
+    });
 
-    await previousButton().click();
+    await previousButton.click();
 
     expect(previousPage).toHaveBeenCalledOnce();
   });
 
   it('emits next page', async () => {
-    const { nextPage } = mountPager({ pageNumber: 1, hasNextPage: true });
+    const { nextPage, nextButton } = mountPager({
+      pageNumber: 1,
+      hasNextPage: true,
+    });
 
-    await nextButton().click();
+    await nextButton.click();
 
     expect(nextPage).toHaveBeenCalledOnce();
   });
@@ -61,13 +73,10 @@ function mountPager({
     ],
   });
 
-  return { previousPage, nextPage };
-}
-
-function previousButton() {
-  return page.getByRole('button', { name: 'Previous' });
-}
-
-function nextButton() {
-  return page.getByRole('button', { name: 'Next' });
+  return {
+    previousPage,
+    nextPage,
+    previousButton: page.getByRole('button', { name: 'Previous' }),
+    nextButton: page.getByRole('button', { name: 'Next' }),
+  };
 }

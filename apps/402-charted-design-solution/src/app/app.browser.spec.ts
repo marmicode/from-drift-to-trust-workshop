@@ -16,14 +16,12 @@ const cheesecake = recipeMother
 
 describe(App, () => {
   it('searches all recipes', async () => {
-    mountApp();
+    const { recipeHeadings } = mountApp();
 
-    await expect.element(getRecipeHeadings()).toHaveLength(2);
+    await expect.element(recipeHeadings).toHaveLength(2);
+    await expect.element(recipeHeadings.nth(0)).toHaveTextContent('Shakshuka');
     await expect
-      .element(getRecipeHeadings().nth(0))
-      .toHaveTextContent('Shakshuka');
-    await expect
-      .element(getRecipeHeadings().nth(1))
+      .element(recipeHeadings.nth(1))
       .toHaveTextContent('Lemon and Ricotta Cheesecake');
   });
 });
@@ -37,8 +35,8 @@ function mountApp() {
   });
 
   TestBed.createComponent(App);
-}
 
-function getRecipeHeadings() {
-  return page.getByRole('heading');
+  return {
+    recipeHeadings: page.getByRole('heading'),
+  };
 }
