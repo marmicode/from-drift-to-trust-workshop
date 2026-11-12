@@ -8,7 +8,7 @@ import {
 
 /**
  * In-memory stand-in for the recipe repository.
- * It behaves like the recipe API, as verified by the repository contract.
+ * It behaves like the recipe API.
  */
 @Service({ autoProvided: false })
 export class RecipeRepositoryFake {
