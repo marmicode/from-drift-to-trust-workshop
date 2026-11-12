@@ -21,6 +21,7 @@ export default mergeConfig(
       isolate: false,
       globals: true,
       testTimeout: 500 * timeoutFactor,
+      expect: { poll: { timeout: 100 * timeoutFactor } },
       setupFiles: ['src/test-setup.ts'],
       reporters: ['default'],
       /* Keep the test output readable. */
