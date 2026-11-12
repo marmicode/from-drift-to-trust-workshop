@@ -69,7 +69,7 @@ import { registerDevTools } from '@whiskmate/shared/testing';
 registerDevTools([mealPlannerDevTools]);
 ```
 
-Then write your own tool. Fill in the TODO in `apps/whiskmate/src/app/recipe/domain/device-signature.devtools.ts`: a `DeviceProfile.getCurrentHash` tool that returns `currentDeviceHash()`. Take `meal-planner.devtools.ts` as a model, then register `deviceSignatureDevTools` next to `mealPlannerDevTools`.
+Then write your own tool. Fill in the TODO in `apps/whiskmate/src/app/recipe/domain/device-signature.devtools.ts`: a `DeviceSignature.getCurrentHash` tool that returns `currentDeviceHash()`. Take `meal-planner.devtools.ts` as a model, then register `deviceSignatureDevTools` next to `mealPlannerDevTools`.
 
 :::tip
 The tools call `TestBed.inject()`, and they keep working after the run: `teardown: { destroyAfterEach: false }` keeps the last test's injector alive, and `registerDevTools()` listens on `window.parent`, the Vitest page that hosts the test iframe.
@@ -91,7 +91,7 @@ In another terminal, start the CLI against the test browser and call your tools:
 pnpm chrome-devtools start -u http://127.0.0.1:9200 --categoryExperimentalThirdParty --no-usage-statistics
 pnpm chrome-devtools list_pages
 pnpm chrome-devtools list_3p_developer_tools 1
-pnpm chrome-devtools execute_3p_developer_tool 1 DeviceProfile.getCurrentHash
+pnpm chrome-devtools execute_3p_developer_tool 1 DeviceSignature.getCurrentHash
 ```
 
 Is your hash in `BLOCKED_DEVICE_PROFILES`?
@@ -127,7 +127,7 @@ Suggest a grounded fix for the failing test. Do not fix.
 
 #### 6. Compare.
 
-Compare with step 2: hypothesis, files opened, test runs, tool calls, time. Did it call your `DeviceProfile.getCurrentHash` tool? Try a lower effort or thinking level for this run: the runtime does the thinking.
+Compare with step 2: hypothesis, files opened, test runs, tool calls, time. Did it call your `DeviceSignature.getCurrentHash` tool? Try a lower effort or thinking level for this run: the runtime does the thinking.
 
 Then clean up: make sure the agent's watcher is stopped, and stop the CLI daemon.
 

@@ -75,7 +75,7 @@ Two different recipes end up with the same id, so the meal plan thinks Shakshuka
 
 #### 5. Debrief.
 
-- Wallaby needed no tool of your own, while CDP needed `DeviceProfile.getCurrentHash`. What did each one see that the other could not?
+- Wallaby needed no tool of your own, while CDP needed `DeviceSignature.getCurrentHash`. What did each one see that the other could not?
 - Did `inspect` get past the console output that `apps/whiskmate/vitest.config.mts` swallows?
 - When would you reach for CDP rather than Wallaby, and the other way around?
 

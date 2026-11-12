@@ -2,12 +2,12 @@ import { defineDevTools } from '@whiskmate/shared/testing';
 import { currentDeviceHash } from './device-signature';
 
 export const deviceSignatureDevTools = defineDevTools({
-  name: 'Device Profile',
-  description: 'Tools for inspecting the Device Profile',
+  name: 'Device Signature',
+  description: 'Tools for inspecting the Device Signature',
   tools: [
     {
-      name: 'DeviceProfile.getCurrentHash',
-      description: 'Hash of the current device profile',
+      name: 'DeviceSignature.getCurrentHash',
+      description: 'Hash of the current device signature',
       inputSchema: {},
       execute: async () => currentDeviceHash(),
     },
