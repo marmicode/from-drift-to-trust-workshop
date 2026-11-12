@@ -79,7 +79,13 @@ await page.getByLabelText('Keywords').fill('burger');
 await expect.element(getRecipePreviewHeadings()).toHaveTextContent('Burger');
 ```
 
-`expect.element` retries until a single heading matches. To check several headings at once, assert on the list: `await expect.poll(() => getRecipePreviewHeadings().elements().map((el) => el.textContent?.trim())).toEqual([...])`.
+`expect.element` retries until a single heading matches. To check several headings, check the count, then each heading with `nth()`:
+
+```ts
+await expect.element(getRecipePreviewHeadings()).toHaveLength(2);
+await expect.element(getRecipePreviewHeadings().nth(0)).toHaveTextContent('Burger');
+await expect.element(getRecipePreviewHeadings().nth(1)).toHaveTextContent('Cheeseburger');
+```
 
 ```sh
 pnpm test
