@@ -31,8 +31,21 @@ export function registerDevTools(toolGroups: DevToolsToolGroup[]) {
   });
 }
 
-export function defineDevTools(
+export function defineDevToolGroup(
   toolGroup: DevToolsToolGroup,
 ): DevToolsToolGroup {
   return toolGroup;
 }
+
+/**
+ * Defines a single tool, defaulting `inputSchema` to an empty schema
+ * for tools that take no input.
+ */
+export function defineDevTool<TOOL extends DevToolDefinition>(
+  tool: TOOL,
+): TOOL & Pick<DevToolsTool, 'inputSchema'> {
+  return { ...tool, inputSchema: tool.inputSchema ?? {} };
+}
+
+type DevToolDefinition = Omit<DevToolsTool, 'inputSchema'> &
+  Partial<Pick<DevToolsTool, 'inputSchema'>>;

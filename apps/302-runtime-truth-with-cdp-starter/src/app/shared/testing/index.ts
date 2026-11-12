@@ -1,1 +1,1 @@
-export { defineDevTools, registerDevTools } from './devtools';
+export { defineDevTool, defineDevToolGroup, registerDevTools } from './devtools';
