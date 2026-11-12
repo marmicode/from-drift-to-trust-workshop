@@ -30,6 +30,8 @@ export default mergeConfig(
         provider: 'v8',
       },
       watch: false,
+      /* A single browser page keeps the DevTools target stable while debugging. */
+      fileParallelism: !vitestDebug,
       projects: [
         {
           extends: true,

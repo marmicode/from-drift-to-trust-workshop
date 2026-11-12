@@ -117,7 +117,7 @@ Start a fresh agent session and ask again, this time with the runtime first:
 ```text
 Suggest a grounded fix for the failing test. Do not fix.
 ## Debugging rules
-- Monitor background command: `VITEST_DEBUG=1 pnpm nx test -- <test-file-pattern> -t <test-name-pattern> --no-file-parallelism --watch`
+- Monitor background command: `VITEST_DEBUG=1 pnpm nx test -- <test-file-pattern> -t <test-name-pattern> --watch`
 - Retrieve system under test runtime context using chrome devtools:
   - Start chrome-devtools: `pnpm chrome-devtools stop && pnpm chrome-devtools start -u http://127.0.0.1:9200 --categoryExperimentalThirdParty --no-usage-statistics`
   - Call `pnpm chrome-devtools list_3p_developer_tools 1`
