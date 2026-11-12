@@ -30,24 +30,22 @@ Write the first Vitest Browser Mode tests of `RecipeSearch`: the recipes show up
 pnpm test
 ```
 
-`apps/whiskmate/src/app/recipe/feature-search/recipe-search.browser.spec.ts` has two todos. `mountRecipeSearch()` creates the component and returns `getRecipePreviewHeadings()`. That glove is still a stub.
+`apps/whiskmate/src/app/recipe/feature-search/recipe-search.browser.spec.ts` has two todos. `mountRecipeSearch()` creates the component and returns the `recipePreviewHeadings` locator. That glove is still a stub.
 
 #### 2. Show the recipes.
 
-Point `getRecipePreviewHeadings()` at the recipe name headings:
+Point `recipePreviewHeadings` at the recipe name headings:
 
 ```ts
-return page.getByRole('heading', { level: 2 });
+recipePreviewHeadings: page.getByRole('heading', { level: 2 }),
 ```
 
 Implement `it.todo('shows the recipes')`: turn `it.todo` into `it`, make its callback `async`, mount the search, then check that the first heading reads "Shakshuka". Add `expect` to the `vitest` import.
 
 ```ts
-const { getRecipePreviewHeadings } = mountRecipeSearch();
+const { recipePreviewHeadings } = mountRecipeSearch();
 
-await expect
-  .element(getRecipePreviewHeadings().first())
-  .toHaveTextContent('Shakshuka');
+await expect.element(recipePreviewHeadings.first()).toHaveTextContent('Shakshuka');
 ```
 
 The recipes load asynchronously. `expect.element` retries the assertion until it passes or times out, so the test waits for the recipes without a `fixture.detectChanges()` or a `fixture.whenStable()`.
@@ -63,7 +61,7 @@ await page.getByLabelText('Keywords').fill('cheese');
 Only "Lemon and Ricotta Cheesecake" should remain.
 
 :::tip
-Locators are strict. `expect.element(getRecipePreviewHeadings())` fails as long as more than one heading matches, and retries until a single one is left. No need for `.first()` here.
+Locators are strict. `expect.element(recipePreviewHeadings)` fails as long as more than one heading matches, and retries until a single one is left. No need for `.first()` here.
 :::
 
 #### 4. Break the retry.

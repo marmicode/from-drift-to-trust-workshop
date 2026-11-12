@@ -47,7 +47,7 @@ Export `provideRecipeRepositoryFake` from `apps/whiskmate/src/app/recipe/infra/i
 
 #### 3. Filter recipes with the fake.
 
-`apps/whiskmate/src/app/recipe/feature-search/recipe-search.browser.spec.ts` already mounts `RecipeSearch`. `mountRecipeSearch()` creates the component and returns `getRecipePreviewHeadings()`. That glove returns the locator for the recipe preview headings.
+`apps/whiskmate/src/app/recipe/feature-search/recipe-search.browser.spec.ts` already mounts `RecipeSearch`. `mountRecipeSearch()` creates the component and returns `recipePreviewHeadings`, the locator for the recipe preview headings.
 
 Provide the fake with `provideRecipeRepositoryFake()`, before calling `mountRecipeSearch()`:
 
@@ -76,15 +76,15 @@ Implement `it.todo('filters recipes by keywords')`: turn it into an `async` `it`
 ```ts
 await page.getByLabelText('Keywords').fill('burger');
 
-await expect.element(getRecipePreviewHeadings()).toHaveTextContent('Burger');
+await expect.element(recipePreviewHeadings).toHaveTextContent('Burger');
 ```
 
 `expect.element` retries until a single heading matches. To check several headings, check the count, then each heading with `nth()`:
 
 ```ts
-await expect.element(getRecipePreviewHeadings()).toHaveLength(2);
-await expect.element(getRecipePreviewHeadings().nth(0)).toHaveTextContent('Burger');
-await expect.element(getRecipePreviewHeadings().nth(1)).toHaveTextContent('Cheeseburger');
+await expect.element(recipePreviewHeadings).toHaveLength(2);
+await expect.element(recipePreviewHeadings.nth(0)).toHaveTextContent('Burger');
+await expect.element(recipePreviewHeadings.nth(1)).toHaveTextContent('Cheeseburger');
 ```
 
 ```sh
