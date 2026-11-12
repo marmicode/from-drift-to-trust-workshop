@@ -55,7 +55,7 @@ export default mergeConfig(
         {
           extends: true,
           test: {
-            name: 'unit',
+            name: 'emulated',
             environment: 'jsdom',
             include: ['src/**/!(*.browser|*.wide).spec.ts'],
           },
