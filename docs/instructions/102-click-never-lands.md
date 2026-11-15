@@ -16,11 +16,11 @@ sidebar_label: 102. The Click That Never Lands
 pnpm cook start 102-click-never-lands
 ```
 
-Each recipe card now has an "ADD" button that adds the recipe to the meal plan. The tests are already written. The two that click "ADD" are marked with `it.fails` because they fail on the broken code.
-
 ## 🎯 Goal
 
-Find out why the tests fail, fix the bug, and see what Browser Mode checked that JSDOM would not.
+Each recipe card now has an "ADD" button that adds the recipe to the meal plan. The tests are already written. The two that click "ADD" are marked with `it.fails` because they fail on the broken code.
+
+Find out why the tests fail, and fix the bug.
 
 ## 📝 Steps
 
@@ -36,15 +36,8 @@ Remove `.fails` from the two `it.fails` tests in `apps/whiskmate/src/app/recipe/
 
 Two tests time out. Read the error. Playwright tells which element intercepts the click.
 
-#### 2. Watch it in a real browser.
+#### 2. Find the culprit.
 
-```sh
-pnpm test --browser.headless=false
-```
+#### 3. Fix the bug.
 
-Look at a recipe card, then try to click "ADD" yourself.
-
-#### 3. Find the culprit.
-
-#### 4. Fix the bug.
-
+Fix the bug without touching the tests.

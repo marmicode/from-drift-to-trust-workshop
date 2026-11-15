@@ -63,7 +63,3 @@ Only "Lemon and Ricotta Cheesecake" should remain.
 :::tip
 Locators are strict. `expect.element(recipePreviewHeadings)` fails as long as more than one heading matches, and retries until a single one is left. No need for `.first()` here.
 :::
-
-#### 4. Break the retry.
-
-Replace `expect.element(locator)` with `expect(locator.element())` in one of the tests and run it again. Read the error, then put the retry back.
