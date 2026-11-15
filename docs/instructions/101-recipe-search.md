@@ -16,9 +16,9 @@ sidebar_label: 101. Recipe Search
 pnpm cook start 101-recipe-search
 ```
 
-The recipe catalog is hardcoded in `RecipeRepository`. There is no backend yet.
-
 ## 🎯 Goal
+
+The recipe catalog is hardcoded in `RecipeRepository`. There is no backend yet.
 
 Write the first Vitest Browser Mode tests of `RecipeSearch`: the recipes show up, and typing keywords filters them.
 
