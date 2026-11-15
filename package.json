@@ -9,6 +9,7 @@
     "start-web": "nx serve --excludeTaskDependencies",
     "cook": "node --experimental-strip-types tools/cook/main.ts",
     "limbo": "tools/limbo.sh",
+    "reset": "rm -rf node_modules/.vite; nx reset",
     "test": "nx test --watch --browser.headless=false",
     "test-debug": "VITEST_DEBUG=1 pnpm test",
     "test-single-run": "nx test",
