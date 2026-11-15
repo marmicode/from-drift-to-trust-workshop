@@ -16,11 +16,15 @@ sidebar_label: 302. Runtime Truth with CDP
 pnpm cook start 302-runtime-truth-with-cdp
 ```
 
-Same code as the [301](./301-angular-testing-skill.md) solution, plus a meal plan that survives a reload: `MealPlanner` loads the plan from a `MealRepository`, and a policy engine decides when a recipe can be added. One browser test is marked as an expected failure with `it.fails`.
-
 ## 🎯 Goal
 
-Find the same runtime bug twice with an agent: blind, then with eyes on the running browser through the Chrome DevTools Protocol and a tool you wrote. Compare what each run read, guessed, and cost. Finding the bug is the goal: you do not have to fix it.
+`MealPlanner` loads the plan from a `MealRepository`, and a policy engine decides when a recipe can be added. One browser test is marked as an expected failure with `it.fails`.
+
+Find the same runtime bug twice with an agent: blind, then with eyes on the running browser through the Chrome DevTools Protocol and the tools you wrote. Compare what each run read, guessed, and cost.
+
+:::warning
+Finding the bug is the goal. You do not have to fix it.
+:::
 
 ## 📝 Steps
 
@@ -30,29 +34,19 @@ Find the same runtime bug twice with an agent: blind, then with eyes on the runn
 pnpm test
 ```
 
-Change `it.fails` to `it` on `adds the recipe to the meal plan` in `apps/whiskmate/src/app/recipe/feature-search/recipe-search.browser.spec.ts`, then run that spec again:
+Change `it.fails` to `it` on `adds the recipe to the meal plan` in `apps/whiskmate/src/app/recipe/feature-search/recipe-search.browser.spec.ts`, then run the tests and make sure it fails:
 
 ```sh
-pnpm nx test -- recipe-search --browser.headless
+pnpm test
 ```
-
-The test times out on the Shakshuka card:
-
-```text
-locator.click: Timeout 300ms exceeded.
-...
-  - element is not enabled
-```
-
-Read the error. It says the "ADD" button is disabled, but not why.
 
 #### 2. Ask the agent, blind.
 
 ```text
-Suggest a grounded fix for the failing test. Do not fix. Run tests with pnpm nx test -- recipe-search --browser.headless
+Suggest a grounded fix for the failing test. Do not fix. Run tests with `pnpm test-single-run`.
 ```
 
-Write down its hypothesis, how many files it opened, how many times it ran the tests, whether it ran throwaway scripts (such as `node -e`), and whether it added a `console.log` to see what happens at runtime.
+Keep the session open or its `id` or transcript path. _(Use `/status` command in Claude Code)_.
 
 #### 3. Expose runtime truth.
 
@@ -80,7 +74,7 @@ The tools call `TestBed.inject()`, and they keep working after the run: `teardow
 Run the spec in watch mode with `VITEST_DEBUG` set. That is what opens the DevTools port:
 
 ```sh
-VITEST_DEBUG=1 pnpm nx test -- recipe-search --watch
+VITEST_DEBUG=1 pnpm test -- recipe-search
 ```
 
 Chromium now listens for DevTools connections on port 9200. Open `apps/whiskmate/vitest.config.mts` and find how `VITEST_DEBUG` turns that on. Add `--browser.headless=false` if you want to see the browser.
@@ -129,25 +123,9 @@ Suggest a grounded fix for the failing test. Do not fix.
 
 Compare with step 2: hypothesis, files opened, test runs, tool calls, time. Did it call your `DeviceSignature.getCurrentHash` tool? Try a lower effort or thinking level for this run: the runtime does the thinking.
 
-Then clean up: make sure the agent's watcher is stopped, and stop the CLI daemon.
-
-```sh
-pnpm chrome-devtools stop
-```
-
 <details>
 <summary>The bug</summary>
 
 Two different recipes end up with the same id, so the meal plan thinks Shakshuka is already in it. Did each run find that?
 
 </details>
-
-#### 7. Debrief.
-
-- Did the blind run blame the device profile, the season, or a race? Did its suggested fix target the bug, or the test (for example by emptying the dev meal plan)?
-- What would `console.log` have cost here: edit, re-run, read, repeat, then remove? Did the blind run notice that `vitest.config.mts` swallows console output?
-- Which tool did the sighted run reach for first?
-
-:::tip
-The CLI works with any agent that can run a shell. The solution ships the tools: `pnpm cook solution`.
-:::
