@@ -10,7 +10,8 @@
     "cook": "node --experimental-strip-types tools/cook/main.ts",
     "limbo": "tools/limbo.sh",
     "test": "nx test",
-    "test-wide": "vitest --root apps/whiskmate --project wide"
+    "test-watch": "nx test --watch --browser.headless=false",
+    "test-wide": "nx test -- --project wide"
   },
   "private": true,
   "dependencies": {
