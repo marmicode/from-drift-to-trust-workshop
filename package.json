@@ -55,7 +55,7 @@
     "@vitest/ui": "~5.1.0",
     "@wallabyjs/cli": "1.0.29",
     "angular-eslint": "^22.1.0",
-    "chrome-devtools-mcp": "1.12.0",
+    "chrome-devtools-mcp": "1.13.0",
     "enquirer": "2.4.1",
     "eslint": "^9.8.0",
     "eslint-config-prettier": "^10.0.0",
