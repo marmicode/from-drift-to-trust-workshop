@@ -18,9 +18,9 @@ Do [201. Fake](./201-fake.md) first.
 pnpm cook start 202-contract
 ```
 
-`RecipeRepositoryFake`, its provider utility, and the `RecipeSearch` test are in place.
-
 ## 🎯 Goal
+
+`RecipeRepositoryFake`, its provider utility, and the `RecipeSearch` test are in place.
 
 Write the search contract once, and run it against both the fake and the real `RecipeRepository`. The fake is only trustworthy if it passes the same tests as the real thing.
 
