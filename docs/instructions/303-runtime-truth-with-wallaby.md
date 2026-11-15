@@ -34,13 +34,13 @@ Finding the bug is the goal. You do not have to fix it.
 
 ## 📝 Steps
 
-#### 1. Run the tests.
+#### 1. Make sure the tests fail
+
+Change `it.fails` to `it` on `adds the recipe to the meal plan` in `apps/whiskmate/src/app/recipe/feature-search/recipe-search.browser.spec.ts`, then run the tests and make sure it fails:
 
 ```sh
-pnpm test
+pnpm test-single-run
 ```
-
-Change `it.fails` to `it` on `adds the recipe to the meal plan` in `apps/whiskmate/src/app/recipe/feature-search/recipe-search.browser.spec.ts`. The test times out on the Shakshuka card.
 
 #### 2. Install the skill.
 
@@ -50,7 +50,9 @@ Install the `wallaby-cli` skill so the agent knows how to drive Wallaby:
 npx skills add wallabyjs/skills --skill wallaby-cli
 ```
 
+:::info
 The Wallaby CLI is already a devDependency (`@wallabyjs/cli`), so the skill runs it with `pnpm exec wallaby-skill`. Nothing else to install. Run it from the repository root, so that every command talks to the same Wallaby instance.
+:::
 
 #### 3. Ask the agent.
 
@@ -59,34 +61,15 @@ Start a fresh agent session:
 ```text
 Suggest a grounded fix for the failing test. Do not fix.
 Use Wallaby to inspect runtime values instead of adding logs.
-Inspect whole objects, not just their `.id`.
 ```
-
-:::tip
-`inspect` only captures an expression that is written at the line you point it at. To see a value, pick a line where the code already mentions it, ideally where the variable stands on its own (a function signature) rather than inside a callback.
-
-Pass the test with `--test "RecipeSearch / adds the recipe to the meal plan"` to skip values from other tests. If a value is reported as not found, inspect the same location once more before moving on.
-:::
-
-Write down its hypothesis, how many files it opened, how many test runs and `inspect` calls it made, and whether it added a `console.log`.
 
 #### 4. Compare.
 
-Compare with both 302 runs: hypothesis, files opened, test runs, tool calls, time. Which values did it inspect, and where?
+Compare with exercise 302: hypothesis, files opened, test runs, tool calls, time. Did it call your `DeviceSignature.getCurrentHash` tool? Try a lower effort or thinking level for this run: the runtime "does the thinking".
 
 <details>
 <summary>The bug</summary>
 
-Two different recipes end up with the same id, so the meal plan thinks Shakshuka is already in it. Did the run find that?
+Two different recipes end up with the same id, so the meal plan thinks Shakshuka is already in it. Did each run find that?
 
 </details>
-
-#### 5. Debrief.
-
-- Wallaby needed no tool of your own, while CDP needed `DeviceSignature.getCurrentHash`. What did each one see that the other could not?
-- Did `inspect` get past the console output that `apps/whiskmate/vitest.config.mts` swallows?
-- When would you reach for CDP rather than Wallaby, and the other way around?
-
-:::tip
-The solution ships the skill: `pnpm cook solution`.
-:::

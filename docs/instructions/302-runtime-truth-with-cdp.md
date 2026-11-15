@@ -28,16 +28,12 @@ Finding the bug is the goal. You do not have to fix it.
 
 ## 📝 Steps
 
-#### 1. Run the tests.
-
-```sh
-pnpm test
-```
+#### 1. Make sure the tests fail
 
 Change `it.fails` to `it` on `adds the recipe to the meal plan` in `apps/whiskmate/src/app/recipe/feature-search/recipe-search.browser.spec.ts`, then run the tests and make sure it fails:
 
 ```sh
-pnpm test
+pnpm test-single-run
 ```
 
 #### 2. Ask the agent, blind.
