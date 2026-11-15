@@ -45,14 +45,3 @@ Ten minutes. Both groups stop together.
 #### 3. Note the contradictions you found.
 
 Write them down, on paper or in a file outside the repository. For each one, name the two statements and the sections they come from.
-
-#### 4. Compare.
-
-Share your count with the room, then compare Group A with Group B: which packet was easier to review, and why?
-
-<details>
-<summary>Answer key</summary>
-
-`pnpm cook solution` adds `contradictions.md` at the workspace root. It lists the contradictions planted in both packets.
-
-</details>
