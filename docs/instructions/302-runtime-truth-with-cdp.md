@@ -74,7 +74,7 @@ The tools call `TestBed.inject()`, and they keep working after the run: `teardow
 Run the spec in watch mode with `VITEST_DEBUG` set. That is what opens the DevTools port:
 
 ```sh
-VITEST_DEBUG=1 pnpm test -- recipe-search
+pnpm test-debug recipe-search
 ```
 
 Chromium now listens for DevTools connections on port 9200. Open `apps/whiskmate/vitest.config.mts` and find how `VITEST_DEBUG` turns that on. Add `--browser.headless=false` if you want to see the browser.

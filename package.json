@@ -10,6 +10,7 @@
     "cook": "node --experimental-strip-types tools/cook/main.ts",
     "limbo": "tools/limbo.sh",
     "test": "nx test --watch --browser.headless=false",
+    "test-debug": "VITEST_DEBUG=1 pnpm test",
     "test-single-run": "nx test",
     "test-wide": "nx test -- --project wide --watch"
   },
