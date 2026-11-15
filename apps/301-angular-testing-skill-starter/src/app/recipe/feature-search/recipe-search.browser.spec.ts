@@ -17,6 +17,6 @@ function mountRecipeSearch() {
   TestBed.createComponent(RecipeSearch);
 
   return {
-    recipePreviewHeadings: page.getByRole('heading', { level: 2 }),
+    recipePreviewHeadings: page.getByText('🚧 Work in progress!'),
   };
 }

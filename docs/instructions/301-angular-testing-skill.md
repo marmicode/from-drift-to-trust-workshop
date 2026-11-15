@@ -12,19 +12,13 @@ sidebar_label: 301. Angular Testing Skill
 
 ## Setup
 
-Step 4 compares the agent's work with yours from 201 and 202, and `pnpm cook start` replaces the `cooking` branch. Keep your work first:
-
-```sh
-git branch my-202 cooking
-```
-
 ```sh
 pnpm cook start 301-angular-testing-skill
 ```
 
-Same starting point as [101](./101-recipe-search.md): the catalog is hardcoded in `RecipeRepository`, and the `RecipeSearch` spec only has two `it.todo`s.
-
 ## 🎯 Goal
+
+Same starting point as [101](./101-recipe-search.md): the catalog is hardcoded in `RecipeRepository`, and the `RecipeSearch` spec only has two `it.todo`s.
 
 Install the `angular-testing` skill, hand the agent the work you did by hand in 101, 201, and 202, then compare its output with yours.
 
@@ -64,16 +58,14 @@ pnpm start-server
 pnpm test-wide
 ```
 
-Wide tests that seed the server may replace its catalog. Restart `pnpm start-server` to get the original recipes back.
-
-Read the diff and compare it with what you wrote in 201 and 202, which is on your `my-202` branch (or with the 202 solution).
+Compare the agent's work with your previous work for 101, 201, and 202.
 
 - Did it write a fake, a mock, or something else?
 - Is the fake checked against the real repository?
 - Does the test read like a spec of `RecipeSearch`?
 - Count the files. Count the lines of test versus the lines of source.
 
-Start the app and try search. `pnpm start` also starts the API, so stop `pnpm start-server` first.
+Start the app and try search. `pnpm start` also starts the API, so you can stop `pnpm start-server` first.
 
 ```sh
 pnpm start
