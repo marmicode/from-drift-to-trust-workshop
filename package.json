@@ -9,9 +9,9 @@
     "start-web": "nx serve --excludeTaskDependencies",
     "cook": "node --experimental-strip-types tools/cook/main.ts",
     "limbo": "tools/limbo.sh",
-    "test": "nx test",
-    "test-watch": "nx test --watch --browser.headless=false",
-    "test-wide": "nx test -- --project wide"
+    "test": "nx test --watch --browser.headless=false",
+    "test-single-run": "nx test",
+    "test-wide": "nx test -- --project wide --watch"
   },
   "private": true,
   "dependencies": {
