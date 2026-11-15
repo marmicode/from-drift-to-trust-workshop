@@ -16,12 +16,12 @@ sidebar_label: 601. Skill Eval
 pnpm cook start 601-skill-eval
 ```
 
-Same code as the [404](./404-charted-autopilot.md) solution, plus:
-
-- the `angular-mermaid` skill in `.claude/skills/angular-mermaid/SKILL.md`. It makes the agent draw small Angular diagrams: components as `[[RecipeSearch]]`, services as `([RecipeRepository])`, inputs on solid arrows as `"[recipe: Recipe]"`, outputs on dotted arrows as `"(filterChange: RecipeFilterCriteria)"`, and colors for what a change adds or modifies.
-- a [promptfoo](https://www.promptfoo.dev) suite in `evals/angular-mermaid`, at the workspace root (not under `apps/whiskmate`), with its shared options, Mermaid assertions and one unfinished case, but no providers yet.
-
 ## 🎯 Goal
+
+The workspace has:
+
+- a new `angular-mermaid` skill. It makes the agent draw small Angular diagrams. _(e.g. components as `[[RecipeSearch]]`, services as `([RecipeRepository])`, inputs on solid arrows as `"[recipe: Recipe]"`, outputs on dotted arrows as `"(filterChange: RecipeFilterCriteria)"`, and colors for what a change adds or modifies)_.
+- a [promptfoo](https://www.promptfoo.dev) suite in `evals/angular-mermaid`, at the workspace root.
 
 Find out whether the `angular-mermaid` skill actually changes the diagrams the agent draws, then break the skill and see whether the eval catches it.
 
@@ -33,21 +33,9 @@ Find out whether the `angular-mermaid` skill actually changes the diagrams the a
 export ANTHROPIC_API_KEY=... # the shared key, from the trainer
 ```
 
-:::warning
-The whole room shares this key. A full run costs a few cents; don't loop it.
-:::
+Without `ANTHROPIC_API_KEY`, the eval falls back to your Claude Code login without telling you.
 
-Without `ANTHROPIC_API_KEY`, the eval falls back to your Claude Code login without telling you, and nothing is cached: every run calls the agent again. Working on your own, without the shared key? Expect each run to be a fresh sample, and skip the cache checks in steps 5 and 6.
-
-#### 2. Read the suite.
-
-The files are in `evals/angular-mermaid/`.
-
-- `promptfooconfig.ts`: the grader (Haiku), the cache, the `beforeAll` hook, and `_sharedOptions()`, the Claude Code options every provider shares. The agent only has read-only tools: it replies with the diagram, so its answer can be cached and graded as text.
-- `hooks.ts`: before the run, copies the app's sources into two workspaces outside the repository, and the skill into the `with-skill` one only. It exports their paths: `WITH_SKILL_DIR` and `BASELINE_DIR`.
-- `assertions.ts`: `diagramAssertions()` checks what every diagram needs. `mermaidContains()`, `mermaidOmits()`, `component()` and `service()` test the first ` ```mermaid ` block only, not the prose around it.
-
-#### 3. Add the providers.
+#### 2. Add the providers.
 
 Add two `anthropic:claude-agent-sdk` providers to `providers` in `promptfooconfig.ts`, both with `_sharedOptions()`. Give each a `label`:
 
@@ -78,27 +66,7 @@ Each regex check is a `javascript` assertion:
 },
 ```
 
-#### 5. Run it.
-
-```sh
-pnpm nx eval
-```
-
-```sh
-pnpm nx view-eval
-```
-
-The command ends with "Running target eval ... failed" as long as a cell is red. The baseline is expected to fail, so this is normal.
-
-Compare the two columns. Which assertions fail on the baseline only? The terminal table only shows PASS or FAIL per cell: open a cell in `view-eval` to see which assertion failed, and why.
-
-If an `llm-rubric` fails with "Could not extract JSON from llm-rubric response", the grader stumbled, not the agent. Run the eval again. If the same error comes back, the grader's reply was cached: reword the rubric slightly to grade the answer again.
-
-Run it again: every answer comes from the cache. Same prompt, same files, so no agent runs again.
-
-Read every failure before you blame the skill. Is the agent wrong, or is the assertion?
-
-#### 6. Break the skill.
+#### 5. Break the skill.
 
 A teammate finds a rule redundant. Delete this line from `.claude/skills/angular-mermaid/SKILL.md`:
 
@@ -109,32 +77,10 @@ A teammate finds a rule redundant. Delete this line from `.claude/skills/angular
 The first example of the skill still shows the shared arrow, and the agent copies examples. So the teammate also "clarifies" the example, replacing its `pager -.->|"(previousPage, nextPage)"| search` line with one arrow per output:
 
 ```md
-  pager -.->|"(previousPage)"| search
-  pager -.->|"(nextPage)"| search
+pager -.->|"(previousPage)"| search
+pager -.->|"(nextPage)"| search
 ```
 
 ```sh
 pnpm nx eval
 ```
-
-The baseline comes from the cache, and the `with-skill` column runs again. Does the pagination case regress?
-
-One run is one sample. Run the `with-skill` provider a few more times before you call it:
-
-```sh
-pnpm nx eval -- --filter-providers with-skill --repeat 3
-```
-
-Undo both edits.
-
-#### 7. Debrief.
-
-- What does the skill buy you, case by case?
-- Which failures came from the agent, and which from your assertions?
-- Which checks would you trust to gate a skill change in CI?
-- How many samples before a red cell means a regression?
-- What did the runs cost? The token totals are at the end of each run.
-
-:::tip
-The solution ships both providers and three cases: pagination, the ADD flow without asking for a diagram, and a meal plan panel change with colors: `pnpm cook solution`.
-:::

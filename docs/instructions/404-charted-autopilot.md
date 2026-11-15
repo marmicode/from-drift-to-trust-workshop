@@ -16,10 +16,6 @@ You need Claude Code with the Workflow tool: the agent writes and runs a workflo
 
 ## Setup
 
-Keep going from where 403 left you: same branch, same design doc.
-
-If you prefer a clean start, cook the exercise. The design doc is at `design-docs/001-recipe-search-pagination.md` and nothing is implemented yet, so start with PR#1.
-
 ```sh
 pnpm cook start 404-charted-autopilot
 ```
@@ -39,7 +35,7 @@ Open `design-docs/001-recipe-search-pagination.md` and find the first PR that is
 #### 2. Ask the agent to write the workflow.
 
 ```text
-Use the workflow-authoring skill and create a workflow at .claude/workflows/charted-autopilot.js that runs one PR of a Charted Coding design doc on autopilot.
+/workflow-authoring create a workflow at .claude/workflows/charted-autopilot.js that runs one PR of a Charted Coding design doc on autopilot.
 
 It takes `args` as an object, `{ designDocPath: string, prNumber: number }`, and loops until the PR is done:
 
@@ -56,57 +52,15 @@ It takes `args` as an object, `{ designDocPath: string, prNumber: number }`, and
 Return the steps that ran with their commits.
 ```
 
-The workflow-authoring skill usually passes scripts inline. Here you want a file, so you can read it, commit it, and run it again for the next PR. A file in `.claude/workflows/` is registered under its `meta.name`, so the agent can run it with `Workflow({ name: "charted-autopilot", args })`, or with `scriptPath` pointing at the file.
-
-Read the script before running it. Does it do what you asked, and nothing more?
-
-Then commit it on its own, so the autopilot's first commit does not sweep it in:
+Commit the workflow script on its own, so the autopilot's first commit does not sweep it in:
 
 ```sh
 git add .claude/workflows/charted-autopilot.js
 git commit -m "build: 📦 add charted-autopilot workflow"
 ```
 
-:::tip
-The skill explains the script API: `agent()` with a `schema` for structured output, `log()`, `phase()`, and `args`.
-:::
-
-#### 3. Start the autopilot.
+#### 3. Try the autopilot.
 
 ```text
-Run the charted-autopilot workflow with args { designDocPath: "design-docs/001-recipe-search-pagination.md", prNumber: YOUR_PR_NUMBER_HERE }.
+/charted-autopilot { designDocPath: "design-docs/001-recipe-search-pagination.md", prNumber: YOUR_PR_NUMBER_HERE }.
 ```
-
-#### 4. Watch for judgment calls while it runs.
-
-Each time you would have stopped the agent, write down why. Did it pass a test too easily? Did it touch a file outside the PR? Did it change a test to make it green?
-
-#### 5. Review the commits one by one.
-
-```sh
-git log --oneline main..
-```
-
-The oldest commits are cook's "focus on" commit and your workflow script. The autopilot's commits come after them.
-
-For each commit, `git show <sha>` and ask:
-
-- Does the test read like a spec of the behavior?
-- Does the red commit come before the green one?
-- Would you have let this commit through?
-
-#### 6. Run the next PR.
-
-Start the workflow again with the next PR number. Did the second run need any change to the script?
-
-The pager shows up in the app once PR#3 (Page through the search results) is done. From a clean start, run the workflow once more for PR#3.
-
-#### 7. Start the app and page through the recipes.
-
-```sh
-pnpm start
-```
-
-:::tip
-The solution ships a `charted-autopilot.js` you can compare with yours: `pnpm cook solution`, then open `.claude/workflows/charted-autopilot.js`.
-:::

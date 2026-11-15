@@ -16,13 +16,9 @@ sidebar_label: 501. Hooks
 pnpm cook start 501-hooks
 ```
 
-Same code as the [404](./404-charted-autopilot.md) solution, plus a `ClockAdapter` in `shared/infra` and an ESLint rule that forbids `Date` and recommends `ClockAdapter` instead.
-
-`.claude/settings.json` wires no hooks, and the two hooks in `.claude/hooks/` are work in progress.
-
-Run `pnpm test` once after cooking: `pnpm cook start` resets the Nx cache, and the first ESLint run would otherwise start with a "No cached ProjectGraph" warning.
-
 ## 🎯 Goal
+
+The app has a `ClockAdapter` service in `shared/infra` and an ESLint rule that forbids `Date` and recommends `ClockAdapter` instead.
 
 Give the agent two hooks so it catches its own mistakes before it hands control back to you:
 
@@ -52,13 +48,16 @@ From step 2 on, `.claude/` holds your uncommitted hooks, so only revert `apps/wh
 
 - Edit `.claude/hooks/eslint-on-write.mts`.
 
-- Parse `input.tool_input` with `toolInputSchema`. _(See [hook input schema](https://code.claude.com/docs/en/hooks#:~:text=Creates%20or%20overwrites%20a%20file))_
+- Parse `input.tool_input` with `toolInputSchema`.
+
+```ts
+const toolInput = toolInputSchema.parse(input.tool_input);
+```
 
 - Use `zx` to run ESLint on the file:
 
 ```ts
-const result =
-  await $`pnpm eslint --flag v10_config_lookup_from_file ${toolInput.file_path}`.nothrow();
+const result = await $`pnpm eslint --flag v10_config_lookup_from_file ${toolInput.file_path}`.nothrow();
 ```
 
 - If ESLint exits with code 0, everything is fine. Return nothing.
@@ -66,8 +65,7 @@ const result =
 - Otherwise, return an output with `hookSpecificOutput` containing `additionalContext`. The agent receives it as a prompt. ESLint prints some errors on stderr and the issues on stdout, so keep both:
 
 ```ts
-const lintErr =
-  `${result.stderr}${result.stdout}`.trim() || 'ESLint failed with no output';
+const lintErr = `${result.stderr}${result.stdout}`.trim() || 'ESLint failed with no output';
 
 return {
   output: {
@@ -114,10 +112,10 @@ Does the agent switch to `ClockAdapter` without you asking? Revert the change.
 
 #### 5. Paste this prompt before you wire the hook.
 
+Use `Sonnet` with `low` thinking effort. (i.e. `/effort` command).
+
 ```text
-In apps/whiskmate/src/app/recipe/domain/meal-planner.ts,
-rename `addRecipe` to `plan` and let users plan the same recipe more than once.
-Do not run the tests.
+In apps/whiskmate/src/app/recipe/domain/meal-planner.ts, remove the throwing condition (lines 11-13).
 ```
 
 The agent hands control back to you. Run the tests:
@@ -138,8 +136,7 @@ Which test fails? Nothing told the agent. Revert the change.
 
 ```ts
 const $app = $({ cwd: APP_ROOT });
-const result =
-  await $app`pnpm vitest --changed --run --project=!wide --reporter=minimal`.nothrow();
+const result = await $app`pnpm vitest --changed --run --project=!wide --reporter=minimal`.nothrow();
 ```
 
 - If Vitest exits with code 0, return nothing.
@@ -147,8 +144,7 @@ const result =
 - Otherwise, block the stop and give the failures as the reason. Vitest prints the failure details on stdout, so keep both streams. _(See [Stop hook](https://code.claude.com/docs/en/hooks))_
 
 ```ts
-const testErr =
-  `${result.stderr}${result.stdout}`.trim() || 'Vitest failed with no output';
+const testErr = `${result.stderr}${result.stdout}`.trim() || 'Vitest failed with no output';
 
 return {
   output: {
@@ -178,22 +174,6 @@ Add a `Stop` hook next to `PostToolUse` in `.claude/settings.json`:
   }
 ]
 ```
-
-#### 8. Try the prompt again in a new session.
-
-- Does the hook block the stop? Which tests did it run, and which did it skip?
-- What does the agent do with the failing test? Does it fix the code, change the test, or ask you?
-- How long did you wait for the hook? What would happen with the whole test suite instead of `vitest --changed`?
-- Read the reason the agent received. Does it lead with the real cause, or with "Test timed out in 500ms"? The renamed method throws inside a click handler, so the test only times out. How would you trim the reason so the cause comes first?
-
-:::tip
-To debug a hook without an agent, pipe a sample payload to it:
-
-```sh
-echo '{"hook_event_name":"Stop","stop_hook_active":false}' | node .claude/hooks/test-on-stop.mts
-```
-
-:::
 
 :::tip
 Cursor and Copilot CLI can run the same hooks. `.claude/hooks/internal/run-hook.mts` maps their event names and payloads to Claude Code's.
