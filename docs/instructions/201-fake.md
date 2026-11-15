@@ -16,12 +16,12 @@ sidebar_label: 201. Fake
 pnpm cook start 201-fake
 ```
 
-The recipes moved to the backend. `RecipeRepository` now calls the recipe API in `apps/server`, so the `RecipeSearch` test cannot rely on a hardcoded catalog anymore.
-
 ## 🎯 Goal
 
+The recipes moved to the backend. `RecipeRepository` now calls the recipe API in `apps/server`, so the `RecipeSearch` test cannot rely on a hardcoded catalog anymore.
+
 Test that the `RecipeSearch` component filters the recipes by keywords.
-Replace the real `RecipeRepository` with an in-memory `RecipeRepositoryFake`.
+Replace the real `RecipeRepository` with its fake: `RecipeRepositoryFake`.
 
 ## 📝 Steps
 
