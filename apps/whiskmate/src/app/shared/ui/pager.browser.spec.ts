@@ -1,33 +1,82 @@
-import { describe, it } from 'vitest';
+import { inputBinding, outputBinding } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+import { describe, expect, it, vi } from 'vitest';
+import { page } from 'vitest/browser';
 import { Pager } from './pager.ng';
 
 describe(Pager.name, () => {
-  it.todo('shows the page number', () => {
-    // Mount `Pager` with `pageNumber: 2` and `hasNextPage: true`.
-    // Assert "Page 2" is shown.
+  it.todo('shows the page number', async () => {
+    mountPager({ pageNumber: 2, hasNextPage: true });
+
+    await expect.element(page.getByText('Page 2')).toBeVisible();
   });
 
-  it.todo('disables previous on the first page', () => {
-    // Mount `Pager` with `pageNumber: 1` and `hasNextPage: true`.
-    // Assert Previous is disabled.
-    // Assert Next is enabled.
+  it.todo('disables previous on the first page', async () => {
+    const { previousButton, nextButton } = mountPager({
+      pageNumber: 1,
+      hasNextPage: true,
+    });
+
+    await expect.element(previousButton).toBeDisabled();
+    await expect.element(nextButton).toBeEnabled();
   });
 
-  it.todo('disables next when there is no next page', () => {
-    // Mount `Pager` with `pageNumber: 2` and `hasNextPage: false`.
-    // Assert Next is disabled.
-    // Assert Previous is enabled.
+  it.todo('disables next when there is no next page', async () => {
+    const { previousButton, nextButton } = mountPager({
+      pageNumber: 2,
+      hasNextPage: false,
+    });
+
+    await expect.element(nextButton).toBeDisabled();
+    await expect.element(previousButton).toBeEnabled();
   });
 
-  it.todo('emits previous page', () => {
-    // Mount `Pager` with `pageNumber: 2` and `hasNextPage: true`.
-    // Click Previous.
-    // Assert `previousPage` emitted exactly once.
+  it.todo('emits previous page', async () => {
+    const { previousButton, previousPage } = mountPager({
+      pageNumber: 2,
+      hasNextPage: true,
+    });
+
+    await previousButton.click();
+
+    expect(previousPage).toHaveBeenCalledTimes(1);
   });
 
-  it.todo('emits next page', () => {
-    // Mount `Pager` with `pageNumber: 1` and `hasNextPage: true`.
-    // Click Next.
-    // Assert `nextPage` emitted exactly once.
+  it.todo('emits next page', async () => {
+    const { nextButton, nextPage } = mountPager({
+      pageNumber: 1,
+      hasNextPage: true,
+    });
+
+    await nextButton.click();
+
+    expect(nextPage).toHaveBeenCalledTimes(1);
   });
 });
+
+function mountPager({
+  pageNumber,
+  hasNextPage,
+}: {
+  pageNumber: number;
+  hasNextPage: boolean;
+}) {
+  const previousPage = vi.fn<() => void>();
+  const nextPage = vi.fn<() => void>();
+
+  TestBed.createComponent(Pager, {
+    bindings: [
+      inputBinding('pageNumber', () => pageNumber),
+      inputBinding('hasNextPage', () => hasNextPage),
+      outputBinding('previousPage', previousPage),
+      outputBinding('nextPage', nextPage),
+    ],
+  });
+
+  return {
+    previousButton: page.getByRole('button', { name: 'Previous' }),
+    nextButton: page.getByRole('button', { name: 'Next' }),
+    previousPage,
+    nextPage,
+  };
+}
