@@ -1,11 +1,12 @@
 import { Component, input, output } from '@angular/core';
 
-/**
- * @deprecated 🚧 work in progress
- */
 @Component({
   selector: 'wm-pager',
-  template: `Pager - 🚧 work in progress`,
+  template: `
+    <button [disabled]="pageNumber() === 1" (click)="previousPage.emit()">Previous</button>
+    <span>Page {{ pageNumber() }}</span>
+    <button [disabled]="!hasNextPage()" (click)="nextPage.emit()">Next</button>
+  `,
 })
 export class Pager {
   pageNumber = input.required<number>();

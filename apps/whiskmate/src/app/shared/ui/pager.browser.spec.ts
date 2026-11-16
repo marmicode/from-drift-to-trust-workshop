@@ -5,13 +5,13 @@ import { page } from 'vitest/browser';
 import { Pager } from './pager.ng';
 
 describe(Pager.name, () => {
-  it.todo('shows the page number', async () => {
+  it('shows the page number', async () => {
     mountPager({ pageNumber: 2, hasNextPage: true });
 
     await expect.element(page.getByText('Page 2')).toBeVisible();
   });
 
-  it.todo('disables previous on the first page', async () => {
+  it('disables previous on the first page', async () => {
     const { previousButton, nextButton } = mountPager({
       pageNumber: 1,
       hasNextPage: true,
@@ -21,7 +21,7 @@ describe(Pager.name, () => {
     await expect.element(nextButton).toBeEnabled();
   });
 
-  it.todo('disables next when there is no next page', async () => {
+  it('disables next when there is no next page', async () => {
     const { previousButton, nextButton } = mountPager({
       pageNumber: 2,
       hasNextPage: false,
@@ -31,7 +31,7 @@ describe(Pager.name, () => {
     await expect.element(previousButton).toBeEnabled();
   });
 
-  it.todo('emits previous page', async () => {
+  it('emits previous page', async () => {
     const { previousButton, previousPage } = mountPager({
       pageNumber: 2,
       hasNextPage: true,
@@ -42,7 +42,7 @@ describe(Pager.name, () => {
     expect(previousPage).toHaveBeenCalledTimes(1);
   });
 
-  it.todo('emits next page', async () => {
+  it('emits next page', async () => {
     const { nextButton, nextPage } = mountPager({
       pageNumber: 1,
       hasNextPage: true,

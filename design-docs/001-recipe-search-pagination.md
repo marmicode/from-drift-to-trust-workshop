@@ -113,41 +113,41 @@ The repository contract runs against both the fake and the real repository.
 </details>
 
 <details>
-<summary>🚧 PR#2 — Pager component</summary>
+<summary>✅ PR#2 — Pager component</summary>
 
 ## Tasks
 
-- [ ] Add `Pager` to `shared/ui` with `pageNumber` and `hasNextPage` inputs, and `previousPage` and `nextPage` outputs. Export it from `index.ts`.
-- [ ] `Pager` shows Previous, "Page N", and Next.
-- [ ] Previous is disabled when `pageNumber` is 1. Next is disabled when `hasNextPage` is false.
-- [ ] `Pager` is not used by `RecipeSearch` yet.
+- [x] Add `Pager` to `shared/ui` with `pageNumber` and `hasNextPage` inputs, and `previousPage` and `nextPage` outputs. Export it from `index.ts`.
+- [x] `Pager` shows Previous, "Page N", and Next.
+- [x] Previous is disabled when `pageNumber` is 1. Next is disabled when `hasNextPage` is false.
+- [x] `Pager` is not used by `RecipeSearch` yet.
 
 ## Testing Strategy
 
-### 🚧 shows the page number
+### ✅ shows the page number
 
 - Mount `Pager` with `pageNumber: 2` and `hasNextPage: true`.
 - Assert "Page 2" is shown.
 
-### 🚧 disables previous on the first page
+### ✅ disables previous on the first page
 
 - Mount `Pager` with `pageNumber: 1` and `hasNextPage: true`.
 - Assert Previous is disabled.
 - Assert Next is enabled.
 
-### 🚧 disables next when there is no next page
+### ✅ disables next when there is no next page
 
 - Mount `Pager` with `pageNumber: 2` and `hasNextPage: false`.
 - Assert Next is disabled.
 - Assert Previous is enabled.
 
-### 🚧 emits previous page
+### ✅ emits previous page
 
 - Mount `Pager` with `pageNumber: 2` and `hasNextPage: true`.
 - Click Previous.
 - Assert `previousPage` emitted exactly once.
 
-### 🚧 emits next page
+### ✅ emits next page
 
 - Mount `Pager` with `pageNumber: 1` and `hasNextPage: true`.
 - Click Next.
@@ -196,7 +196,7 @@ The repository contract runs against both the fake and the real repository.
 - Click Next.
 - Assert Next is disabled.
 
-### 🚧 disables next when every recipe fits on one page
+### ✅ disables next when every recipe fits on one page
 
 - Arrange the fake repository with four recipes.
 - Mount `RecipeSearch`.
