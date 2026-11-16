@@ -25,9 +25,9 @@ https://pnpm.io/installation
 ## 📥 Retrieve source code and install dependencies
 
 ```sh
-git clone https://github.com/marmicode/from-drift-to-trust.git
+git clone https://github.com/marmicode/from-drift-to-trust-workshop.git
 
-cd from-drift-to-trust
+cd from-drift-to-trust-workshop
 
 pnpm install
 ```
