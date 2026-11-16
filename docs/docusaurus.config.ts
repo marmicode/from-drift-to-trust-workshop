@@ -17,7 +17,7 @@ const config: Config = {
     v4: true,
   },
 
-  url: 'https://from-drift-to-trust.marmicode.io',
+  url: 'https://drift-to-trust.marmicode.io',
   baseUrl: '/',
 
   organizationName: 'marmicode',

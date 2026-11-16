@@ -2,7 +2,7 @@
 
 👨🏻‍🍳 Welcome to [Marmicode](https://marmicode.io)'s "From Drift to Trust" workshop.
 
-Please find the instructions here: https://from-drift-to-trust.marmicode.io
+Please find the instructions here: https://drift-to-trust.marmicode.io
 
 ---
 
