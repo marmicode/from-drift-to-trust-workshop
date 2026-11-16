@@ -1,8 +1,12 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "analytics": false,
+  "defaultProject": "404-charted-autopilot-starter",
   "namedInputs": {
-    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "default": [
+      "{projectRoot}/**/*",
+      "sharedGlobals"
+    ],
     "production": [
       "default",
       "!{projectRoot}/.eslintrc.json",
@@ -10,13 +14,20 @@
       "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
       "!{projectRoot}/tsconfig.spec.json"
     ],
-    "sharedGlobals": ["{workspaceRoot}/.github/workflows/ci.yml"]
+    "sharedGlobals": [
+      "{workspaceRoot}/.github/workflows/ci.yml"
+    ]
   },
   "targetDefaults": {
     "@angular/build:application": {
       "cache": true,
-      "dependsOn": ["^build"],
-      "inputs": ["production", "^production"]
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "production",
+        "^production"
+      ]
     },
     "@nx/eslint:lint": {
       "cache": true,
@@ -30,7 +41,15 @@
       ]
     },
     "test": {
-      "inputs": ["default", "^default", { "externalDependencies": ["vitest"] }],
+      "inputs": [
+        "default",
+        "^default",
+        {
+          "externalDependencies": [
+            "vitest"
+          ]
+        }
+      ],
       "options": {
         "passWithNoTests": true,
         "project": "!wide"
@@ -48,18 +67,10 @@
   "plugins": [
     "./tools/plugins/implicit-libs.ts",
     {
-      "plugin": "@nx/js/typescript",
-      "options": {
-        "typecheck": {
-          "targetName": "typecheck",
-          "configName": "tsconfig.app.json"
-        }
-      }
-    },
-    {
       "plugin": "@nx/vitest",
       "options": {
         "testTargetName": "test",
+        "ciTargetName": "test-ci",
         "testMode": "watch"
       }
     }
