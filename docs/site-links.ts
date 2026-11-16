@@ -1,6 +1,6 @@
 export type UtmMedium = 'navbar' | 'sidebar' | 'footer' | 'banner' | 'page';
 
-export const FEEDBACK_FORM_URL = 'https://forms.gle/febepTFEtyn1jj7RA';
+export const FEEDBACK_FORM_URL = 'https://forms.gle/Kk3VGsFo4hc6PGtA8';
 
 export const COURSE_URL =
   'https://courses.marmicode.io/courses/pragmatic-angular-testing?coupon=ngzurek';
