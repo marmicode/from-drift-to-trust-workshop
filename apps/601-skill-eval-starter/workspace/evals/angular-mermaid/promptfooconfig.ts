@@ -50,5 +50,7 @@ function _sharedOptions() {
     max_turns: 20,
     /* Per test, so one runaway case cannot drain the shared key. */
     max_budget_usd: 0.3,
+    /* Discovers `.claude/skills/*` but ignores user-level skills and settings. */
+    setting_sources: ['project'],
   });
 }

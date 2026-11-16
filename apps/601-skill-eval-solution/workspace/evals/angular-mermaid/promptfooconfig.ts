@@ -25,8 +25,6 @@ export default defineUnifiedConfig({
       config: defineClaudeCodeOptions({
         ..._sharedOptions(),
         working_dir: WITH_SKILL_DIR,
-        /* Discovers `.claude/skills/*` but ignores user-level skills and settings. */
-        setting_sources: ['project'],
         skills: ['angular-mermaid'],
       }),
     },
@@ -68,5 +66,7 @@ function _sharedOptions() {
     max_turns: 20,
     /* Per test, so one runaway case cannot drain the shared key. */
     max_budget_usd: 0.3,
+    /* Discovers `.claude/skills/*` but ignores user-level skills and settings. */
+    setting_sources: ['project'],
   });
 }

@@ -39,12 +39,22 @@ Without `ANTHROPIC_API_KEY`, the eval falls back to your Claude Code login witho
 
 Add two `anthropic:claude-agent-sdk` providers to `providers` in `promptfooconfig.ts`, both with `_sharedOptions()`. Give each a `label`:
 
-- `with-skill` works in `WITH_SKILL_DIR`, loads project settings, and enables the `angular-mermaid` skill.
+- `with-skill` works in `WITH_SKILL_DIR` and enables the `angular-mermaid` skill.
 - `baseline` works in `BASELINE_DIR`, with nothing else.
 
-:::tip
-Wrap each provider's `config` in `defineClaudeCodeOptions()` so TypeScript checks the options. Look for `working_dir`, `setting_sources` and `skills`.
-:::
+```ts
+{
+  id: 'anthropic:claude-agent-sdk',
+  label: 'with-skill',
+  config: defineClaudeCodeOptions({
+    ..._sharedOptions(),
+    working_dir: WITH_SKILL_DIR,
+    skills: ['angular-mermaid'],
+  }),
+}
+```
+
+`baseline` is the same provider with `working_dir: BASELINE_DIR`.
 
 #### 4. Complete the pagination case.
 
