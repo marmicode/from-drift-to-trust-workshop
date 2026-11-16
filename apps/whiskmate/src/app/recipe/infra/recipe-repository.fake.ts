@@ -24,7 +24,12 @@ export class RecipeRepositoryFake implements RecipeRepositoryDef {
     maxIngredientCount,
     maxStepCount,
     courses,
+    offset,
+    limit,
   }: RecipeSearchParams): Observable<Recipe[]> {
+    if (offset !== 0 || limit !== null) {
+      throw new Error(`🚧 work in progress`);
+    }
     return defer(() => {
       const lowerCaseKeywords = keywords.toLowerCase();
       return of(

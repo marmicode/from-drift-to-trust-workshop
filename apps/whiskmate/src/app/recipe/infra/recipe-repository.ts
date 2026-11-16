@@ -11,6 +11,10 @@ export interface RecipeSearchParams {
   maxIngredientCount: number | null;
   maxStepCount: number | null;
   courses?: Course[];
+  /** Index of the first recipe to return. */
+  offset: number;
+  /** Maximum number of recipes to return. `null` returns every recipe from `offset` on. */
+  limit: number | null;
 }
 
 export function createRecipeSearchParams(
@@ -20,6 +24,8 @@ export function createRecipeSearchParams(
     keywords: '',
     maxIngredientCount: null,
     maxStepCount: null,
+    offset: 0,
+    limit: null,
     ...params,
   };
 }

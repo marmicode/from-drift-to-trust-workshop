@@ -95,6 +95,30 @@ export function verifyRecipeRepositoryContract(
       await search(recipeRepository, { keywords: 'a', maxStepCount: 5 }),
     ).toEqual([cheesecake]);
   });
+
+  it.todo('skips the first recipes when an offset is given', () => {
+    // arrange the catalog with Hummus with Ful, Shakshuka, and Lemon and Ricotta Cheesecake
+    // search with `offset: 1`
+    // assert Shakshuka and Lemon and Ricotta Cheesecake are found, in that order
+  });
+
+  it.todo('returns no more recipes than the limit', () => {
+    // arrange the same catalog
+    // search with `limit: 2`
+    // assert Hummus with Ful and Shakshuka are found
+  });
+
+  it.todo('returns the page at the offset', () => {
+    // arrange the same catalog
+    // search with `offset: 1` and `limit: 1`
+    // assert only Shakshuka is found
+  });
+
+  it.todo('filters before paginating', () => {
+    // arrange the same catalog
+    // search with `keywords: 'a'`, `offset: 1`, and `limit: 1`
+    // assert only Lemon and Ricotta Cheesecake is found
+  });
 }
 
 type CreateRecipeRepository = (params: {
